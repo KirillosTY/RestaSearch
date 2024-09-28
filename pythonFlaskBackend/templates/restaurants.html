@@ -1,0 +1,35 @@
+{%extends "layout.html"%}
+
+
+{% block headline %}<h2>Ravintolat</h2>{% endblock %}
+{% block content %}
+<hr>
+<form action="/restaurants" method="GET">
+  Etsi ravintolaa: <input type="text" name="restaurantQuery">
+  
+  <input type="submit" value="Etsi">
+  </form>
+
+  <h2>Ravintolat:</h2>
+  <ul>
+    {% for restaurant in restaurants %}
+    <li key="${restaurant.name}">
+      <a href="/restaurant/:${restaurant.id}">{{restaurant.name}}</a>
+    </li> 
+    {% endfor%}
+    </ul>
+  
+
+<h2>Tykätyt ravintolat:</h2>
+<ul>
+  {% for restaurant in favouritedRestaurant %}
+  <li key="${restaurant.name}">
+    <a href="/restaurant/:${restaurant.id}">{{restaurant.name}}</a>
+  </li> 
+  {% endfor%}
+  </ul>
+
+
+{% endblock %}
+
+  

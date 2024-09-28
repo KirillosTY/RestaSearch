@@ -1,0 +1,46 @@
+{%extends "layout.html"%}
+
+
+{% block title %}<h2>Luo käyttäjä</h2>{% endblock %}
+{% block content %}
+
+
+    <h2>Luo uusi käyttäjä syöttämällä tiedot</h2>
+    <form action="/create" method="POST" onSubmit="return check(this)">
+    <p>Tunnus:<br>
+    <input type="text" name="username"></p>
+    <p>Salasana:<br>
+    <input type="password" name="password"></p>
+    <p>Toista salasana:<br>
+    <input type="password" name="passwordRepeat"></p>
+    {% if session.isAdmin %}
+      Admin privileges:
+    <input type="checkbox" value="true" name="admin"></input>
+    {%endif%}
+    <br>
+    <input type="submit" value="Luo">
+    </form>
+
+
+    <script>
+      function check(form) {
+        console.log(!form.passwordmatch(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/))
+          if (form.username.value.length >= 16 || form.username.value.length <= 4) {
+              alert("Käyttäjätunnuksen tulee olla 4-16 merkkiä pitkä");
+              return false;
+          }
+          if (form.password.value.length < 8 || !form.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+              alert("Salasanan tulee olla vähintään 8 merkkiä pitkä sekä sen pitää sisältää 1 pieni ja iso kirjain sekä yksi numero");
+              return false;
+          }
+
+          
+          if (form.passwordRepeat.value.length < 8 || !form.passwordRepeat.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+              alert("Salasanan tulee olla vähintään 8 merkkiä pitkä sekä sen pitää sisältää 1 pieni ja iso kirjain sekä yksi numero");
+              return false;
+          }
+          return true;
+      }
+      </script>
+
+{% endblock %}

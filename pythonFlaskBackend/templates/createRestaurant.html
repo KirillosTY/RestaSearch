@@ -1,0 +1,63 @@
+{%extends "layout.html"%}
+
+
+{% block title %}<h2>Luo käyttäjä</h2>{% endblock %}
+{% block content %}
+
+  
+    <h2>Luo uusi ravintola syöttämällä tiedot!</h2>
+    <form action="/createRestaurant" method="POST" onSubmit="return checkRestaurant(this)">
+    <p>Nimi:<br>
+    <input type="text" name="name"></input>
+    <br>
+    <p>Kuvaus:</p>
+    <textarea type="text" name="description"></textarea>
+    <p>Osoite:<br>
+    <input type="text" name="name"></input>
+    <br>
+    <p>Aukioloajat:<br>
+
+    <table>
+      
+      <tr><th>Maanantai</th><td>Aukeaa:<input type="time" name="mondayOpen"></input>  Sulkeutuu:<input type="time" name="mondayClose"></input></td></tr>
+      <tr><th>Tiistai</th><td>Aukeaa:<input type="time" name="tuesdayOpen"></input>  Sulkeutuu:<input type="time" name="tuesdayClose"></input></td></tr>
+      <tr><th>Keskiviikko</th><td>Aukeaa:<input type="time" name="wednesdayOpen"></input>  Sulkeutuu:<input type="time" name="wednesdayClose"></input></td></tr>
+      <tr><th>Torstai</th><td>Aukeaa:<input type="time" name="thursdayOpen"></input>  Sulkeutuu:<input type="time" name="thursdayClose"></input></td></tr>
+      <tr><th>Perjantai</th><td>Aukeaa:<input type="time" name="fridayOpen"></input>  Sulkeutuu:<input type="time" name="fridayClose"></input></td></tr>
+      <tr><th>Lauantai</th><td>Aukeaa:<input type="time" name="saturdayOpen"></input>  Sulkeutuu:<input type="time" name="saturdayClose"></input></td></tr>
+      <tr><th>Sunnuntai</th><td>Aukeaa:<input type="time" name="sundayOpen"></input>  Sulkeutuu:<input type="time" name="sundayClose"></input></td></tr>
+
+      </table> 
+
+    {% if session.isAdmin== true%}
+    <p>Genret (erotellaan pilkulla):<br>
+      <input type="text" name="genre"></input>
+    {% endif %}
+    <br>
+    <input type="submit">
+
+    </form>
+
+
+    <script>
+      function check(form) {
+        console.log(!form.passwordmatch(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/))
+          if (form.username.value.length >= 16 || form.username.value.length <= 4) {
+              alert("Käyttäjätunnuksen tulee olla 4-16 merkkiä pitkä");
+              return false;
+          }
+          if (form.password.value.length < 8 || !form.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+              alert("Salasanan tulee olla vähintään 8 merkkiä pitkä sekä sen pitää sisältää 1 pieni ja iso kirjain sekä yksi numero");
+              return false;
+          }
+
+          
+          if (form.passwordRepeat.value.length < 8 || !form.passwordRepeat.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+              alert("Salasanan tulee olla vähintään 8 merkkiä pitkä sekä sen pitää sisältää 1 pieni ja iso kirjain sekä yksi numero");
+              return false;
+          }
+          return true;
+      }
+      </script>
+
+{% endblock %}

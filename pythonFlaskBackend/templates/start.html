@@ -1,0 +1,24 @@
+{%extends "layout.html"%}
+
+{% block headline %}<h2>Tervetuloa</h2>{% endblock %}
+
+{% block content %}
+<h4>Friends:</h4>
+<ul>
+{% for friend in friends %}
+<li key="friend.username">
+  <a href="/friend/:${friend.id}">{{friend.username}}</a>
+</li>
+{% endfor%}
+</ul>
+
+<h4>Favourites:</h4>
+<ul>
+{% for restaurant in favoritedRestaurant %}
+<li key="restaurantusername">
+  <a href="/restaurant/:${restaurant.id}">{{restaurant.name}}</a>
+</li>
+{% endfor%}
+</ul>
+
+{% endblock %}
