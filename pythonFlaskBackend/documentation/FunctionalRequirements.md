@@ -21,7 +21,7 @@ Basic users and Admins.
   - [] Admin can create group restaurants by tags
   - [] Users can add each other as friends
   - [] Admin can add and remove restauraunts.
-  - [] Admin can add other admins
+  - [x] Admin can add other admins
 
  
 
