@@ -1,13 +1,13 @@
 ### This is a practice project for a course.
 
-# Course Overview System
+# RestaSearch
 This application is meant to allow users to review restauraunts and search for them. 
 
 
 ## Documentation
 
 
-[Functional requirements](Documentation/Vaatimusmäärittely.md)
+[Functional requirements](Documentation/FunctionalRequirements.md)
 
 
 ## Releases
