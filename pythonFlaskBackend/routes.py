@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request, redirect, session
 import users
-import  restaurantsHandler as restaurantsHandler
+import restaurants
 from inputCheck import usernameCheck,passwordCheck
 import re
 @app.route('/')
@@ -69,22 +69,69 @@ def create():
 
 
 @app.route('/restaurants', methods=['GET','POST'])
-def restaurants():
-  restaurantList = restaurantsHandler.getAll()
-  favouriteRestList= restaurantsHandler.getFavourites(session.get("user_id"))
+def restaurantLists():
+  restaurantList = restaurants.getAll()
+  favouriteRestList= restaurants.getFavourites(session.get("user_id"))
   if restaurantList== None:
     restaurantList = []
   #restaurantFavourites = restaurantsHandler.getFavourites()
-  print(restaurantList, "käydään täällä")
+
   if request.method == 'GET':
     return render_template('restaurants.html', 
                            restaurants = restaurantList,
                            favouritedRestaurant = favouriteRestList)
   
 
+@app.route('/restaurants/<int:restaurant_id>', methods=['GET','POST'])
+def single_restaurant(restaurant_id):
+  single_rest = restaurants.getSingle(restaurant_id)
+  if single_rest== None:
+    single_rest = []
+  #restaurantFavourites = restaurantsHandler.getFavourites()
+
+  if request.method == 'GET':
+    return render_template('singleRestaurant.html', restaurant = single_rest  )
+  
+
+
 @app.route('/createRestaurant', methods=['GET','POST'])
 def createRestaurant():
   
   if request.method == 'GET':
     return render_template('createRestaurant.html')
+  
+  name = request.form["name"]
+  description = request.form["description"]
+  address = request.form.get("address",None)
+  mondayOpen = request.form.get("mondayOpen",None)
+  tuesdayOpen = request.form.get("tuesdayOpen",None)
+  wednesdayOpen = request.form.get("wednesdayOpen",None)
+  thursdayOpen = request.form.get("thursdayOpen",None)
+  fridayOpen = request.form.get("fridayOpen",None)
+  saturdayOpen = request.form.get("saturdayOpen",None)
+  sundayOpen = request.form.get("sundayOpen",None)
+
+  mondayClose = request.form.get("mondayClose",None)
+  tuesdayClose =request.form.get("tuesdayClose",None)
+  wednesdayClose =request.form.get("wednesdayClose",None)
+  thursdayClose =request.form.get("thursdayClose",None)
+  fridayClose =request.form.get("fridayClose",None)
+  saturdayClose =request.form.get("saturdayClose",None)
+  sundayClose =request.form.get("sundayClose",None) 
+
+  genre = request.form.get("genre",None)
+
+  restaurant = restaurants.createRestaurant(name,description, address, 
+                               mondayOpen,mondayClose,
+                               tuesdayOpen, tuesdayClose,
+                               wednesdayOpen,wednesdayClose,
+                               thursdayOpen,thursdayClose,
+                               fridayOpen, fridayClose,
+                               saturdayOpen, saturdayClose,
+                               sundayOpen, sundayClose,
+                               genre)
+  print(restaurant,'seconds')
+  return redirect("/restaurants/"+str(restaurant[0]))
+
+
   

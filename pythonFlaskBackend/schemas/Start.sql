@@ -51,12 +51,19 @@ CREATE TABLE favorites (
 
 CREATE TABLE restaurant_hours (
   restaurant_id INTEGER PRIMARY KEY REFERENCES restaurant(id) ON DELETE CASCADE,
-  monday TIME,
-  tuesday TIME,
-  wednesday TIME,
-  thursday TIME,
-  friday TIME,
-  saturday TIME,
-  sunday TIME
+  mondayOpen TIME,
+  tuesdayOpen TIME,
+  wednesdayOpen TIME,
+  thursdayOpen TIME,
+  fridayOpen TIME,
+  saturdayOpen TIME,
+  sundayOpen TIME,
+  mondayClose TIME,
+  tuesdayClose TIME,
+  wednesdayClose TIME,
+  thursdayClose TIME,
+  fridayClose TIME,
+  saturdayClose TIME,
+  sundayClose TIME
 );
 

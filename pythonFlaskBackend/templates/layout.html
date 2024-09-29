@@ -18,6 +18,8 @@
 <a href="/login">Kirjaudu </a>
 {% endif %}
 {% include "error.html" %}
+{% include "success.html" %}
+
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
 

@@ -9,12 +9,13 @@
   
   <input type="submit" value="Etsi">
   </form>
+  <a href="/createRestaurant">Luo uusi ravintola</a>
 
   <h2>Ravintolat:</h2>
   <ul>
     {% for restaurant in restaurants %}
     <li key="${restaurant.name}">
-      <a href="/restaurant/:${restaurant.id}">{{restaurant.name}}</a>
+      <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
     </li> 
     {% endfor%}
     </ul>
@@ -24,7 +25,7 @@
 <ul>
   {% for restaurant in favouritedRestaurant %}
   <li key="${restaurant.name}">
-    <a href="/restaurant/:${restaurant.id}">{{restaurant.name}}</a>
+    <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
   </li> 
   {% endfor%}
   </ul>

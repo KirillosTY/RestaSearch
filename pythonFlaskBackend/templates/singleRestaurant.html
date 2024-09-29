@@ -1,0 +1,32 @@
+{%extends "layout.html"%}
+{% if restaurant %}
+
+  {% block headline %} <h2>{{restaurant.name}}</h2>{% endblock %}
+  {% block content %}
+
+
+      <br><p>{{restaurant}}</p>
+      <p><b>{{restaurant.description}}</b></p>
+      <p>Osoite: {{restaurant.address}}<br>
+      <br>
+      <h3>Aukioloajat:</h3>
+
+      <table>
+        
+        <tr><th>Maanantai</th><td>Aukeaa: {{restaurant.mondayopen}} ja Sulkeutuu: {{restaurant.mondayclose}}</td></tr>
+        <tr><th>Tiistai</th><td>Aukeaa: {{restaurant.tuesdayopen}} ja Sulkeutuu: {{restaurant.tuesdayclose}}</td></tr>
+        <tr><th>Keskiviikko</th><td>Aukeaa: {{restaurant.wednesdayopen}} ja Sulkeutuu: {{restaurant.wednesdayclose}}</td></tr>
+        <tr><th>Torstai</th><td>Aukeaa: {{restaurant.thursdayopen}} ja Sulkeutuu: {{restaurant.thursdayclose}}</td></tr>
+        <tr><th>Perjantai</th><td>Aukeaa: {{restaurant.fridayopen}} ja Sulkeutuu: {{restaurant.fridayclose}}</td></tr>
+        <tr><th>Lauantai</th><td>Aukeaa: {{restaurant.saturdayopen}} ja Sulkeutuu: {{restaurant.saturdayclose}}</td></tr>
+        <tr><th>Sunnuntai</th><td>Aukeaa: {{restaurant.sundayopen}} ja Sulkeutuu: {{restaurant.sundayclose}}</td></tr>
+
+        </table> 
+
+      <h3>Genret: {{restaurant.genre}}</h3><br>
+        
+
+      <br>
+
+  {% endblock %}
+{% endif %}
