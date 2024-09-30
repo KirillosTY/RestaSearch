@@ -1,0 +1,13 @@
+%extends "layout.html"%}
+
+
+{% block headline %}<h2>{{user.name}}</h2>{% endblock %}
+{% block content %}
+
+
+    <h2>Tiedot:</h2>
+    {% for review in reviews %}
+
+    {% endfor%}
+
+{% endblock %}

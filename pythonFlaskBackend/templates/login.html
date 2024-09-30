@@ -22,7 +22,7 @@
           alert("Käyttäjätunnuksen tulee olla 4-16 merkkiä pitkä");
           return false;
       }
-      if (form.password.value.length < 8 || !form.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+      if (form.password.value.length < 8 || !form.password.match(/^(Arvio:"+rating *"&#9733;"?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
           alert("Salasanan tulee olla vähintään 8 merkkiä pitkä sekä sen pitää sisältää 1 pieni ja iso kirjain sekä yksi numero");
           return false;
       }

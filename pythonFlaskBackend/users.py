@@ -27,6 +27,9 @@ def login(username, password):
   else: 
     return False;
 
+def getFavouriteFriends(id):
+   result = userDB.favourites(id)
+   return result.fetchall()
 
 def create(username,password, isAdmin):
     
@@ -47,10 +50,6 @@ def checkSession():
 def isAdmin():
        if session["isAdmin"] != request.form["True"]:
         abort(403)
-
-
-
-
 
 
 def userSessionSetup(user):

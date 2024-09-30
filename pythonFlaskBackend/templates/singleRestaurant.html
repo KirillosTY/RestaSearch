@@ -1,18 +1,22 @@
 {%extends "layout.html"%}
 {% if restaurant %}
 
-  {% block headline %} <h2>{{restaurant.name}}</h2>{% endblock %}
+
+
+  {% block headline %} <h2>{{restaurant.name}}</h2>
+  {% if session.isAdmin %}
+  <form  method="POST" >
+    <button type="submit" name="remove">Poista</button>
+    <button type="submit" name="edit">Muokkaa</button>
+  </form>
+  {% endif %}{% endblock %}
   {% block content %}
 
-
-      <br><p>{{restaurant}}</p>
       <p><b>{{restaurant.description}}</b></p>
       <p>Osoite: {{restaurant.address}}<br>
       <br>
       <h3>Aukioloajat:</h3>
-
       <table>
-        
         <tr><th>Maanantai</th><td>Aukeaa: {{restaurant.mondayopen}} ja Sulkeutuu: {{restaurant.mondayclose}}</td></tr>
         <tr><th>Tiistai</th><td>Aukeaa: {{restaurant.tuesdayopen}} ja Sulkeutuu: {{restaurant.tuesdayclose}}</td></tr>
         <tr><th>Keskiviikko</th><td>Aukeaa: {{restaurant.wednesdayopen}} ja Sulkeutuu: {{restaurant.wednesdayclose}}</td></tr>
@@ -27,6 +31,27 @@
         
 
       <br>
+    
+    
+    {% for review in reviews %}
+    <hr>
+    <h3>{{review.username}}</h3>
 
+      <h3> Arvio:
+        {% for i in range(review.rating) %}
+        &#9733;
+
+        {% endfor %}
+        {% for i in range(5-review.rating) %}
+        &#9734;
+
+        {% endfor %}
+      </h3>
+      <p>{{review.comment}}</p>
+    {%endfor%}
   {% endblock %}
+  
+
+
+
 {% endif %}

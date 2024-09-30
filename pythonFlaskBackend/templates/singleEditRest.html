@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block headline %}<h2>Ravintolan muokkaus</h2>{% endblock %}
+{% block content %}
+
+<h3>Muokkaa ravintolan tietoja!</h3>
+<form action="/editRestaurants/{{restaurant.id}}" method="POST" onSubmit="return checkRestaurant(this)">
+  <p>Nimi:<br>
+  <input type="text" name="name" value="{{ restaurant.name }}"></input>
+  <br>
+  
+  <p>Kuvaus:</p>
+  <textarea type="text" name="description">{{ restaurant.description }}</textarea>
+  
+  <p>Osoite:<br>
+  <input type="text" name="address" value="{{ restaurant.address }}"></input>
+  <br>
+  
+  <p>Aukioloajat:<br>
+  <table>
+    <tr><th>Maanantai</th>
+      <td>Aukeaa: <input type="time" name="mondayOpen" value="{{ restaurant.mondayopen }}"> </input>  
+         Sulkeutuu: <input type="time" name="mondayClose" value="{{ restaurant.mondayclose }}"></input></td></tr>
+      
+    <tr><th>Tiistai</th>
+      <td>Aukeaa: <input type="time" name="tuesdayOpen" value="{{ restaurant.tuesdayopen }}"></input>  
+         Sulkeutuu: <input type="time" name="tuesdayClose" value="{{ restaurant.tuesdayclose }}"></input></td></tr>
+      
+    <tr><th>Keskiviikko</th>
+      <td>Aukeaa: <input type="time" name="wednesdayOpen" value="{{ restaurant.wednesdayopen }}"></input>  
+         Sulkeutuu: <input type="time" name="wednesdayClose" value="{{ restaurant.wednesdayclose }}"></input></td></tr>
+    
+    <tr><th>Torstai</th>
+      <td>Aukeaa: <input type="time" name="thursdayOpen" value="{{ restaurant.thursdayopen }}"></input>  
+         Sulkeutuu: <input type="time" name="thursdayClose" value="{{ restaurant.thursdayclose }}"></input></td></tr>
+      
+    <tr><th>Perjantai</th>
+      <td>Aukeaa: <input type="time" name="fridayOpen" value="{{ restaurant.fridayopen }}"></input>  
+         Sulkeutuu: <input type="time" name="fridayClose" value="{{ restaurant.fridayclose }}"></input></td></tr>
+      
+    <tr><th>Lauantai</th>
+      <td>Aukeaa: <input type="time" name="saturdayOpen" value="{{ restaurant.saturdayopen }}"></input>  
+         Sulkeutuu: <input type="time" name="saturdayClose" value="{{ restaurant.saturdayclose }}"></input></td></tr>
+      
+    <tr><th>Sunnuntai</th>
+      <td>Aukeaa: <input type="time" name="sundayOpen" value="{{ restaurant.sundayopen }}"></input>  
+         Sulkeutuu: <input type="time" name="sundayClose" value="{{ restaurant.sundayclose }}"></input></td></tr>
+  </table>
+
+  
+  <p>Genret (erotellaan pilkulla, korkeintaan 5):<br>
+    <input type="text" name="genre" value="{{ restaurant.genre }}"></input>
+
+  <br>
+  <input type="submit" value="Tallenna">
+</form>
+
+<script>
+  function check(form) {
+    if (form.name.value.length >= 16 || form.name.value.length <= 2) {
+      alert("Ravintolan nimen tulee olla 4-16 merkkiä pitkä");
+      return false;
+    }
+    if (form.description.value.length < 8) {
+      alert("Kuvauksen tulee sisältää ainakin 8 merkkiä");
+      return false;
+    }
+    return true;
+  }
+</script>
+
+{% endblock %}

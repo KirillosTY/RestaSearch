@@ -17,3 +17,21 @@ def create(username,password,isAdmin):
     db.session.execute(sql, {"username": username, "password": password, "isAdmin": isAdmin})
     db.session.commit()
  
+
+def favourites(id):
+
+  sql = text("""
+            SELECT
+              fav.userFriended_id,
+              us.username
+             FROM 
+             users us
+            RIGHT JOIN
+              favorites fav
+            ON 
+              fav.userFriended_id= us.id
+            WHERE 
+              fav.user_id=:id 
+
+             """)
+  return db.session.execute(sql, {"id":id})

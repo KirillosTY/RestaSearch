@@ -6,17 +6,18 @@
 <h4>Friends:</h4>
 <ul>
 {% for friend in friends %}
+<p>{{friend}}</p>
 <li key="friend.username">
-  <a href="/friend/:${friend.id}">{{friend.username}}</a>
+  <a href="/friend/{{friend.id}}">{{friend.username}}</a>
 </li>
 {% endfor%}
 </ul>
 
 <h4>Favourites:</h4>
 <ul>
-{% for restaurant in favoritedRestaurant %}
+{% for restaurant in favouriteRestaurants %}
 <li key="restaurantusername">
-  <a href="/restaurant/:${restaurant.id}">{{restaurant.name}}</a>
+  <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
 </li>
 {% endfor%}
 </ul>

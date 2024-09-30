@@ -1,19 +1,24 @@
 from app import app
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, url_for
 import users
 import restaurants
 from inputCheck import usernameCheck,passwordCheck
 import re
 @app.route('/')
-def default():
+def default(): 
   user = session.get("user")
   print(user)
+  favouriteRestList= restaurants.getFavourites(session.get("user_id"))
+  friendsFound = users.getFavouriteFriends(session.get("user_id"))
+  if not favouriteRestList:
+    #Add error hadling for both 
+    favouriteRestList = []
   if not user:
       return redirect("/login")
       print("käydäänkö?!")
   else:
     print("ei käydä onneksi")
-    return render_template("start.html")  
+    return render_template("start.html", favouriteRestaurants = favouriteRestList, friends = friendsFound)  
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -84,14 +89,73 @@ def restaurantLists():
 
 @app.route('/restaurants/<int:restaurant_id>', methods=['GET','POST'])
 def single_restaurant(restaurant_id):
-  single_rest = restaurants.getSingle(restaurant_id)
+  rest_and_reviews = restaurants.getSingle(restaurant_id)
+  single_rest = rest_and_reviews[0]
+  single_rest_reviews =  rest_and_reviews[1]
   if single_rest== None:
     single_rest = []
-  #restaurantFavourites = restaurantsHandler.getFavourites()
+    print("tyhjennetty")
 
-  if request.method == 'GET':
-    return render_template('singleRestaurant.html', restaurant = single_rest  )
+  #restaurantFavourites = restaurantsHandler.getFavourites()
+    print("käydään")
+  print(single_rest,"käydään?!!t")
+  if request.method == 'POST':
+    print("käydään post")
+    if request.form['edit'] =='muokkaa':
+        print(single_rest,"käydään edit")
+        print("käydään edit")
+
+    return redirect("/editRestaurants/"+str(single_rest[0]))
+  elif request.method == 'GET':
+    return render_template('singleRestaurant.html', restaurant = single_rest,
+                           reviews = single_rest_reviews  )
   
+
+@app.route('/editRestaurants/<int:restaurant_id>', methods=['GET','POST'])
+def edit_restaurant(restaurant_id):
+    rest_and_reviews = restaurants.getSingle(restaurant_id)      
+    if request.method == 'GET':
+      return render_template('singleEditRest.html',id=id, restaurant = rest_and_reviews[0])
+    
+
+
+    name = request.form["name"]
+    description = request.form["description"]
+    address = request.form.get("address",None)
+    mondayOpen = request.form.get("mondayOpen",None)
+    tuesdayOpen = request.form.get("tuesdayOpen",None) 
+
+    wednesdayOpen = request.form.get("wednesdayOpen",None)
+    thursdayOpen = request.form.get("thursdayOpen",None)
+    fridayOpen = request.form.get("fridayOpen",None)
+    saturdayOpen = request.form.get("saturdayOpen",None)
+    sundayOpen = request.form.get("sundayOpen",None)
+
+    mondayClose = request.form.get("mondayClose",None)
+    tuesdayClose =request.form.get("tuesdayClose",None)
+    wednesdayClose =request.form.get("wednesdayClose",None)
+    thursdayClose =request.form.get("thursdayClose",None)
+    fridayClose =request.form.get("fridayClose",None)
+    saturdayClose =request.form.get("saturdayClose",None)
+    sundayClose =request.form.get("sundayClose",None) 
+
+    genre = request.form.get("genre",None)
+
+    restaurant_updated = restaurants.update_single(restaurant_id,name,description, address, 
+                                mondayOpen,mondayClose,
+                                tuesdayOpen, tuesdayClose,
+                                wednesdayOpen,wednesdayClose,
+                                thursdayOpen,thursdayClose,
+                                fridayOpen, fridayClose,
+                                saturdayOpen, saturdayClose,
+                                sundayOpen, sundayClose,
+                                genre)
+    print(restaurant_updated,'seconds')
+
+    return render_template('singleEditRest.html',id=id, 
+                          restaurant = restaurant_updated[0], 
+                          success_message="Tiedot tallentuneet")
+
 
 
 @app.route('/createRestaurant', methods=['GET','POST'])
@@ -104,7 +168,8 @@ def createRestaurant():
   description = request.form["description"]
   address = request.form.get("address",None)
   mondayOpen = request.form.get("mondayOpen",None)
-  tuesdayOpen = request.form.get("tuesdayOpen",None)
+  tuesdayOpen = request.form.get("tuesdayOpen",None) 
+
   wednesdayOpen = request.form.get("wednesdayOpen",None)
   thursdayOpen = request.form.get("thursdayOpen",None)
   fridayOpen = request.form.get("fridayOpen",None)
@@ -134,4 +199,17 @@ def createRestaurant():
   return redirect("/restaurants/"+str(restaurant[0]))
 
 
-  
+@app.route('/friends')
+def friends(): 
+  user = session.get("user")
+  print(user)
+  friendsFound = users.getFavouriteFriends(session.get("user_id"))
+  if not friendsFound:
+    #Add error hadling for both 
+    friendsFound = []
+  if not user:
+      return redirect("/login")
+      print("käydäänkö?!")
+  else:
+    print("ei käydä onneksi")
+    return render_template("friends.html", friends = friendsFound)  
