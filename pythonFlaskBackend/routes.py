@@ -87,6 +87,7 @@ def restaurantLists():
                            favouritedRestaurant = favouriteRestList)
   
 
+
 @app.route('/restaurants/<int:restaurant_id>', methods=['GET','POST'])
 def single_restaurant(restaurant_id):
   rest_and_reviews = restaurants.getSingle(restaurant_id)
@@ -94,25 +95,75 @@ def single_restaurant(restaurant_id):
   single_rest_reviews =  rest_and_reviews[1]
   if single_rest== None:
     single_rest = []
-    print("tyhjennetty")
+    rest_and_reviews= []
 
-  #restaurantFavourites = restaurantsHandler.getFavourites()
-    print("käydään")
-  print(single_rest,"käydään?!!t")
+  user_id = session.get('user_id')
+  restaurant_favourited = restaurants.check_favourite(user_id, single_rest[0])
+  
+  left_review = False;
+  for review in single_rest_reviews:
+    if review[0] == user_id:
+      left_review = review;
+   
   if request.method == 'POST':
-    print("käydään post")
-    if request.form['edit'] =='muokkaa':
-        print(single_rest,"käydään edit")
-        print("käydään edit")
+    if request.form.get('edit',False) == 'edit':
+      return redirect("/editRestaurants/"+str(single_rest[0]))
+    elif request.form.get('remove',False) == 'remove':
+      result =restaurants.delete_restaurant(restaurant_id)
+      if result:
+        return render_template('singleRestaurant.html', restaurant = [],
+                           reviews = [], success_message = "Ravintola "+result[1]+" on nyt poistettu")
+    elif request.form.get('favourite',False) == 'favourite': 
+          user_id = session.get('user_id')
+          restaurants.create_favourite(user_id,restaurant_id)
+          #succesmessage
+          return redirect("/restaurants/"+str(single_rest[0])) 
+    elif request.form.get('remove_favourite',False) == 'remove_favourite': 
+          
+          user_id = session.get('user_id')
+          restaurants.remove_favourite(user_id,restaurant_id)
+          #succesmessage
+          return redirect("/restaurants/"+str(single_rest[0])) 
+      
+    elif request.form.get('review',False) == 'review': 
+          rating = request.form['rating']
+          comment = request.form['comment']
+          user_id = session.get('user_id')
+          restaurants.create_review(user_id,restaurant_id, rating, comment)
+          return redirect("/restaurants/"+str(single_rest[0])) 
 
-    return redirect("/editRestaurants/"+str(single_rest[0]))
+    elif request.form.get('review_update',False) == 'review_update':
+        print("Here!?!")
+        rating = request.form['rating']
+        comment = request.form['comment']
+        user_id = session.get('user_id')
+        restaurants.update_review(user_id, restaurant_id, rating, comment)
+        return redirect("/restaurants/"+str(single_rest[0])) 
+    elif request.form.get('review_delete',False) == 'review_delete':
+        user_id = session.get('user_id')
+        result = restaurants.delete_review(user_id, restaurant_id)
+        single_rest_reviews = restaurants.get_reviews(restaurant_id)
+        if result:
+          return render_template('singleRestaurant.html', restaurant = single_rest,
+                           reviews = [], success_message = "Arvostelu on nyt poistettu")
+        return render_template('singleRestaurant.html', restaurant = single_rest,
+                           reviews = single_rest_reviews, message = "Jotain meni pieleen, yritä myöhemmin uudelleen")
+    else:
+        return render_template('singleRestaurant.html', restaurant = single_rest,
+                           reviews = single_rest_reviews, message = "Jotain meni pieleen, yritä myöhemmin uudelleen")
   elif request.method == 'GET':
     return render_template('singleRestaurant.html', restaurant = single_rest,
-                           reviews = single_rest_reviews  )
+                           reviews = single_rest_reviews, reviewed =  left_review, favourited = restaurant_favourited)
   
+#def handle_reviews():
+   #make sure to implement
+
 
 @app.route('/editRestaurants/<int:restaurant_id>', methods=['GET','POST'])
 def edit_restaurant(restaurant_id):
+    if session.get("isAdmin") == False:
+       redirect('/')
+
     rest_and_reviews = restaurants.getSingle(restaurant_id)      
     if request.method == 'GET':
       return render_template('singleEditRest.html',id=id, restaurant = rest_and_reviews[0])
@@ -161,7 +212,7 @@ def edit_restaurant(restaurant_id):
 @app.route('/createRestaurant', methods=['GET','POST'])
 def createRestaurant():
   
-  if request.method == 'GET':
+  if request.method == 'GET': 
     return render_template('createRestaurant.html')
   
   name = request.form["name"]

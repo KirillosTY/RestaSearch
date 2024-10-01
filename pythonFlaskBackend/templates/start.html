@@ -6,7 +6,6 @@
 <h4>Friends:</h4>
 <ul>
 {% for friend in friends %}
-<p>{{friend}}</p>
 <li key="friend.username">
   <a href="/friend/{{friend.id}}">{{friend.username}}</a>
 </li>

@@ -10,6 +10,3 @@ app.secret_key = getenv("SECRET")
 
 
 import routes  
-
-
-

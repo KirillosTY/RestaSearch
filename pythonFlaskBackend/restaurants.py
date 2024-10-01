@@ -22,6 +22,14 @@ def getFavourites(id):
 
   return restaurants
 
+def check_favourite(user_id, restaurant_id):
+  restaurants = restaurantDB.check_favourite(user_id, restaurant_id).fetchall() 
+  if not restaurants:
+    print("something went wrong")
+    return False;
+
+  return restaurants
+
 def getSingle(id):
   singleRest = restaurantDB.getSingle(id).fetchone()
   singleRestReview = restaurantDB.getReviews(id).fetchall()
@@ -31,6 +39,12 @@ def getSingle(id):
   
   return [singleRest,singleRestReview]
 
+
+    
+def get_reviews(restaurant_id):
+  singleRestReview = restaurantDB.getReviews(restaurant_id).fetchall()
+
+  return singleRestReview 
 
 
 def createRestaurant(name, description,address, 
@@ -56,7 +70,24 @@ def createRestaurant(name, description,address,
                       checkNone(sundayOpen), checkNone(sundayClose))
    print(hours,'tunnit')
   return result 
+
+
+def create_review(user_id, restaurant_id, rating,comment):
+  result = restaurantDB.create_review(user_id, restaurant_id, rating, comment).fetchone()
+  return result
+
     
+def create_favourite(user_id,restaurant_id):
+  favourited = restaurantDB.create_favourite(user_id,restaurant_id).fetchall()
+
+  return favourited 
+
+
+def update_review(user_id, restaurant_id, rating,comment):
+  result = restaurantDB.update_review(user_id, restaurant_id, rating, comment).fetchone()
+  print(result)
+  return result
+
 
 
 def update_single(id,name, description,address, 
@@ -84,7 +115,18 @@ def update_single(id,name, description,address,
   return getSingle(id)
     
 
+def delete_restaurant(id):
+  result = restaurantDB.delete_restaurant(id).fetchone()
+  return result
 
+def delete_review(user_id, restaurant_id):
+  result = restaurantDB.delete_review(user_id, restaurant_id).fetchone()
+  return result
+
+def remove_favourite(user_id,restaurant_id):
+  removed = restaurantDB.delete_favourited(user_id,restaurant_id).fetchone()
+
+  return removed
 
 def checkNone(time):
   if time == "":

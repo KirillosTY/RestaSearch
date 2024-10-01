@@ -1,0 +1,38 @@
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 25%;
+  padding: 0.5rem;
+  padding-bottom: 2rem;
+}
+
+.sendReview {
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.textAreas {
+  display: flex;
+  flex-direction: row;
+  height: 15rem;
+  width: 50%;
+  padding: 0.5rem;
+}
+.rating>input {
+  flex: 1 1 0%;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.rating>input::before {
+  content: '⭐';
+  filter: grayscale(0%) contrast(0%);
+  font-size: 200%;
+}
+
+.rating>input:checked::before,
+.rating>input:checked~input::before {
+  filter: unset;
+  
+}

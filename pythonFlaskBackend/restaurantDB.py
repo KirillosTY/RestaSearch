@@ -85,6 +85,22 @@ def getFavouriteRestaurants(id):
   return db.session.execute(sql, {"id":id})
   #
 
+
+def check_favourite(user_id,restaurant_id):
+  sql = text("""
+    SELECT
+      added
+    FROM
+       favoriteRestaurants fr
+    WHERE 
+    fr.user_id=:user_id AND fr.restaurant_id=:restaurant_id
+    
+                    
+                """)
+
+  
+  return db.session.execute(sql, {"user_id":user_id,"restaurant_id":restaurant_id})
+  
 def getSingle(id):
   sql = text("""
     SELECT
@@ -128,6 +144,7 @@ def getSingle(id):
 def getReviews(restaurant_id):
   sql = text("""
     SELECT
+      us.id,
       us.username,
       r.rating,
       r.comment,
@@ -151,9 +168,9 @@ def getReviews(restaurant_id):
 def createRestaurant(name, description,address):
   sql = text("""
   INSERT INTO RESTAURANT
-  (name, description, address)
+  (name, description, address, added)
   VALUES 
-  (:name, :description, :address)
+  (:name, :description, :address, NOW())
   RETURNING id;
   """)
   result = db.session.execute(sql,{"name":name,"address":address, "description":description})
@@ -163,17 +180,31 @@ def createRestaurant(name, description,address):
 
   return result
 
-
-def create_restaurant(name, description, address):
-    sql = text("""
-        INSERT INTO RESTAURANT (name, description, address)
-        VALUES (:name, :description, :address)
-        RETURNING *;
+def create_review(user_id,restaurant_id, rating,comment):
+  sql = text("""
+    INSERT INTO reviews
+    (user_id, restaurant_id, rating, comment, added)
+    VALUES 
+    (:user_id, :restaurant_id,:rating,:comment, NOW())
+    RETURNING *;
     """)
-    
-    result = db.session.execute(sql, {"name": name, "description": description, "address": address})
-    db.session.commit()
-    return result.fetchone()  
+  result = db.session.execute(sql, {"user_id":user_id, "restaurant_id":restaurant_id, "rating": rating, "comment":comment})
+  db.session.commit()
+  return result;
+  
+
+def create_favourite(user_id,restaurant_id):
+  sql = text("""
+    INSERT INTO favoriteRestaurants
+    (user_id, restaurant_id, added)
+    VALUES 
+    (:user_id, :restaurant_id, NOW())
+    RETURNING True;
+    """)
+  result = db.session.execute(sql, {"user_id":user_id, "restaurant_id":restaurant_id,})
+  db.session.commit()
+  return result;
+
 
 def update_restaurant(id,name, description, address):
     sql = text("""
@@ -186,6 +217,19 @@ def update_restaurant(id,name, description, address):
     result = db.session.execute(sql, {"id":id,"name": name, "description": description, "address": address})
     db.session.commit()
     return result  
+
+def update_review(user_id,restaurant_id, rating,comment):
+    sql = text("""
+        UPDATE reviews 
+        SET user_id=:user_id, restaurant_id=:restaurant_id, rating=:rating, comment=:comment, added=NOW()
+        WHERE user_id=:user_id AND restaurant_id=:restaurant_id
+        RETURNING *;
+    """)
+    
+    result = db.session.execute(sql, {"user_id":user_id, "restaurant_id":restaurant_id, "rating": rating, "comment":comment})
+    db.session.commit()
+    return result  
+
 
 
 def create_hours(restaurant_id
@@ -289,6 +333,40 @@ def update_hours(restaurant_id
         "sundayOpen": sundayOpen,
         "sundayClose": sundayClose
       }
-    )
+    ) 
     db.session.commit()
     return result.fetchone()
+
+
+def delete_restaurant(id):
+   
+  sql = text("""
+    DELETE FROM restaurant WHERE id=:id RETURNING id,name
+              """)
+   
+  result = db.session.execute(sql,{"id":id})
+  db.session.commit()
+
+  return result;
+
+def delete_review(user_id, restaurant_id):
+   
+  sql = text("""
+    DELETE FROM reviews WHERE user_id=:user_id and restaurant_id=:restaurant_id  RETURNING *
+              """)
+   
+  result = db.session.execute(sql,{"user_id":user_id, "restaurant_id":restaurant_id})
+  db.session.commit()
+
+  return result;
+
+def delete_favourited(user_id, restaurant_id):
+   
+  sql = text("""
+    DELETE FROM favoriteRestaurants WHERE user_id=:user_id and restaurant_id=:restaurant_id RETURNING *
+              """)
+   
+  result = db.session.execute(sql,{"user_id":user_id, "restaurant_id":restaurant_id})
+  db.session.commit()
+
+  return result;

@@ -4,10 +4,15 @@
 
 
   {% block headline %} <h2>{{restaurant.name}}</h2>
-  {% if session.isAdmin %}
+  {% if session.isAdmin and restaurant%}
   <form  method="POST" >
-    <button type="submit" name="remove">Poista</button>
-    <button type="submit" name="edit">Muokkaa</button>
+    <button type="submit" name="remove" value="remove">Poista</button>
+    <button type="submit" name="edit"value="edit">Muokkaa</button>
+   {% if favourited %}
+    <button type="submit" name="remove_favourite"value="remove_favourite">poista tykkäyksistä</button> 
+    {% else %}
+    <button type="submit" name="favourite"value="favourite">Lisää tykkäyksiin</button> 
+    {%endif%}
   </form>
   {% endif %}{% endblock %}
   {% block content %}
@@ -29,7 +34,49 @@
 
       <h3>Genret: {{restaurant.genre}}</h3><br>
         
+      <hr>
+      {% if not reviewed %}
+      <h3>Arvioi:</h3>
+      <form method="POST" >
+      
+        <div class="rating">
+        <input  type="radio" name="rating" title="star5" value="5" />
+        <input type="radio"  name="rating" title="star4" value="4" />
+        <input type="radio" name="rating" title="star3" value="3" checked />
+        <input type="radio" name="rating" title="star2" value="2" />
+        <input type="radio" checked="true" name="rating" title="star1" value="1" />
+        Arvosana:
+        </div>
+        <div class="textAreas"> 
+        <textarea class="textAreas" placeholder="Kirjoita arvostelu tänne!" type="text" name="comment"></textarea>
+        </div>
+        
+        <button class="sendReview" name="review" value="review" type="submit">Lähetä arvio!</button>
+      </form>
 
+      {% else %}
+
+      <h3>Päivitä arvostelu</h3>
+      <form method="POST" >
+        <div class="rating">
+        <input type="radio" {% if reviewed.rating==5 %} checked {%endif%} name="rating" title="star5" value="5" />
+        <input type="radio"  {% if reviewed.rating==4 %} checked {%endif%} name="rating" title="star4" value="4" />
+        <input type="radio"  {% if reviewed.rating==3 %} checked {%endif%} name="rating" title="star3" value="3"  />
+        <input type="radio"  {% if reviewed.rating==2 %} checked {%endif%} name="rating" title="star2" value="2" />
+        <input type="radio"   {% if reviewed.rating==1 %} checked {%endif%} name="rating" title="star1" value="1" />
+        Arvosana:
+        </div>
+        <div class="textAreas"> 
+        <textarea class="textAreas" placeholder="Kirjoita arvostelu tänne!" type="text" name="comment">{{reviewed.comment}}</textarea>
+        </div>
+        
+        <button class="sendReview" name="review_update" value="review_update" type="submit">Lähetä arvio!</button>
+      </form>
+
+
+
+      {% endif %}
+      
       <br>
     
     
@@ -48,6 +95,7 @@
         {% endfor %}
       </h3>
       <p>{{review.comment}}</p>
+     {%  if session.isAdmin or session.user_id==review.id %}  <form method="POST"><button name="review_delete" value="review_delete" type="submit">Poista</button> </form>{%endif%}
     {%endfor%}
   {% endblock %}
   
