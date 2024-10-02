@@ -9,7 +9,7 @@ def default():
   user = session.get("user")
   print(user)
   favouriteRestList= restaurants.getFavourites(session.get("user_id"))
-  friendsFound = users.getFavouriteFriends(session.get("user_id"))
+  reviews = restaurants.get_user_reviews(session.get("user_id"))
   if not favouriteRestList:
     #Add error hadling for both 
     favouriteRestList = []
@@ -18,7 +18,7 @@ def default():
       print("käydäänkö?!")
   else:
     print("ei käydä onneksi")
-    return render_template("start.html", favouriteRestaurants = favouriteRestList, friends = friendsFound)  
+    return render_template("start.html", favouriteRestaurants = favouriteRestList, reviews = reviews)  
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -77,14 +77,41 @@ def create():
 def restaurantLists():
   restaurantList = restaurants.getAll()
   favouriteRestList= restaurants.getFavourites(session.get("user_id"))
-  if restaurantList== None:
-    restaurantList = []
-  #restaurantFavourites = restaurantsHandler.getFavourites()
 
-  if request.method == 'GET':
+  print('this here', favouriteRestList)
+  if not restaurantList:
+    restaurantList = []
+  if not favouriteRestList:
+    favouriteRestList = []
+  #restaurantFavourites = restaurantsHandler.getFavourites()
+  search_text = request.form.get('restaurant_query',False)
+  print(search_text,' catch?')
+  if request.method == 'POST' and search_text: 
+      rest_found = restaurants.find_restaurant(search_text)
+      print(rest_found, "käydääää")
+      return render_template('restaurants.html', 
+                            restaurants = rest_found,
+                            favouritedRestaurant = favouriteRestList,
+                            searched = True)      
+
+  elif request.method == 'GET' or search_text == '':
     return render_template('restaurants.html', 
                            restaurants = restaurantList,
-                           favouritedRestaurant = favouriteRestList)
+                           favouritedRestaurant = favouriteRestList,
+                            searched = False)
+  
+@app.route('/restaurants/requests', methods=['GET','POST'])
+def restaurant_requests():
+  restaurantList = restaurants.get_all_requests()
+  if not restaurantList:
+    restaurantList = []
+  
+
+  if request.method == 'GET':
+    return render_template('restaurant_requested.html', 
+                           restaurants = restaurantList)
+    
+  
   
 
 
@@ -154,6 +181,7 @@ def single_restaurant(restaurant_id):
   elif request.method == 'GET':
     return render_template('singleRestaurant.html', restaurant = single_rest,
                            reviews = single_rest_reviews, reviewed =  left_review, favourited = restaurant_favourited)
+    
   
 #def handle_reviews():
    #make sure to implement
@@ -207,11 +235,60 @@ def edit_restaurant(restaurant_id):
                           restaurant = restaurant_updated[0], 
                           success_message="Tiedot tallentuneet")
 
+@app.route('/restaurants/<int:restaurant_id>/request', methods=['GET','POST'])
+def accept_restaurant(restaurant_id):
+    if session.get("isAdmin") == False:
+       redirect('/')
+
+    rest= restaurants.get_single_request(restaurant_id)      
+    if request.method == 'GET':
+      return render_template('single_request.html',id=id, restaurant = rest)
+  
+
+    name = request.form["name"]
+    description = request.form["description"]
+    address = request.form.get("address",None)
+    mondayOpen = request.form.get("mondayOpen",None)
+    tuesdayOpen = request.form.get("tuesdayOpen",None) 
+
+    wednesdayOpen = request.form.get("wednesdayOpen",None)
+    thursdayOpen = request.form.get("thursdayOpen",None)
+    fridayOpen = request.form.get("fridayOpen",None)
+    saturdayOpen = request.form.get("saturdayOpen",None)
+    sundayOpen = request.form.get("sundayOpen",None)
+
+    mondayClose = request.form.get("mondayClose",None)
+    tuesdayClose =request.form.get("tuesdayClose",None)
+    wednesdayClose =request.form.get("wednesdayClose",None)
+    thursdayClose =request.form.get("thursdayClose",None)
+    fridayClose =request.form.get("fridayClose",None)
+    saturdayClose =request.form.get("saturdayClose",None)
+    sundayClose =request.form.get("sundayClose",None) 
+
+    genre = request.form.get("genre",None)
+
+    restaurant_accepted = restaurants.createRestaurant(name,description, address, 
+                                mondayOpen,mondayClose,
+                                tuesdayOpen, tuesdayClose,
+                                wednesdayOpen,wednesdayClose,
+                                thursdayOpen,thursdayClose,
+                                fridayOpen, fridayClose,
+                                saturdayOpen, saturdayClose,
+                                sundayOpen, sundayClose,
+                                genre)
+    print(restaurant_accepted,'seconds')
+
+    if(restaurant_accepted):
+       restaurants.delete_request(restaurant_id)
+
+    return redirect('/restaurants/'+str(restaurant_accepted[0]))
+
+
 
 
 @app.route('/createRestaurant', methods=['GET','POST'])
 def createRestaurant():
-  
+  isAdmin = session.get("isAdmin")
   if request.method == 'GET': 
     return render_template('createRestaurant.html')
   
@@ -236,8 +313,8 @@ def createRestaurant():
   sundayClose =request.form.get("sundayClose",None) 
 
   genre = request.form.get("genre",None)
-
-  restaurant = restaurants.createRestaurant(name,description, address, 
+  if(isAdmin):
+    restaurant = restaurants.createRestaurant(name,description, address, 
                                mondayOpen,mondayClose,
                                tuesdayOpen, tuesdayClose,
                                wednesdayOpen,wednesdayClose,
@@ -246,6 +323,19 @@ def createRestaurant():
                                saturdayOpen, saturdayClose,
                                sundayOpen, sundayClose,
                                genre)
+  else :
+     restaurant = restaurants.create_request(name,description, address, 
+                               mondayOpen,mondayClose,
+                               tuesdayOpen, tuesdayClose,
+                               wednesdayOpen,wednesdayClose,
+                               thursdayOpen,thursdayClose,
+                               fridayOpen, fridayClose,
+                               saturdayOpen, saturdayClose,
+                               sundayOpen, sundayClose,
+                               genre)
+  
+  
+
   print(restaurant,'seconds')
   return redirect("/restaurants/"+str(restaurant[0]))
 

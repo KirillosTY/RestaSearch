@@ -6,13 +6,12 @@
 <h4>Friends:</h4>
 <ul>
 {% for friend in friends %}
-<p>{{friend}}</p>
-<li key="friend.username">Ravintolan nimi tänne
+<li key="friend.username">
   <a href="/friend/{{friend.id}}">{{friend.username}}</a>
   <p>Viimeisin arvostelu:</p>
   <p>Ravintolan nimi tänne</p>
   <p>Arvio: &#9734; &#9733;</p>
-  <p>kommentti:</p>xRavintolan nimi tänne
+  <p>kommentti:</p>
 </li>
 {% endfor%}
 </ul>

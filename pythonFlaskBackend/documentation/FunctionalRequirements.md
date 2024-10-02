@@ -18,7 +18,7 @@ Basic users and Admins.
   - [x] User can leave a review to a restaraunt by commenting and rating.
   - [x] User can edit a review to a restaraunt by commenting and rating again.
   - [x] User can read other users reviews
-  - [ ] User can search for a restauraunt with text based parameters
+  - [x] User can search for a restauraunt with text based parameters
   - [x] Admin can remove reviews
   - [ ] Admin can create group restaurants by tags
   - [ ] Users can add each other as friends

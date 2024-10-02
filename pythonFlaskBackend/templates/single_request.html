@@ -4,9 +4,7 @@
 {% block content %}
 
 <h3>Muokkaa ravintolan tietoja!</h3>
-<form action="/restaurants/{{restaurant.id}}" method="POST" onSubmit="return checkRestaurant(this)">
-    <input type="submit" value="Hyväksy ravintola">
-
+<form action="/restaurants/{{restaurant.id}}/request" method="POST" onSubmit="return checkRestaurant(this)">
   <p>Nimi:<br>
   <input type="text" name="name" value="{{ restaurant.name }}"></input>
   <br>
@@ -54,6 +52,7 @@
     <input type="text" name="genre" value="{{ restaurant.genre }}"></input>
 
   <br>
+  <input type="submit" value="Tallenna">
 </form>
 
 <script>

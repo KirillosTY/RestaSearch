@@ -13,6 +13,13 @@ def getAll():
 
   return restaurants
 
+def get_all_requests():
+  restaurant_requests = restaurantDB.get_all_requests().fetchall()
+  if not restaurant_requests:
+    print("something went wrong")
+    return False;
+
+  return restaurant_requests
 
 def getFavourites(id):
   restaurants = restaurantDB.getFavouriteRestaurants(id).fetchall() 
@@ -39,6 +46,14 @@ def getSingle(id):
   
   return [singleRest,singleRestReview]
 
+def get_single_request(id):
+  singleRest = restaurantDB.get_single_request(id).fetchone()
+
+  if not singleRest:
+    return False
+  
+  return singleRest
+
 
     
 def get_reviews(restaurant_id):
@@ -46,6 +61,15 @@ def get_reviews(restaurant_id):
 
   return singleRestReview 
 
+def get_user_reviews(user_id):
+  singleRestReview = restaurantDB.get_user_reviews(user_id).fetchall()
+
+  return singleRestReview 
+
+
+def find_restaurant(search_text):
+  searched_restaurants = restaurantDB.find_restaurant(search_text).fetchall()
+  return searched_restaurants
 
 def createRestaurant(name, description,address, 
                      mondayOpen,mondayClose,
@@ -57,7 +81,7 @@ def createRestaurant(name, description,address,
                      sundayOpen, sundayClose,
                      genret):
 
-  result = restaurantDB.createRestaurant(name, description,address).fetchone()
+  result = restaurantDB.createRestaurant(name,description,address).fetchone()
   if result:
 
    hours = restaurantDB.create_hours(result[0],
@@ -71,6 +95,29 @@ def createRestaurant(name, description,address,
    print(hours,'tunnit')
   return result 
 
+def create_request(name, description,address, 
+                     mondayOpen,mondayClose,
+                     tuesdayOpen,tuesdayClose,
+                     wednesdayOpen, wednesdayClose,
+                     thursdayOpen, thursdayClose,
+                     fridayOpen, fridayClose,
+                     saturdayOpen, saturdayClose,
+                     sundayOpen, sundayClose,
+                     genret):
+
+  result = restaurantDB.create_restaurant_request(name,description,address).fetchone()
+  if result:
+
+   hours = restaurantDB.create_request_hours(result[0],
+                      checkNone(mondayOpen),checkNone(mondayClose),
+                      checkNone(tuesdayOpen),checkNone(tuesdayClose),
+                      checkNone(wednesdayOpen), checkNone(wednesdayClose),
+                      checkNone(thursdayOpen), checkNone(thursdayClose),
+                      checkNone(fridayOpen), checkNone(fridayClose),
+                      checkNone(saturdayOpen), checkNone(saturdayClose),
+                      checkNone(sundayOpen), checkNone(sundayClose))
+   print(hours,'tunnit')
+  return result 
 
 def create_review(user_id, restaurant_id, rating,comment):
   result = restaurantDB.create_review(user_id, restaurant_id, rating, comment).fetchone()
@@ -117,6 +164,11 @@ def update_single(id,name, description,address,
 
 def delete_restaurant(id):
   result = restaurantDB.delete_restaurant(id).fetchone()
+  return result
+
+def delete_request(id):
+  result = restaurantDB.delete_restaurant_request(id).fetchone()
+  print('deleting went to shit', result)
   return result
 
 def delete_review(user_id, restaurant_id):

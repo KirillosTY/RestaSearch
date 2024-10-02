@@ -67,3 +67,30 @@ CREATE TABLE restaurant_hours (
   sundayClose TIME
 );
 
+CREATE TABLE restaurant_request_hours (
+  restaurant_id INTEGER PRIMARY KEY REFERENCES restaurant(id) ON DELETE CASCADE,
+  mondayOpen TIME,
+  tuesdayOpen TIME,
+  wednesdayOpen TIME,
+  thursdayOpen TIME,
+  fridayOpen TIME,
+  saturdayOpen TIME,
+  sundayOpen TIME,
+  mondayClose TIME,
+  tuesdayClose TIME,
+  wednesdayClose TIME,
+  thursdayClose TIME,
+  fridayClose TIME,
+  saturdayClose TIME,
+  sundayClose TIME
+);
+
+CREATE TABLE restaurant_tobe_accepted (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    address TEXT,
+    description TEXT NOT NULL,
+    gpsLocation TEXT,
+    user_id INTEGER REFERENCES users(id),
+    requested TIMESTAMP
+);

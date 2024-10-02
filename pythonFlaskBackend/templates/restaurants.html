@@ -4,18 +4,22 @@
 {% block headline %}<h2>Ravintolat</h2>{% endblock %}
 {% block content %}
 <hr>
-<form action="/findrestaurants/" action=" method="GET">
-  Etsi ravintolaa: <input type="text" name="restaurantQuery">
+<form method="POST">
+  Etsi ravintolaa: <input type="text" name="restaurant_query"></input>
   
-  <input type="submit" value="Etsi">
-  </form>
-  <a href="/createRestaurant">Luo uusi ravintola</a>
+  <input type="submit" value="Etsi"/>
+</form>
+  {%if session.isAdmin %}<p><a href="/createRestaurant">Luo uusi ravintola</a></p> 
+  {% else %}
+  <p><a href="/createRestaurant">Luo uusi ravintolapyyntö</a></p> 
+  {% endif %}
 
   <h2>Ravintolat:</h2>
   <ul>
     {% for restaurant in restaurants %}
     <li key="${restaurant.name}">
       <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
+      {%if searched%}<p>{{restaurant.description}}</p> {%endif%}
     </li> 
     {% endfor%}
     </ul>

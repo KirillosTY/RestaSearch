@@ -30,6 +30,7 @@ def favourites(id):
               favorites fav
             ON 
               fav.userFriended_id= us.id
+        
             WHERE 
               fav.user_id=:id 
 

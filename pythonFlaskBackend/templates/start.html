@@ -3,13 +3,24 @@
 {% block headline %}<h2>Tervetuloa</h2>{% endblock %}
 
 {% block content %}
-<h4>Friends:</h4>
+<h4>Viimeisimmät arvostelut:</h4>
 <ul>
-{% for friend in friends %}
-<li key="friend.username">
-  <a href="/friend/{{friend.id}}">{{friend.username}}</a>
-</li>
-{% endfor%}
+  {% for review in reviews %}
+  <hr>
+  <h3>{{review.name}}</h3>
+
+    <h3> Arvio:
+      {% for i in range(review.rating) %}
+      &#9733;
+
+      {% endfor %}
+      {% for i in range(5-review.rating) %}
+      &#9734;
+
+      {% endfor %}
+    </h3>
+    <p>{{review.comment}}</p>
+  {%endfor%}
 </ul>
 
 <h4>Favourites:</h4>
