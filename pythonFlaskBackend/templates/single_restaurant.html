@@ -84,7 +84,7 @@
       <hr>
       {% if not reviewed %}
       <h3>Arvioi:</h3>
-      <form method="POST" >
+      <form method="POST" class="rating_form">
       <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
         <div class="rating">
@@ -105,7 +105,7 @@
       {% else %}
 
       <h3>Päivitä arvostelu</h3>
-      <form method="POST" >
+      <form method="POST" class="rating_form" >
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
         <div class="rating">

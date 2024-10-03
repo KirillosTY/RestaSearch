@@ -1,51 +1,44 @@
 <title>RestaSearch- {% block title %}{% endblock %}</title>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="../static/styles/singleRest.css">
+<link rel="stylesheet" href="../static/styles/rest.css">
 
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a  class="navbar-brand" href="/">RestaSearch</a>
+    <a class="navbar-brand" href="/">RestaSearch</a>
     <ul class="navbar-nav">
-
-      <li>
-      <a  class="nav-link" href="/">Etusivu</a>
-      </li>
-
       {% if session.user %}
-        {% if session.is_admin %}
-
-          <li class="nav-item">
-            <a class="nav-link" href="/create">Luo käyttäjä</a>
-          </li>
-        {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="/restaurants">Ravintolat</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/restaurants/requests">Ravintola toiveet</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout           ">Kirjaudu ulos</a>
-          </li>
-          <li class="nav-item">
-            <p class="nav-link" >Olet kirjautunut nimellä {{ session.user }}</p>
-            </li>
-          {% else %}
-          <li class="nav-item">
-          <a class="nav-link" href="/login">Kirjaudu </a>
-        </li>
-          {% endif %}
-         
-  </ul>
+      <li>
+        <a class="nav-link" href="/">Etusivu</a>
+      </li>
+      {% if session.is_admin %}
+      <li class="nav-item">
+        <a class="nav-link" href="/create">Luo käyttäjä</a>
+      </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="/restaurants">Ravintolat</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/restaurants/requests">Ravintola toiveet</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Kirjaudu ulos</a>
+      </li>
+      <li class="nav-item">
+        <p class="nav-link">Olet kirjautunut nimellä {{ session.user }}</p>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Kirjaudu</a>
+      </li>
+      {% endif %}
+    </ul>
   </nav>
 </div>
 
 {% include "error.html" %}
 {% include "success.html" %}
-
-
-
 
 {% block headline %}
 {% endblock %}
@@ -53,5 +46,6 @@
 {% block content %}
 {% endblock %}
 <hr>
-<p>All rights reserved</p>
-
+<footer>
+  <p>All rights reserved</p>
+</footer>

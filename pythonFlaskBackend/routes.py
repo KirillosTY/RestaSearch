@@ -8,7 +8,8 @@ import re
 
 @app.route('/')
 def default():
-    user = session.get("user")
+    check_access_before(False)
+    user = session.get("user") 
     print(user)
     favourite_rest_list = restaurants.get_favourites(session.get("user_id"))
     reviews = restaurants.get_user_reviews(session.get("user_id"))
@@ -60,7 +61,7 @@ def login():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     users.delete_session()
-    return redirect("/")
+    return redirect("/login")
 
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -98,9 +99,6 @@ def create():
             ja ison kirjaimen sekä numeron.
             Onnea elämään noilla salasanoilla <3."""
         )
-
-    users.check_csrf()
-
     created_user = users.create(username, password, is_admin)
     if not created_user:
         return render_template(

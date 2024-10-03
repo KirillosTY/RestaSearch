@@ -2,14 +2,14 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
     password TEXT,
-    isAdmin BOOLEAN
+    is_admin BOOLEAN
 );
 CREATE TABLE restaurant (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     address TEXT,
     description TEXT NOT NULL,
-    gpsLocation TEXT,
+    gps_location TEXT,
     user_id INTEGER REFERENCES users(id),
     added TIMESTAMP
 );
@@ -33,7 +33,7 @@ CREATE TABLE restaurant_type (
   fifth_type varchar(16)
 );
 
-CREATE TABLE favoriteRestaurants (
+CREATE TABLE favourite_restaurants (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   restaurant_id INTEGER REFERENCES restaurant(id) ON DELETE CASCADE,
   added TIMESTAMP,
@@ -43,9 +43,9 @@ CREATE TABLE favoriteRestaurants (
 
 CREATE TABLE favorites (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  userFriended_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  user_friended_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   added TIMESTAMP,
-  CONSTRAINT unique_friend UNIQUE (userFriended_id, user_id)
+  CONSTRAINT unique_friend UNIQUE (user_friended_id, user_id)
 );
 
 
@@ -90,7 +90,7 @@ CREATE TABLE restaurant_tobe_accepted (
     name TEXT NOT NULL,
     address TEXT,
     description TEXT NOT NULL,
-    gpsLocation TEXT,
+    gps_location TEXT,
     user_id INTEGER REFERENCES users(id),
     requested TIMESTAMP
 );

@@ -1,41 +1,58 @@
-{%extends "layout.html"%}
+{% extends "layout.html" %}
+<div class="container">
+  {% block title %}Ravintolat{% endblock %}
 
+  {% block headline %}
+  <h2>Ravintolat</h2>
+  {% endblock %}
 
-{% block headline %}<h2>Ravintolat</h2>{% endblock %}
-{% block content %}
-<hr>
-<form method="POST">
-  Etsi ravintolaa: <input type="text" name="restaurant_query"></input>
-  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+  {% block content %}
+  <hr>
+  <form method="POST" class="form-inline mb-4">
+    <label for="restaurant_query" class="mr-2">Etsi ravintolaa:</label>
+    <input type="text" id="restaurant_query" name="restaurant_query" class="form-control mr-2">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <input type="submit" class="btn btn-primary" value="Etsi">
+  </form>
 
-  <input type="submit" value="Etsi"/>
-</form>
-  {% if session.is_admin %}<p><a href="/create/restaurant">Luo uusi ravintola</a></p> 
+  {% if session.is_admin %}
+  <p><a href="/create/restaurant" class="btn btn-success">Luo uusi ravintola</a></p>
   {% else %}
-  <p><a href="/create/restaurant">Luo uusi ravintolapyyntö</a></p> 
+  <p><a href="/create/restaurant" class="btn btn-warning">Luo uusi ravintolapyyntö</a></p>
   {% endif %}
 
-  <h2>Ravintolat:</h2>
-  <ul>
+  <h2 class="text-info">Ravintolat:</h2>
+  <div class="row">
     {% for restaurant in restaurants %}
-    <li key="${restaurant.name}">
-      <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
-      {%if searched%}<p>{{restaurant.description}}</p> {%endif%}
-    </li> 
-    {% endfor%}
-    </ul>
-  
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
+          </h5>
+          {% if searched %}
+          <p class="card-text">{{restaurant.description}}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 
-<h2>Tykätyt ravintolat:</h2>
-<ul>
-  {% for restaurant in favourited_restaurants %}
-  <li key="${restaurant.name}">
-    <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
-  </li> 
-  {% endfor%}
-  </ul>
+  <h2 class="text-info">Tykätyt ravintolat:</h2>
+  <div class="row">
+    {% for restaurant in favourited_restaurants %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
+          </h5>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 
-
-{% endblock %}
-
-favouriteRestaurants
+  {% endblock %}
+</div>

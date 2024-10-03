@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 
 def login(username):
 
-    sql = text("SELECT id,isAdmin, password FROM USERS WHERE username=:username")
+    sql = text("SELECT id,is_admin, password FROM USERS WHERE username=:username")
     result = db.session.execute(sql, {"username": username}).fetchone()
     return result
 
@@ -13,14 +13,14 @@ def login(username):
 def create(username, password, is_admin):
 
     sql = text("""
-        INSERT INTO USERS (username, password, isAdmin)
-        VALUES (:username, :password, :isAdmin)
+        INSERT INTO USERS (username, password, is_admin)
+        VALUES (:username, :password, :is_admin)
         RETURNING username
     """)
     db.session.execute(sql,
                        {"username": username,
                         "password": password,
-                        "isAdmin": is_admin})
+                        "is_admin": is_admin})
     db.session.commit()
 
 
@@ -28,14 +28,14 @@ def favourites(id):
 
     sql = text("""
             SELECT
-              fav.userFriended_id,
+              fav.user_friended_id,
               us.username
              FROM
              users us
             RIGHT JOIN
               favorites fav
             ON
-              fav.userFriended_id= us.id
+              fav.user_friended_id= us.id
 
             WHERE
               fav.user_id=:id

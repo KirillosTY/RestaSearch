@@ -1,0 +1,130 @@
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  width: 20%;
+  min-width: 20%;
+  padding: 0.5rem;
+  padding-bottom: 2rem;
+ 
+
+}
+
+.rating_form {
+  align-items: left;
+  background-color: #f5f5f5;
+  display: block;
+  width: 300%;
+  min-width: 150%;
+  
+
+}
+
+.sendReview {
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.textAreas {
+  display: flex;
+  flex-direction: row;
+  height: 15rem;
+  width: 50%;
+  padding: 0.5rem;
+}
+
+.rating>input {
+  flex: 2 2 0%;
+  display: grid;
+  place-content: center;
+  cursor:pointer;
+}
+
+.rating > input::before {
+  content: '⭐';
+  filter: grayscale(0%) contrast(0%);
+  font-size: 300%;
+
+}
+
+.rating>input:checked::before,
+.rating>input:checked~input::before {
+  filter: unset;
+
+}
+
+.container {
+  overflow: auto;
+}
+
+body {
+  background-color: #f5f5f5;
+}
+
+.navbar {
+  background-color: #004d00;
+  /* Dark green background */
+}
+
+.navbar .nav-link,
+.navbar-brand {
+  color: #ffa500 !important;
+  /* Dark orange text */
+}
+
+.navbar .nav-link:hover {
+  color: #ff7f00 !important;
+  /* Darker orange on hover */
+}
+
+.btn-primary {
+  background-color: #004d00;
+  border-color: #004d00;
+}
+
+.btn-primary:hover {
+  background-color: #006400;
+  border-color: #006400;
+}
+
+.card {
+  border-color: #004d00;
+  /* Dark green border for cards */
+}
+
+.card-title a {
+  color: #004d00 !important;
+  /* Dark green links */
+}
+
+.card-title a:hover {
+  color: #ffa500 !important;
+  /* Dark orange on hover */
+}
+
+.btn-success,
+.btn-warning {
+  background-color: #ffa500;
+  border-color: #ffa500;
+  color: white;
+}
+
+.btn-success:hover,
+.btn-warning:hover {
+  background-color: #ff7f00;
+  border-color: #ff7f00;
+}
+
+h2 {
+  color: #004d00;
+  /* Headings dark green */
+}
+
+hr {
+  border-top: 2px solid #004d00;
+  /* Dark green horizontal rule */
+}
+
+footer {
+  color: #004d00;
+}
