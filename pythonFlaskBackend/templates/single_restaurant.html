@@ -4,15 +4,21 @@
 
 
   {% block headline %} <h2>{{restaurant.name}}</h2>
-  {% if session.isAdmin and restaurant%}
+  {%if restaurant%}
   <form  method="POST" >
+    {% if session.is_admin %}
     <button type="submit" name="remove" value="remove">Poista</button>
     <button type="submit" name="edit"value="edit">Muokkaa</button>
+    {%endif%}
+
    {% if favourited %}
     <button type="submit" name="remove_favourite"value="remove_favourite">poista tykkäyksistä</button> 
     {% else %}
     <button type="submit" name="favourite"value="favourite">Lisää tykkäyksiin</button> 
+
     {%endif%}
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
   </form>
   {% endif %}{% endblock %}
   {% block content %}
@@ -22,14 +28,55 @@
       <br>
       <h3>Aukioloajat:</h3>
       <table>
-        <tr><th>Maanantai</th><td>Aukeaa: {{restaurant.mondayopen}} ja Sulkeutuu: {{restaurant.mondayclose}}</td></tr>
-        <tr><th>Tiistai</th><td>Aukeaa: {{restaurant.tuesdayopen}} ja Sulkeutuu: {{restaurant.tuesdayclose}}</td></tr>
-        <tr><th>Keskiviikko</th><td>Aukeaa: {{restaurant.wednesdayopen}} ja Sulkeutuu: {{restaurant.wednesdayclose}}</td></tr>
-        <tr><th>Torstai</th><td>Aukeaa: {{restaurant.thursdayopen}} ja Sulkeutuu: {{restaurant.thursdayclose}}</td></tr>
-        <tr><th>Perjantai</th><td>Aukeaa: {{restaurant.fridayopen}} ja Sulkeutuu: {{restaurant.fridayclose}}</td></tr>
-        <tr><th>Lauantai</th><td>Aukeaa: {{restaurant.saturdayopen}} ja Sulkeutuu: {{restaurant.saturdayclose}}</td></tr>
-        <tr><th>Sunnuntai</th><td>Aukeaa: {{restaurant.sundayopen}} ja Sulkeutuu: {{restaurant.sundayclose}}</td></tr>
-
+        {% if restaurant.monday_open and restaurant.monday_close %}
+        <tr>
+            <th>Maanantai</th>
+            <td>Aukeaa: {{ restaurant.monday_open }} ja Sulkeutuu: {{ restaurant.monday_close }}</td>
+        </tr>
+        {% endif %}
+        
+        {% if restaurant.tuesday_open and restaurant.tuesday_close %}
+        <tr>
+            <th>Tiistai</th>
+            <td>Aukeaa: {{ restaurant.tuesday_open }} ja Sulkeutuu: {{ restaurant.tuesday_close }}</td>
+        </tr>
+        {% endif %}
+        
+        {% if restaurant.wednesday_open and restaurant.wednesday_close %}
+        <tr>
+            <th>Keskiviikko</th>
+            <td>Aukeaa: {{ restaurant.wednesday_open }} ja Sulkeutuu: {{ restaurant.wednesday_close }}</td>
+        </tr>
+        {% endif %}
+        
+        {% if restaurant.thursday_open and restaurant.thursday_close %}
+        <tr>
+            <th>Torstai</th>
+            <td>Aukeaa: {{ restaurant.thursday_open }} ja Sulkeutuu: {{ restaurant.thursday_close }}</td>
+        </tr>
+        {% endif %}
+        
+        {% if restaurant.friday_open and restaurant.friday_close %}
+        <tr>
+            <th>Perjantai</th>
+            <td>Aukeaa: {{ restaurant.friday_open }} ja Sulkeutuu: {{ restaurant.friday_close }}</td>
+        </tr>
+        {% endif %}
+        
+        {% if restaurant.saturday_open and restaurant.saturday_close %}
+        <tr>
+            <th>Lauantai</th>
+            <td>Aukeaa: {{ restaurant.saturday_open }} ja Sulkeutuu: {{ restaurant.saturday_close }}</td>
+        </tr>
+        {% endif %}
+        
+        {% if restaurant.sunday_open and restaurant.sunday_close %}
+        <tr>
+            <th>Sunnuntai</th>
+            <td>Aukeaa: {{ restaurant.sunday_open }} ja Sulkeutuu: {{ restaurant.sunday_close }}</td>
+        </tr>
+        {% endif %}
+        
         </table> 
 
       <h3>Genret: {{restaurant.genre}}</h3><br>
@@ -38,7 +85,8 @@
       {% if not reviewed %}
       <h3>Arvioi:</h3>
       <form method="POST" >
-      
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
         <div class="rating">
         <input  type="radio" name="rating" title="star5" value="5" />
         <input type="radio"  name="rating" title="star4" value="4" />
@@ -58,6 +106,8 @@
 
       <h3>Päivitä arvostelu</h3>
       <form method="POST" >
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
         <div class="rating">
         <input type="radio" {% if reviewed.rating==5 %} checked {%endif%} name="rating" title="star5" value="5" />
         <input type="radio"  {% if reviewed.rating==4 %} checked {%endif%} name="rating" title="star4" value="4" />

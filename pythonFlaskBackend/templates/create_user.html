@@ -12,12 +12,14 @@
     <p>Salasana:<br>
     <input type="password" name="password"></p>
     <p>Toista salasana:<br>
-    <input type="password" name="passwordRepeat"></p>
-    {% if session.isAdmin %}
+    <input type="password" name="password_repeat"></p>
+    {% if session.is_admin %}
       Admin privileges:
     <input type="checkbox" value="true" name="admin"></input>
     {% endif %}
     <br>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
     <input type="submit" value="Luo">
     </form>
 

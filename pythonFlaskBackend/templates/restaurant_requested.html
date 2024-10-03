@@ -7,9 +7,13 @@
   <h2>Ravintola toiveita:</h2>
   <ul>
     {% for restaurant in restaurants %}
-    <li key="${restaurant.name}">
-      <h3>Lisätty listalle {{restaurant.requested}} käyttäjän {{restaurant.user}} toimesta}</h3>
-      <a href='/restaurants/{{restaurant.id}}/request'>{{restaurant.name}}</a>
+    <li>
+      <h3>Lisätty listalle {{restaurant.requested}} käyttäjän {{restaurant.user}} toimesta</h3>
+     {%if session.is_admin %} <a href='/restaurants/{{restaurant.id}}/request'>{{restaurant.name}}</a>
+     {%else%}
+      <p></p>
+      {%endif%}
+      <p><b>{{restaurant.name}}</b><p>
       <p>{{restaurant.description}}</p>
     </li> 
     {% endfor%}

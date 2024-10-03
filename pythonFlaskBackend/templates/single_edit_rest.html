@@ -2,9 +2,10 @@
 
 {% block headline %}<h2>Ravintolan muokkaus</h2>{% endblock %}
 {% block content %}
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
 <h3>Muokkaa ravintolan tietoja!</h3>
-<form action="/restaurants/{{restaurant.id}}/request" method="POST" onSubmit="return checkRestaurant(this)">
+<form action="/edit/restaurants/{{restaurant.id}}" method="POST" onSubmit="return checkRestaurant(this)">
   <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
   <p>Nimi:<br>
@@ -55,6 +56,7 @@
 
   <br>
   <input type="submit" value="Tallenna">
+
 </form>
 
 <script>

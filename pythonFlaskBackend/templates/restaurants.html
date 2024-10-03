@@ -6,12 +6,13 @@
 <hr>
 <form method="POST">
   Etsi ravintolaa: <input type="text" name="restaurant_query"></input>
-  
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
   <input type="submit" value="Etsi"/>
 </form>
-  {%if session.isAdmin %}<p><a href="/createRestaurant">Luo uusi ravintola</a></p> 
+  {% if session.is_admin %}<p><a href="/create/restaurant">Luo uusi ravintola</a></p> 
   {% else %}
-  <p><a href="/createRestaurant">Luo uusi ravintolapyyntö</a></p> 
+  <p><a href="/create/restaurant">Luo uusi ravintolapyyntö</a></p> 
   {% endif %}
 
   <h2>Ravintolat:</h2>
@@ -27,7 +28,7 @@
 
 <h2>Tykätyt ravintolat:</h2>
 <ul>
-  {% for restaurant in favouritedRestaurant %}
+  {% for restaurant in favourited_restaurants %}
   <li key="${restaurant.name}">
     <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
   </li> 

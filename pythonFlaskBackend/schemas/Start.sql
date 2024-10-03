@@ -51,38 +51,38 @@ CREATE TABLE favorites (
 
 CREATE TABLE restaurant_hours (
   restaurant_id INTEGER PRIMARY KEY REFERENCES restaurant(id) ON DELETE CASCADE,
-  mondayOpen TIME,
-  tuesdayOpen TIME,
-  wednesdayOpen TIME,
-  thursdayOpen TIME,
-  fridayOpen TIME,
-  saturdayOpen TIME,
-  sundayOpen TIME,
-  mondayClose TIME,
-  tuesdayClose TIME,
-  wednesdayClose TIME,
-  thursdayClose TIME,
-  fridayClose TIME,
-  saturdayClose TIME,
-  sundayClose TIME
+  monday_open TIME,
+  tuesday_open TIME,
+  wednesday_open TIME,
+  thursday_open TIME,
+  friday_open TIME,
+  saturday_open TIME,
+  sunday_open TIME,
+  monday_close TIME,
+  tuesday_close TIME,
+  wednesday_close TIME,
+  thursday_close TIME,
+  friday_close TIME,
+  saturday_close TIME,
+  sunday_close TIME
 );
 
 CREATE TABLE restaurant_request_hours (
   restaurant_id INTEGER PRIMARY KEY REFERENCES restaurant(id) ON DELETE CASCADE,
-  mondayOpen TIME,
-  tuesdayOpen TIME,
-  wednesdayOpen TIME,
-  thursdayOpen TIME,
-  fridayOpen TIME,
-  saturdayOpen TIME,
-  sundayOpen TIME,
-  mondayClose TIME,
-  tuesdayClose TIME,
-  wednesdayClose TIME,
-  thursdayClose TIME,
-  fridayClose TIME,
-  saturdayClose TIME,
-  sundayClose TIME
+  monday_open TIME,
+  tuesday_open TIME,
+  wednesday_open TIME,
+  thursday_open TIME,
+  friday_open TIME,
+  saturday_open TIME,
+  sunday_open TIME,
+  monday_close TIME,
+  tuesday_close TIME,
+  wednesday_close TIME,
+  thursday_close TIME,
+  friday_close TIME,
+  saturday_close TIME,
+  sunday_close TIME
 );
 
 CREATE TABLE restaurant_tobe_accepted (

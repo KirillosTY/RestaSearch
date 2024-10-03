@@ -6,11 +6,11 @@
 
 
 {% if session.user %}
-  {% if session.isAdmin %}
+  {% if session.is_admin %}
   <a href="/create">Luo käyttäjä</a>
   {% endif %}
 
-<a href="/friends">Kaverit</a>
+
 <a href="/restaurants">Ravintolat</a>
 <a href="/restaurants/requests">Ravintola toiveet</a>
 
@@ -23,7 +23,6 @@
 {% include "error.html" %}
 {% include "success.html" %}
 
-<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
 
 

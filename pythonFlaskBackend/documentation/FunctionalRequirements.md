@@ -20,8 +20,6 @@ Basic users and Admins.
   - [x] User can read other users reviews
   - [x] User can search for a restauraunt with text based parameters
   - [x] Admin can remove reviews
-  - [ ] Admin can create group restaurants by tags
-  - [ ] Users can add each other as friends
   - [x] Admin or user can add restaurants
   - [x] Admin can remove restauraunts.
   - [x] Admin can edit restauraunts.
@@ -33,4 +31,5 @@ Basic users and Admins.
 ## Further development idea
  1. Restauraunts can be found in a map with additional details
  2. Users can request to add restauraunts
-
+ 3. Admin can create group restaurants by tags
+ 4. Users can add each other as friends

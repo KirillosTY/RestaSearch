@@ -6,7 +6,9 @@
 
   
     <h2>Luo uusi ravintola syöttämällä tiedot!</h2>
-    <form action="/createRestaurant" method="POST" onSubmit="return checkRestaurant(this)">
+    <form action="/create/restaurant" method="POST" onSubmit="return checkRestaurant(this)">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
     <p>Nimi:<br>
     <input type="text" name="name"></input>
     <br>
@@ -29,7 +31,7 @@
 
       </table> 
 
-    {% if session.isAdmin== true%}
+    {% if session.is_admin== true%}
     <p>Genret (erotellaan pilkulla, korkeintaan 5):<br>
       <input type="text" name="genre"></input>
     {% endif %}
