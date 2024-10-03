@@ -244,6 +244,23 @@ def check_review(user_id, restaurant_id):
     #
 
 
+def check_hours_exist(restaurant_id):
+    sql = text("""
+    SELECT
+      restaurant_id
+    FROM
+      restaurant_hours
+
+    WHERE
+      restaurant_id=:restaurant_id 
+
+    """)
+
+    return db.session.execute(
+        sql, {"restaurant_id": restaurant_id})
+    #
+
+
 def find_restaurant(search_text):
     sql = text("""
     SELECT DISTINCT
@@ -267,7 +284,7 @@ def find_restaurant(search_text):
     return result
 
 
-def createRestaurant(name, description, address):
+def create_restaurant(name, description, address):
     sql = text("""
   INSERT INTO RESTAURANT
   (name, description, address, added)
@@ -359,106 +376,54 @@ def update_review(user_id, restaurant_id, rating, comment):
     return result
 
 
-def create_hours(restaurant_id, monday_open, monday_close,
-                 tuesday_open, tuesday_close,
-                 wednesday_open, wednesday_close,
-                 thursday_open, thursday_close,
-                 friday_open, friday_close,
-                 saturday_open, saturday_close,
-                 sunday_open, sunday_close):
-
+def create_hours(restaurant_id
+                 ,monday_open,monday_close,
+                  tuesday_open,tuesday_close,
+                  wednesday_open, wednesday_close,
+                  thursday_open, thursday_close,
+                  friday_open, friday_close,
+                  saturday_open, saturday_close,
+                  sunday_open, sunday_close):
     sql = text("""
-    UPDATE restaurant_hours
-SET
-    monday_open = :monday_open,
-    monday_close = :monday_close,
-    tuesday_open = :tuesday_open,
-    tuesday_close = :tuesday_close,
-    wednesday_open = :wednesday_open,
-    wednesday_close = :wednesday_close,
-    thursday_open = :thursday_open,
-    thursday_close = :thursday_close,
-    friday_open = :friday_open,
-    friday_close = :friday_close,
-    saturday_open = :saturday_open,
-    saturday_close = :saturday_close,
-    sunday_open = :sunday_open,
-    sunday_close = :sunday_close
-WHERE restaurant_id = :id
-RETURNING *;
-
+    INSERT INTO restaurant_hours
+    (restaurant_id,
+    monday_open,monday_close,
+    tuesday_open,tuesday_close,
+    wednesday_open, wednesday_close,
+    thursday_open, thursday_close,
+    friday_open, friday_close,
+    saturday_open, saturday_close,
+    sunday_open, sunday_close)  
+    VALUES 
+    (:id,
+    :monday_open,:monday_close,
+    :tuesday_open,:tuesday_close,
+    :wednesday_open, :wednesday_close,
+    :thursday_open, :thursday_close,
+    :friday_open, :friday_close,
+    :saturday_open, :saturday_close,
+    :sunday_open, :sunday_close)
+    RETURNING *;
     """)
     result = db.session.execute(sql,
-                                {
-                                    "id": restaurant_id,
-                                    "monday_open": monday_open,
-                                    "monday_close": monday_close,
-                                    "tuesday_open": tuesday_open,
-                                    "tuesday_close": tuesday_close,
-                                    "wednesday_open": wednesday_open,
-                                    "wednesday_close": wednesday_close,
-                                    "thursday_open": thursday_open,
-                                    "thursday_close": thursday_close,
-                                    "friday_open": friday_open,
-                                    "friday_close": friday_close,
-                                    "saturday_open": saturday_open,
-                                    "saturday_close": saturday_close,
-                                    "sunday_open": sunday_open,
-                                    "sunday_close": sunday_close
-                                }
-                                )
-    db.session.commit()
-    return result.fetchone()
-
-
-def create_request_hours(restaurant_id, monday_open, monday_close,
-                         tuesday_open, tuesday_close,
-                         wednesday_open, wednesday_close,
-                         thursday_open, thursday_close,
-                         friday_open, friday_close,
-                         saturday_open, saturday_close,
-                         sunday_open, sunday_close):
-
-    sql = text("""
-    UPDATE restaurant_request_hours
-SET
-    monday_open = :monday_open,
-    monday_close = :monday_close,
-    tuesday_open = :tuesday_open,
-    tuesday_close = :tuesday_close,
-    wednesday_open = :wednesday_open,
-    wednesday_close = :wednesday_close,
-    thursday_open = :thursday_open,
-    thursday_close = :thursday_close,
-    friday_open = :friday_open,
-    friday_close = :friday_close,
-    saturday_open = :saturday_open,
-    saturday_close = :saturday_close,
-    sunday_open = :sunday_open,
-    sunday_close = :sunday_close
-WHERE restaurant_id = :id
-RETURNING *;
-
-    """)
-    result = db.session.execute(sql,
-                                {
-                                    "id": restaurant_id,
-                                    "monday_open": monday_open,
-                                    "monday_close": monday_close,
-                                    "tuesday_open": tuesday_open,
-                                    "tuesday_close": tuesday_close,
-                                    "wednesday_open": wednesday_open,
-                                    "wednesday_close": wednesday_close,
-                                    "thursday_open": thursday_open,
-                                    "thursday_close": thursday_close,
-                                    "friday_open": friday_open,
-                                    "friday_close": friday_close,
-                                    "saturday_open": saturday_open,
-                                    "saturday_close": saturday_close,
-                                    "sunday_open": sunday_open,
-                                    "sunday_close": sunday_close
-                                }
-                                )
+      {
+        "id":restaurant_id,
+        "monday_open": monday_open,
+        "monday_close": monday_close,
+        "tuesday_open": tuesday_open,
+        "tuesday_close": tuesday_close,
+        "wednesday_open": wednesday_open,
+        "wednesday_close": wednesday_close,
+        "thursday_open": thursday_open,
+        "thursday_close": thursday_close,
+        "friday_open": friday_open,
+        "friday_close": friday_close,
+        "saturday_open": saturday_open,
+        "saturday_close": saturday_close,
+        "sunday_open": sunday_open,
+        "sunday_close": sunday_close
+      }
+    )
     db.session.commit()
     return result.fetchone()
 

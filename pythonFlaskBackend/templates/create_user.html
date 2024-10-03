@@ -1,11 +1,10 @@
 {%extends "layout.html"%}
 
 
-{% block headline %}<h2>Luo käyttäjä</h2>{% endblock %}
+{% block headline %}<h2>Luo uusi käyttäjä syöttämällä tiedot:</h2>{% endblock %}
 {% block content %}
 
 
-    <h2>Luo uusi käyttäjä syöttämällä tiedot</h2>
     <form action="/create" method="POST" onSubmit="return check(this)">
     <p>Tunnus:<br>
     <input type="text" name="username"></p>

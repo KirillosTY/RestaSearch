@@ -97,6 +97,7 @@ def create_restaurant(name, description, address,
 
     result = restaurant_db.create_restaurant(
         name, description, address).fetchone()
+    print(result, 'tässe se on')
     if result:
 
         hours = restaurant_db.create_hours(
@@ -173,7 +174,7 @@ def update_review(user_id, restaurant_id, rating, comment):
     return result
 
 
-def update_single(id, name, description, address,
+def update_single(restaurant_id, name, description, address,
                   monday_open, monday_close,
                   tuesday_open, tuesday_close,
                   wednesday_open, wednesday_close,
@@ -183,26 +184,28 @@ def update_single(id, name, description, address,
                   sunday_open, sunday_close,
                   genret):
 
-    restaurant_db.update_restaurant(id, name, description, address).fetchone()
+    restaurant_db.update_restaurant(restaurant_id, name, description, address).fetchone()
+    
+    if restaurant_db.check_hours_exist(restaurant_id):
+        restaurant_db.update_hours(
+            restaurant_id,
+            checkNone(monday_open),
+            checkNone(monday_close),
+            checkNone(tuesday_open),
+            checkNone(tuesday_close),
+            checkNone(wednesday_open),
+            checkNone(wednesday_close),
+            checkNone(thursday_open),
+            checkNone(thursday_close),
+            checkNone(friday_open),
+            checkNone(friday_close),
+            checkNone(saturday_open),
+            checkNone(saturday_close),
+            checkNone(sunday_open),
+            checkNone(sunday_close))
 
-    restaurant_db.update_hours(
-        id,
-        checkNone(monday_open),
-        checkNone(monday_close),
-        checkNone(tuesday_open),
-        checkNone(tuesday_close),
-        checkNone(wednesday_open),
-        checkNone(wednesday_close),
-        checkNone(thursday_open),
-        checkNone(thursday_close),
-        checkNone(friday_open),
-        checkNone(friday_close),
-        checkNone(saturday_open),
-        checkNone(saturday_close),
-        checkNone(sunday_open),
-        checkNone(sunday_close))
-
-    return get_single(id)
+        return get_single(restaurant_id)
+        
 
 
 def delete_restaurant(restaurant_id):
