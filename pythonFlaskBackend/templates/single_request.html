@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block headline %}<h2>Ravintolan muokkaus</h2>{% endblock %}
+{% block headline %}<h2>Ravintolan hyväksyntä</h2>{% endblock %}
 {% block content %}
 
 <h3>Muokkaa ravintolan tietoja!</h3>
@@ -50,11 +50,10 @@
   </table>
 
   
-  <p>Genret (erotellaan pilkulla, korkeintaan 5):<br>
-    <input type="text" name="genre" value="{{ restaurant.genre }}"></input>
-
+  
   <br>
-  <input type="submit" value="Tallenna">
+  <button type="submit" name="remove" value="remove">Hylkää</button>
+  <input type="submit" value="Hyväksy">
 </form>
 
 <script>

@@ -8,7 +8,11 @@ import re
 
 @app.route('/')
 def default():
-    check_access_before(False)
+
+    csrf = session.get("csrf_token")
+
+    if csrf is None:
+        return redirect('/login')  
     user = session.get("user") 
     print(user)
     favourite_rest_list = restaurants.get_favourites(session.get("user_id"))
@@ -109,6 +113,7 @@ def create():
 
 @app.route('/restaurants', methods=['GET', 'POST'])
 def restaurant_lists():
+    check_access_before(False)
     restaurants_found = restaurants.get_all()
     favourites_found = restaurants.get_favourites(session.get("user_id"))
 
@@ -321,55 +326,58 @@ def accept_restaurant(restaurant_id):
     rest = restaurants.get_single_request(restaurant_id)
     if request.method == 'GET':
         return render_template('single_request.html', id=id, restaurant=rest)
+    print( request.form.get('remove'),'this')
 
-    users.check_csrf()
-    name = request.form["name"]
-    description = request.form["description"]
-    address = request.form.get("address", None)
-    monday_open = request.form.get("monday_open", None)
-    tuesday_open = request.form.get("tuesday_open", None)
+    if request.method == 'POST' and request.form.get('remove') != 'remove':
+        users.check_csrf()
+        name = request.form["name"]
+        description = request.form["description"]
+        address = request.form.get("address", None)
+        monday_open = request.form.get("monday_open", None)
+        tuesday_open = request.form.get("tuesday_open", None)
 
-    wednesday_open = request.form.get("wednesday_open", None)
-    thursday_open = request.form.get("thursday_open", None)
-    friday_open = request.form.get("friday_open", None)
-    saturday_open = request.form.get("saturday_open", None)
-    sunday_open = request.form.get("sunday_open", None)
+        wednesday_open = request.form.get("wednesday_open", None)
+        thursday_open = request.form.get("thursday_open", None)
+        friday_open = request.form.get("friday_open", None)
+        saturday_open = request.form.get("saturday_open", None)
+        sunday_open = request.form.get("sunday_open", None)
 
-    monday_close = request.form.get("monday_close", None)
-    tuesday_close = request.form.get("tuesday_close", None)
-    wednesday_close = request.form.get("wednesday_close", None)
-    thursday_close = request.form.get("thursday_close", None)
-    friday_close = request.form.get("friday_close", None)
-    saturday_close = request.form.get("saturday_close", None)
-    sunday_close = request.form.get("sunday_close", None)
+        monday_close = request.form.get("monday_close", None)
+        tuesday_close = request.form.get("tuesday_close", None)
+        wednesday_close = request.form.get("wednesday_close", None)
+        thursday_close = request.form.get("thursday_close", None)
+        friday_close = request.form.get("friday_close", None)
+        saturday_close = request.form.get("saturday_close", None)
+        sunday_close = request.form.get("sunday_close", None)
 
-    genre = request.form.get("genre", None)
+        genre = request.form.get("genre", None)
 
-    restaurant_accepted = restaurants.create_restaurant(
-        name,
-        description,
-        address,
-        monday_open,
-        monday_close,
-        tuesday_open,
-        tuesday_close,
-        wednesday_open,
-        wednesday_close,
-        thursday_open,
-        thursday_close,
-        friday_open,
-        friday_close,
-        saturday_open,
-        saturday_close,
-        sunday_open,
-        sunday_close,
-        genre)
-    print(restaurant_accepted, 'seconds')
+        restaurant_accepted = restaurants.create_restaurant(
+            name,
+            description,
+            address,
+            monday_open,
+            monday_close,
+            tuesday_open,
+            tuesday_close,
+            wednesday_open,
+            wednesday_close,
+            thursday_open,
+            thursday_close,
+            friday_open,
+            friday_close,
+            saturday_open,
+            saturday_close,
+            sunday_open,
+            sunday_close,
+            genre)
+        if restaurant_accepted:
+            restaurants.delete_request(restaurant_id)
+            return redirect('/restaurants/' + str(restaurant_accepted[0]))
 
-    if restaurant_accepted:
+    else:
         restaurants.delete_request(restaurant_id)
-
-    return redirect('/restaurants/' + str(restaurant_accepted[0]))
+        return redirect('/restaurants/requests')
 
 
 @app.route('/create/restaurant', methods=['GET', 'POST'])
@@ -450,8 +458,8 @@ def create_restaurant():
 
 def check_access_before(admin_required):
     if not session.get('csrf_token'):
-
         abort(403)
+
     if admin_required:
         if not session.get("is_admin"):
             abort(403)

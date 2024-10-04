@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
+{% block title %}Ravintolat{% endblock %}
+
+
+{% block headline %}
+<h2 class="text-center">Ravintolat</h2>
+<hr>
+{% endblock %}
+
+{% block content %}
 <div class="container">
-  {% block title %}Ravintolat{% endblock %}
 
-  {% block headline %}
-  <h2>Ravintolat</h2>
-  {% endblock %}
-
-  {% block content %}
-  <hr>
   <form method="POST" class="form-inline mb-4">
     <label for="restaurant_query" class="mr-2">Etsi ravintolaa:</label>
     <input type="text" id="restaurant_query" name="restaurant_query" class="form-control mr-2">
@@ -21,38 +23,46 @@
   <p><a href="/create/restaurant" class="btn btn-warning">Luo uusi ravintolapyyntö</a></p>
   {% endif %}
 
-  <h2 class="text-info">Ravintolat:</h2>
   <div class="row">
-    {% for restaurant in restaurants %}
-    <div class="col-md-4 mb-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">
-            <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
-          </h5>
-          {% if searched %}
-          <p class="card-text">{{restaurant.description}}</p>
-          {% endif %}
+    <div class="col-md-6">
+      <h3 class="text-info">Ravintolat:</h3>
+      <div class="scrollable-column">
+        <!-- Restaurant List -->
+        {% for restaurant in restaurants %}
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
+            </h5>
+            {% if restaurant.average_rating %}
+            <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
+            {% endif %}
+            <p class="card-text">{{restaurant.description}}</p>
+          </div>
         </div>
+        {% endfor %}
       </div>
     </div>
-    {% endfor %}
-  </div>
 
-  <h2 class="text-info">Tykätyt ravintolat:</h2>
-  <div class="row">
-    {% for restaurant in favourited_restaurants %}
-    <div class="col-md-4 mb-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title">
-            <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
-          </h5>
+    <div class="col-md-6">
+      <h3 class="text-info">Tykätyt Ravintolat:</h3>
+      <div class="scrollable-column">
+        <!-- Favorited Restaurant List -->
+        {% for restaurant in favourited_restaurants %}
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
+            </h5>
+            {% if restaurant.average_rating %}
+            <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
+            {% endif %}
+            <p class="card-text">{{restaurant.description}}</p>
+          </div>
         </div>
+        {% endfor %}
       </div>
     </div>
-    {% endfor %}
   </div>
-
-  {% endblock %}
 </div>
+{% endblock %}

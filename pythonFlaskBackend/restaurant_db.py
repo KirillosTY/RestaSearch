@@ -11,11 +11,19 @@ def get_restaurants():
       r.address,
       r.description,
       r.gps_location,
-      r.added
+      r.added,
+      AVG(re.rating) as average_rating
+
     FROM
       restaurant r
+    LEFT JOIN
+      reviews re
+    ON
+      r.id = re.restaurant_id
+    GROUP BY
+      r.id, r.name, r.address, r.description, r.gps_location, r.added
     ORDER BY
-      r.added
+      r.added;
 
 
 
@@ -31,17 +39,24 @@ def get_favourite_restaurants(user_id):
       r.address,
       r.description,
       r.gps_location,
-      r.added
+      r.added,
+      AVG(re.rating) as average_rating
     FROM
       restaurant r
      JOIN
        favourite_restaurants fr
     ON
       r.id = fr.restaurant_id
+    left JOIN
+      reviews re
+    ON
+      r.id = re.restaurant_id
     WHERE
-    fr.user_id=:id
-     ORDER BY
-    r.added
+      fr.user_id=:id
+    GROUP BY
+      r.id, r.name, r.address, r.description, r.gps_location, r.added
+    ORDER BY
+      r.added;
 
                 """)
 
@@ -156,7 +171,7 @@ def get_single_request(restaurant_id):
       FROM
         restaurant_tobe_accepted r
         left JOIN
-        restaurant_hours rh
+        restaurant_request_hours rh
 
       ON
         r.id = rh.restaurant_id

@@ -68,7 +68,7 @@ CREATE TABLE restaurant_hours (
 );
 
 CREATE TABLE restaurant_request_hours (
-  restaurant_id INTEGER PRIMARY KEY REFERENCES restaurant(id) ON DELETE CASCADE,
+  restaurant_id INTEGER PRIMARY KEY REFERENCES restaurant_tobe_accepted(id) ON DELETE CASCADE,
   monday_open TIME,
   tuesday_open TIME,
   wednesday_open TIME,
@@ -94,3 +94,4 @@ CREATE TABLE restaurant_tobe_accepted (
     user_id INTEGER REFERENCES users(id),
     requested TIMESTAMP
 );
+

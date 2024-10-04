@@ -1,3 +1,4 @@
+/* Single restaurant site*/
 .rating {
   display: flex;
   flex-direction: row-reverse;
@@ -53,43 +54,75 @@
 
 }
 
+/*Navbar*/
 .container {
   overflow: auto;
+
 }
 
 body {
-  background-color: #f5f5f5;
+  background-color: #9BC0B1;
+  
 }
 
-.navbar {
-  background-color: #004d00;
-  /* Dark green background */
-}
+ .navbar, .navbar-nav {
+  background-color: #1F322B !important;
+  min-height: 10%;
+  max-height: 15%;
+  display:flex;
+  align-content: center;
+  flex-direction: row;
+  justify-content:space-evenly;
 
-.navbar .nav-link,
+}
 .navbar-brand {
-  color: #ffa500 !important;
-  /* Dark orange text */
+  align-self:center;
+  font-size: 2rem !important; 
+
+}
+
+.nav-item {
+    padding: 5px 10px; /* Padding for better spacing */
+
+}
+.nav-link,
+.navbar-brand {
+  color: #F75C03 !important;
+  text-align: center; 
+  align-self:unset;
+  min-width:fit-content;
+  text-shadow: 3px 3px 6px rgba(70, 48, 48, 0.4); /* Slightly stronger shadow on hover */
+  font-size: 1.2rem; /* Increase the text size */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow with slight blur */
+  color: #FFFFFF; /* Text color */
+  padding: 10px 10px; /* Padding for better spacing */
+  
+
 }
 
 .navbar .nav-link:hover {
   color: #ff7f00 !important;
-  /* Darker orange on hover */
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
 }
 
+/*restaurants*/
+
 .btn-primary {
-  background-color: #004d00;
+  background-color: #1F322B;
   border-color: #004d00;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
 }
 
 .btn-primary:hover {
-  background-color: #006400;
+  background-color: #1F322B;
   border-color: #006400;
 }
 
+
+
 .card {
-  border-color: #004d00;
-  /* Dark green border for cards */
+  border-color: #D2D4C8;
+  background-color: #E0E2DB;
 }
 
 .card-title a {
@@ -100,6 +133,28 @@ body {
 .card-title a:hover {
   color: #ffa500 !important;
   /* Dark orange on hover */
+}
+
+
+
+h2 {
+  color: #004d00;
+}
+
+hr {
+  border-top: 2px solid #004d00;
+}
+
+footer {
+  color: #004d00;
+}
+
+ /* Custom Colors */
+ .btn-primary, .btn-warning {
+  background-color: #1F322B;
+  border-color: #426A5A;
+  color: #ff7f00;
+  font-size: 1.5rem;
 }
 
 .btn-success,
@@ -114,17 +169,73 @@ body {
   background-color: #ff7f00;
   border-color: #ff7f00;
 }
+.btn-success {
+  background-color: #006400; 
+  border-color: #006400;
+}
+/* Padding for the whole page */
+.container {
+  padding: 20px 40px;
+}
+.scrollable-column {
+  display:block;
+  overflow-y: auto;
+  padding-bottom: 10px;
 
-h2 {
-  color: #004d00;
-  /* Headings dark green */
+}
+.scrollable-column::-webkit-scrollbar {
+  height: 8px;
+}
+.scrollable-column::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+/* Card adjustments */
+.card {
+  margin: 10px;  height: 8px;
+  min-width: 250px;
+  min-height: 150px;
+  max-height: 200px;
+  margin-right: 15px;
+  overflow:hidden;
+
+}
+.card-body {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
 }
 
-hr {
-  border-top: 2px solid #004d00;
-  /* Dark green horizontal rule */
+.col-6-md {
+  max-height: 100%;
+  background-color: #004d00;
 }
 
-footer {
-  color: #004d00;
+.default-title {
+  font-size: 2rem !important; 
+  color: #F75C03 !important;
+  text-align: center; 
+  align-self:unset;
+  min-width:fit-content;
+  text-shadow: 3px 3px 6px rgba(70, 48, 48, 0.4); /* Slightly stronger shadow on hover */
+  font-size: 1.2rem; /* Increase the text size */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow with slight blur */
+  color: #FFFFFF; /* Text color */
+  padding: 10px 10px; /* Padding for better spacing */
 }
+
+/* Login */
+.form-group-login {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  
+}
+
+.access_link {
+    font-size: 1.5rem;
+    color: #d95001;
+    
+}
+
