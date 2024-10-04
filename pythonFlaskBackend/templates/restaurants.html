@@ -3,53 +3,50 @@
 
 
 {% block headline %}
-<h2 class="text-center">Ravintolat</h2>
-<hr>
+<h2 class="text-center default-title">Ravintolat</h2>
 {% endblock %}
 
 {% block content %}
 <div class="container">
 
-  <form method="POST" class="form-inline mb-4">
-    <label for="restaurant_query" class="mr-2">Etsi ravintolaa:</label>
+  <form method="POST" class="form-inline mb-4 ">
+    <label for="restaurant_query" class="mr-2 info">Etsi ravintolaa:</label>
     <input type="text" id="restaurant_query" name="restaurant_query" class="form-control mr-2">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="submit" class="btn btn-primary" value="Etsi">
   </form>
 
-  {% if session.is_admin %}
-  <p><a href="/create/restaurant" class="btn btn-success">Luo uusi ravintola</a></p>
+  {% if session.is_admin  %}
+  <a href="/create/restaurant" class="btn btn-primary restaraunt-create">Luo uusi ravintola</a>
   {% else %}
-  <p><a href="/create/restaurant" class="btn btn-warning">Luo uusi ravintolapyyntö</a></p>
+  <a href="/create/restaurant" class="btn btn-primary restaraunt-create">Luo uusi ravintolapyyntö</a>
   {% endif %}
 
   <div class="row">
     <div class="col-md-6">
-      <h3 class="text-info">Ravintolat:</h3>
-      <div class="scrollable-column">
-        <!-- Restaurant List -->
+      <h3 class="text-info default-title">Ravintolat:</h3>
+      <div class="scrollable-column list-group " id="restaurant_descriptions">
         {% for restaurant in restaurants %}
-        <div class="card h-100">
+        <div class="card h-100 list-group-item">
           <div class="card-body">
-            <h5 class="card-title">
+            <h5 class="card-title"> 
               <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
             </h5>
             {% if restaurant.average_rating %}
             <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
             {% endif %}
-            <p class="card-text">{{restaurant.description}}</p>
+            <p class="card-text" id="{{restaurant.name+'_description'}}">{{restaurant.description}})</p>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
 
-    <div class="col-md-6">
-      <h3 class="text-info">Tykätyt Ravintolat:</h3>
-      <div class="scrollable-column">
-        <!-- Favorited Restaurant List -->
+    <div class="col-md-6 list-group">
+      <h3 class="text-info default-title">Tykätyt Ravintolat:</h3>
+      <div class="scrollable-column list-group">
         {% for restaurant in favourited_restaurants %}
-        <div class="card h-100">
+        <div class="card h-100 list-group-item">
           <div class="card-body">
             <h5 class="card-title">
               <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
@@ -65,4 +62,19 @@
     </div>
   </div>
 </div>
+
+<script>
+ function text_long(text) {
+document.addEventListener("DOMContentLoaded", function () {
+  let descriptions = document.querySelectorAll('.restaurant_description');
+
+  descriptions.forEach(function (el) {
+    if (el.innerText.length > 200) {
+      el.innerText = el.innerText.substring(0, 200) + "...";
+    }
+  });
+});  
+ }
+
+</script>
 {% endblock %}

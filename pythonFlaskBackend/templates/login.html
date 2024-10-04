@@ -6,7 +6,7 @@
 
 <div class="form-group-login">
 
-<form  class="form-group-login" action="/login" method="POST" onsubmit="return check(this)">
+<form  class="form-group" action="/login" method="POST" onsubmit="return check(this)">
   <div class="form-group">
     <label for="username">Käyttäjätunnus:</label>
     <input type="username" name="username" class="form-control" id="username" aria-describedby="username">
@@ -14,12 +14,11 @@
   <div class="form-group">
     <label for="password">Salasana:</label>
     <input type="password" name="password" class="form-control" id="password" aria-describedby="password_help">
-    <small id="password_help" class="form-text text-muted">Salasanan tulee olla vähintään 8 merkkiä pitkä sekä sen pitää sisältää 1 pieni ja iso kirjain sekä yksi numero</small>
 
   </div>
-  <input type="submit" class="btn btn-primary" value="Kirjaudu">
-  <a class="access_link" href="/create">Luo uusi käyttäjä</a>
-</div>
+  <input type="submit" class="btn btn-primary form-group" value="Kirjaudu">
+  <a class="access_link form-group" href="/create">Luo uusi käyttäjä</a>
+
   </form>
   </div>
   </div>

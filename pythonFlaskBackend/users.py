@@ -47,7 +47,7 @@ def create(username, password, is_admin):
         return False
 
     return login(username, password)
-
+  
 
 def checkSession():
     if session["csrf_token"] != request.form["csrf_token"]:

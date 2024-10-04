@@ -55,13 +55,15 @@
 }
 
 /*Navbar*/
+
 .container {
   overflow: auto;
-
+  display: flex;
+  flex-direction: column;
 }
 
 body {
-  background-color: #9BC0B1;
+  background-color: #3F6456;
   
 }
 
@@ -73,6 +75,7 @@ body {
   align-content: center;
   flex-direction: row;
   justify-content:space-evenly;
+  font-family:'New Century Schoolbook, TeX Gyre Schola, serif';
 
 }
 .navbar-brand {
@@ -87,6 +90,8 @@ body {
 }
 .nav-link,
 .navbar-brand {
+  font-family:'New Century Schoolbook, TeX Gyre Schola, serif';
+
   color: #F75C03 !important;
   text-align: center; 
   align-self:unset;
@@ -107,39 +112,24 @@ body {
 
 /*restaurants*/
 
-.btn-primary {
-  background-color: #1F322B;
-  border-color: #004d00;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
-}
 
-.btn-primary:hover {
-  background-color: #1F322B;
-  border-color: #006400;
+
+.restaraunt-create {
+  max-width: 100%;
+  align-self: center;
+  width: 45%;
 }
 
 
 
-.card {
-  border-color: #D2D4C8;
-  background-color: #E0E2DB;
-}
-
-.card-title a {
-  color: #004d00 !important;
-  /* Dark green links */
-}
-
-.card-title a:hover {
-  color: #ffa500 !important;
-  /* Dark orange on hover */
+.form-inline {
+  border-color: #ccc;
+  border-radius: 20%;
+  align-self: center;
+  min-width: 30%;
 }
 
 
-
-h2 {
-  color: #004d00;
-}
 
 hr {
   border-top: 2px solid #004d00;
@@ -147,6 +137,37 @@ hr {
 
 footer {
   color: #004d00;
+}
+  /* restaurant creation */
+  .form-group-creation {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    color: #F75C03;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+    font-size: 1.5rem;
+    max-height: fit-content;
+  
+    
+  }
+.creation {
+  min-width: 100% !important
+}
+.description{
+  min-height: 200px;
+}
+.date {
+  width: 200%;
+  align-self: center;
+}
+
+.d-inline {
+
+  color: #F75C03 !important;
+  font-size: 1.3rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+
 }
 
  /* Custom Colors */
@@ -157,6 +178,18 @@ footer {
   font-size: 1.5rem;
 }
 
+.btn-primary:hover {
+  background-color: #294239;
+  border-color: #426A5A;
+  color: #ff7f00;
+  font-size: 1.5rem;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #294239;
+  border-color: #ff7f00;
+}
 .btn-success,
 .btn-warning {
   background-color: #ffa500;
@@ -178,7 +211,9 @@ footer {
   padding: 20px 40px;
 }
 .scrollable-column {
-  display:block;
+  border-radius: 25px;
+
+  max-height: 30%;
   overflow-y: auto;
   padding-bottom: 10px;
 
@@ -192,19 +227,46 @@ footer {
 }
 /* Card adjustments */
 .card {
-  margin: 10px;  height: 8px;
+  
+  border-radius: 25px;
+  margin-top: 20px;  
+  height: 8px;
   min-width: 250px;
-  min-height: 150px;
+  min-height: 200px;
   max-height: 200px;
   margin-right: 15px;
   overflow:hidden;
+  
 
 }
-.card-body {
+.card-body, .card-text {
   text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 1.2  rem;
+    color: #1F322B;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+
+  
   
 }
+
+.card {
+  border-color: #D2D4C8;
+  background-color: #E8DDB5;
+}
+
+.card-title a {
+  font-size: 2rem;
+    color: #9e3b02;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+
+}
+
+.card-title a:hover {
+  color: #F75C03 !important;
+  /* Dark orange on hover */
+}
+
+
 
 .col-6-md {
   max-height: 100%;
@@ -212,16 +274,36 @@ footer {
 }
 
 .default-title {
-  font-size: 2rem !important; 
+  font-size: 3.5rem !important; 
   color: #F75C03 !important;
   text-align: center; 
   align-self:unset;
   min-width:fit-content;
-  text-shadow: 3px 3px 6px rgba(70, 48, 48, 0.4); /* Slightly stronger shadow on hover */
   font-size: 1.2rem; /* Increase the text size */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow with slight blur */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
   color: #FFFFFF; /* Text color */
   padding: 10px 10px; /* Padding for better spacing */
+  font-family:'New Century Schoolbook, TeX Gyre Schola, serif';
+
+}
+
+.checkbox-group {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  margin: 5px 50px;
+  
+ 
+}
+
+.checkbox {
+  width:30px;
+  height:30px;
+  background:white;
+  border:2px solid #555;
+
+  margin-left: 10px;
+
 }
 
 /* Login */
@@ -230,12 +312,39 @@ footer {
   flex-direction: column;
   align-self: center;
   justify-content: center;
+  color: #F75C03;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+  font-size: 1.5rem;
+  max-height: fit-content;
+
   
 }
 
-.access_link {
-    font-size: 1.5rem;
-    color: #d95001;
-    
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  min-width: 50%;
+  width: 30%;
+  max-width: 50%;
+  
 }
 
+.form-text{
+    color: #F75C03;
+}
+
+.info {
+  color: #F75C03 !important;
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+
+}
+
+.access_link, .access_link:hover {
+    font-size: 1.5rem;
+    color: #d95001;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+
+    
+}

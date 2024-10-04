@@ -8,7 +8,7 @@ import re
 
 @app.route('/')
 def default():
-
+ 
     csrf = session.get("csrf_token")
 
     if csrf is None:

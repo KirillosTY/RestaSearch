@@ -12,7 +12,7 @@ def get_restaurants():
       r.description,
       r.gps_location,
       r.added,
-      AVG(re.rating) as average_rating
+      ROUND(AVG(re.rating),1) as average_rating
 
     FROM
       restaurant r
@@ -40,7 +40,7 @@ def get_favourite_restaurants(user_id):
       r.description,
       r.gps_location,
       r.added,
-      AVG(re.rating) as average_rating
+      ROUND(AVG(re.rating),1) as average_rating
     FROM
       restaurant r
      JOIN

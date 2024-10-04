@@ -1,60 +1,104 @@
-{%extends "layout.html"%}
+{% extends "layout.html" %}
 
+{% block headline %}
+<h2 class="default-title">Ravintolan luonti</h2>
+{% endblock %}
 
-{% block headline %}<h2>Ravintolan luonti</h2>{% endblock %}
 {% block content %}
+<div class="form-group-creation ">
+    <h2 class="default-title">Luo uusi ravintola syöttämällä tiedot!</h2>
+    
+    <form action="/create/restaurant" method="POST" class="form-group" onSubmit="return checkRestaurant(this)">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
-  
-    <h2>Luo uusi ravintola syöttämällä tiedot!</h2>
-    <form action="/create/restaurant" method="POST" onSubmit="return checkRestaurant(this)">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      <div class="form-group creation ">
+        <label for="name">Nimi:</label>
+        <input type="text" name="name" class="form-control" id="name">
+      </div>
 
-    <p>Nimi:<br>
-    <input type="text" name="name"></input>
-    <br>
-    <p>Kuvaus:</p>
-    <textarea type="text" name="description"></textarea>
-    <p>Osoite:<br>
-    <input type="text" name="address"></input>
-    <br>
-    <p>Aukioloajat:<br>
+      <div class="form-group creation description">
+        <label for="description">Kuvaus:</label>
+        <textarea name="description" class="form-control  description" id="description"></textarea>
+      </div>
 
-    <table>
-      
-      <tr><th>Maanantai</th><td>Aukeaa:<input placeholder="None" type="time" name="monday_open" ></input>  Sulkeutuu:<input placeholder="None"  type="time" name="monday_close"></input></td></tr>
-      <tr><th>Tiistai</th><td>Aukeaa:<input placeholder="None" type="time" name="tuesday_open"></input>  Sulkeutuu:<input type="time"  placeholder="None" name="tuesday_close"></input></td></tr>
-      <tr><th>Keskiviikko</th><td>Aukeaa:<input placeholder="None"  type="time" name="wednesday_open"></input>  Sulkeutuu:<input  placeholder="None" type="time"  name="wednesday_close"></input></td></tr>
-      <tr><th>Torstai</th><td>Aukeaa:<input placeholder="None" type="time" name="thursday_open"></input>  Sulkeutuu:<input placeholder="None"  type="time" name="thursday_close"></input></td></tr>
-      <tr><th>Perjantai</th><td>Aukeaa:<input placeholder="None" type="time" name="friday_open"></input>  Sulkeutuu:<input placeholder="None"  type="time" name="friday_close"></input></td></tr>
-      <tr><th>Lauantai</th><td>Aukeaa:<input placeholder="None"  type="time" name="saturday_open"></input>  Sulkeutuu:<input placeholder="None"  type="time" name="saturday_close"></input></td></tr>
-      <tr><th>Sunnuntai</th><td>Aukeaa:<input placeholder="None" type="time" name="sunday_open"></input>  Sulkeutuu:<input  placeholder="None" type="time" name="sunday_close"></input></td></tr>
+      <div class="form-group creation">
+        <label for="address">Osoite:</label>
+        <input type="text" name="address" class="form-control" id="address">
+      </div>
 
-      </table> 
+      <label for="dates" >Aukioloajat:</label>
+      <div class="form-group" >
+        
+        <table id="dates" class="table table-bordered date">
+          <tr>
+            <th class="info">Maanantai</th>
+            <td class="info">
+              Aukeaa:<input type="time" name="monday_open" class="form-control d-inline w-auto">
+              Sulkeutuu:<input type="time" name="monday_close" class="form-control d-inline w-auto">
+            </td>
+          </tr>
+          <tr>
+            <th class="info">Tiistai</th>
+            <td class="info">
+              Aukeaa:<input type="time" name="tuesday_open" class="form-control d-inline w-auto">
+              Sulkeutuu:<input type="time" name="tuesday_close" class="form-control d-inline w-auto">
+            </td>
+          </tr>
+          <tr>
+            <th class="info">Keskiviikko</th>
+            <td class="info">
+              Aukeaa:<input type="time" name="wednesday_open" class="form-control d-inline w-auto">
+              Sulkeutuu:<input type="time" name="wednesday_close" class="form-control d-inline w-auto">
+            </td>
+          </tr>
+          <tr>
+            <th class="info">Torstai</th>
+            <td class="info">
+              Aukeaa:<input type="time" name="thursday_open" class="form-control d-inline w-auto">
+              Sulkeutuu:<input type="time" name="thursday_close" class="form-control d-inline w-auto">
+            </td>
+          </tr>
+          <tr>
+            <th class="info">Perjantai</th>
+            <td class="info">
+              Aukeaa:<input type="time" name="friday_open" class="form-control d-inline w-auto">
+              Sulkeutuu:<input type="time" name="friday_close" class="form-control d-inline w-auto">
+            </td>
+          </tr>
+          <tr>
+            <th class="info">Lauantai</th>
+            <td class="info">
+              Aukeaa:<input type="time" name="saturday_open" class="form-control d-inline w-auto">
+              Sulkeutuu:<input type="time" name="saturday_close" class="form-control d-inline w-auto">
+            </td>
+          </tr>
+          <tr>
+            <th class="info">Sunnuntai</th>
+            <td class="info">
+              Aukeaa:<input type="time" name="sunday_open" class="form-control d-inline w-auto">
+              Sulkeutuu:<input type="time" name="sunday_close" class="form-control d-inline w-auto">
+            </td>
+          </tr>
+        </table>
+      </div>
 
-    {% if session.is_admin== true%}
-    <p>Genret (erotellaan pilkulla, korkeintaan 5):<br>
-      <input type="text" name="genre"></input>
-    {% endif %}
-    <br>
-    <input type="submit">
-
+      <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Luo ravintola">
+      </div>
     </form>
+</div>
 
-
-    <script>
-      function check(form) {
-          if (form.name.value.length >= 16 || form.name.value.length <= 2) {
-              alert("Käyttäjätunnuksen tulee olla 4-16 merkkiä pitkä");
-              return false;
-          }
-          if (form.description.value.length < 8) {
-              alert("Kuvauksen tulee sisältää ainakin 8 merkkiä")
-              return false;
-          }
-
-  
-          return true;
-      }
-      </script>
-
+<script>
+  function checkRestaurant(form) {
+    if (form.name.value.length < 2 || form.name.value.length > 16) {
+      alert("Nimen tulee olla 2-16 merkkiä pitkä");
+      return false;
+    }
+    if (form.description.value.length < 8) {
+      alert("Kuvauksen tulee olla vähintään 8 merkkiä pitkä");
+      return false;
+    }
+    return true;
+  }
+</script>
 {% endblock %}
