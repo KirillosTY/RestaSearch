@@ -33,9 +33,9 @@
               <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
             </h5>
             {% if restaurant.average_rating %}
-            <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
+            <h6 class="card-text ">Arvosana: {{restaurant.average_rating}}</h6>
             {% endif %}
-            <p class="card-text" id="{{restaurant.name+'_description'}}">{{restaurant.description}})</p>
+            <p class="card-text text-truncate text-nowrap" id="{{restaurant.name+'_description'}}">{{restaurant.description}})</p>
           </div>
         </div>
         {% endfor %}
@@ -54,7 +54,7 @@
             {% if restaurant.average_rating %}
             <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
             {% endif %}
-            <p class="card-text">{{restaurant.description}}</p>
+            <p class="card-text text-truncate">{{restaurant.description}}</p>
           </div>
         </div>
         {% endfor %}

@@ -3,7 +3,7 @@
 
 
 
-  {% block headline %} <h2>{{restaurant.name}}</h2>
+  {% block headline %} <h2 class="default-title">{{restaurant.name}}</h2>
   {%if restaurant%}
   <form  method="POST" >
     {% if session.is_admin %}
@@ -22,58 +22,63 @@
   </form>
   {% endif %}{% endblock %}
   {% block content %}
-
+  <div class="form-group-creation ">
+    <div class="row">
+      <div class="col-10 text-truncate">
       <p><b>{{restaurant.description}}</b></p>
-      <p>Osoite: {{restaurant.address}}<br>
+    </div>
+    </div>
+      <p>Osoite: {{restaurant.address}}<br></p>
+    
       <br>
-      <h3>Aukioloajat:</h3>
-      <table>
+      <h2 for="default-title" >Aukioloajat:</h2>
+      <table class="hours-open">
         {% if restaurant.monday_open and restaurant.monday_close %}
-        <tr>
-            <th>Maanantai</th>
-            <td>Aukeaa: {{ restaurant.monday_open }} ja Sulkeutuu: {{ restaurant.monday_close }}</td>
+        <tr class="hours-row">
+            <th class="info label">Maanantai</th>
+            <td class="info">Aukeaa: {{ restaurant.monday_open }} ja Sulkeutuu: {{ restaurant.monday_close }}</td>
         </tr>
         {% endif %}
         
         {% if restaurant.tuesday_open and restaurant.tuesday_close %}
-        <tr>
-            <th>Tiistai</th>
-            <td>Aukeaa: {{ restaurant.tuesday_open }} ja Sulkeutuu: {{ restaurant.tuesday_close }}</td>
+        <tr class="hours-row">
+            <th class="info label">Tiistai</th>
+            <td class="info">Aukeaa: {{ restaurant.tuesday_open }} ja Sulkeutuu: {{ restaurant.tuesday_close }}</td>
         </tr>
         {% endif %}
         
         {% if restaurant.wednesday_open and restaurant.wednesday_close %}
-        <tr>
-            <th>Keskiviikko</th>
-            <td>Aukeaa: {{ restaurant.wednesday_open }} ja Sulkeutuu: {{ restaurant.wednesday_close }}</td>
+        <tr class="hours-row">
+            <th class="info label">Keskiviikko</th>
+            <td class="info">Aukeaa: {{ restaurant.wednesday_open }} ja Sulkeutuu: {{ restaurant.wednesday_close }}</td>
         </tr>
         {% endif %}
         
         {% if restaurant.thursday_open and restaurant.thursday_close %}
-        <tr>
-            <th>Torstai</th>
-            <td>Aukeaa: {{ restaurant.thursday_open }} ja Sulkeutuu: {{ restaurant.thursday_close }}</td>
+        <tr class="hours-row">
+            <th class="info label">Torstai</th>
+            <td class="info">Aukeaa: {{ restaurant.thursday_open }} ja Sulkeutuu: {{ restaurant.thursday_close }}</td>
         </tr>
         {% endif %}
         
         {% if restaurant.friday_open and restaurant.friday_close %}
-        <tr>
-            <th>Perjantai</th>
-            <td>Aukeaa: {{ restaurant.friday_open }} ja Sulkeutuu: {{ restaurant.friday_close }}</td>
+        <tr class="hours-row">
+            <th class="info label">Perjantai</th>
+            <td class="info">Aukeaa: {{ restaurant.friday_open }} ja Sulkeutuu: {{ restaurant.friday_close }}</td>
         </tr>
         {% endif %}
         
         {% if restaurant.saturday_open and restaurant.saturday_close %}
-        <tr>
-            <th>Lauantai</th>
-            <td>Aukeaa: {{ restaurant.saturday_open }} ja Sulkeutuu: {{ restaurant.saturday_close }}</td>
+        <tr class="hours-row">
+            <th class="info label">Lauantai</th>
+            <td class="info">Aukeaa: {{ restaurant.saturday_open }} ja Sulkeutuu: {{ restaurant.saturday_close }}</td>
         </tr>
         {% endif %}
         
         {% if restaurant.sunday_open and restaurant.sunday_close %}
-        <tr>
-            <th>Sunnuntai</th>
-            <td>Aukeaa: {{ restaurant.sunday_open }} ja Sulkeutuu: {{ restaurant.sunday_close }}</td>
+        <tr class="hours-row">
+            <th class="info label">Sunnuntai</th>
+            <td class="info">Aukeaa: {{ restaurant.sunday_open }} ja Sulkeutuu: {{ restaurant.sunday_close }}</td>
         </tr>
         {% endif %}
         
@@ -147,6 +152,8 @@
       <p>{{review.comment}}</p>
      {%  if session.isAdmin or session.user_id==review.id %}  <form method="POST"><button name="review_delete" value="review_delete" type="submit">Poista</button> </form>{%endif%}
     {%endfor%}
+  </div>
+
   {% endblock %}
   
 

@@ -265,6 +265,17 @@ footer {
   color: #F75C03 !important;
   /* Dark orange on hover */
 }
+.hours-open, .th{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  border-collapse: collapse;
+  border: #1F322B 0px solid;
+}
+
+.hours-row {
+  
+}
 
 
 

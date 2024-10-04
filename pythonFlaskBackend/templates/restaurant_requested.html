@@ -1,22 +1,28 @@
 {%extends "layout.html"%}
 
 
-{% block headline %}<h2>Ravintola toiveita</h2>{% endblock %}
+{% block headline %}<h2 class="default-title">Toivotut ravintolat:</h2>{% endblock %}
 {% block content %}
-<hr>
-  <ul>
-    {% for restaurant in restaurants %}
-    <li>
-      <h3>Lisätty listalle {{restaurant.requested}} käyttäjän {{restaurant.user}} toimesta</h3>
-     {%if session.is_admin %} <a href='/restaurants/{{restaurant.id}}/request'>{{restaurant.name}}</a>
-     {%else%}
-      <p></p>
-      {%endif%}
-      <p><b>{{restaurant.name}}</b><p>
-      <p>{{restaurant.description}}</p>
-    </li> 
-    {% endfor%}
-    </ul>
+<div class="row">
+  <div class="col-md-12">
+    <div class="scrollable-column list-group " id="restaurant_descriptions">
+      {% for restaurant in restaurants %}
+      <div class="card h-100 list-group-item">
+        <div class="card-body">
+          <h5 class="card-title"> 
+            <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
+          </h5>
+          {% if restaurant.average_rating %}
+          <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
+          {% endif %}
+          <p class="card-text text-truncate" id="{{restaurant.name+'_description'}}">{{restaurant.description}})</p>
+          <p class="card-text text-truncate" id="{{restaurant.name+'_description'}}">{{restaurant.description}})</p>
+
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 
 {% endblock %}
 
