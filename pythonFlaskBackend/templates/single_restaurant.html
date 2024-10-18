@@ -1,162 +1,139 @@
-{%extends "layout.html"%}
+{% extends "layout.html" %}
+
 {% if restaurant %}
 
+{% block headline %}
+<h2 class="default-title">{{restaurant.name}}</h2>
+{% endblock %}
 
-
-  {% block headline %} <h2 class="default-title">{{restaurant.name}}</h2>
-  {%if restaurant%}
-  <form  method="POST" >
+{% block content %}
+<div class="form-group-single-rest">
+  <form method="POST">
     {% if session.is_admin %}
-    <button type="submit" name="remove" value="remove">Poista</button>
-    <button type="submit" name="edit"value="edit">Muokkaa</button>
-    {%endif%}
+      <button type="submit" name="remove" value="remove" class="btn btn-delete">Poista</button>
+      <button type="submit" name="edit" value="edit" class="btn btn-edit">Muokkaa</button>
+    {% endif %}
 
-   {% if favourited %}
-    <button type="submit" name="remove_favourite"value="remove_favourite">poista tykkäyksistä</button> 
+    {% if favourited %}
+    <button type="submit" name="remove_favourite" value="remove_favourite" class="btn btn-warning">Poista tykkäyksistä</button>
     {% else %}
-    <button type="submit" name="favourite"value="favourite">Lisää tykkäyksiin</button> 
+    <button type="submit" name="favourite" value="favourite" class="btn btn-primary">Lisää tykkäyksiin</button>
+    {% endif %}
 
-    {%endif%}
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-
   </form>
-  {% endif %}{% endblock %}
-  {% block content %}
-  <div class="form-group-creation ">
-    <div class="row">
-      <div class="col-10 text-truncate">
-      <p><b>{{restaurant.description}}</b></p>
-    </div>
-    </div>
-      <p>Osoite: {{restaurant.address}}<br></p>
-    
-      <br>
-      <h2 for="default-title" >Aukioloajat:</h2>
-      <table class="hours-open">
-        {% if restaurant.monday_open and restaurant.monday_close %}
-        <tr class="hours-row">
-            <th class="info label">Maanantai</th>
-            <td class="info">Aukeaa: {{ restaurant.monday_open }} ja Sulkeutuu: {{ restaurant.monday_close }}</td>
-        </tr>
-        {% endif %}
-        
-        {% if restaurant.tuesday_open and restaurant.tuesday_close %}
-        <tr class="hours-row">
-            <th class="info label">Tiistai</th>
-            <td class="info">Aukeaa: {{ restaurant.tuesday_open }} ja Sulkeutuu: {{ restaurant.tuesday_close }}</td>
-        </tr>
-        {% endif %}
-        
-        {% if restaurant.wednesday_open and restaurant.wednesday_close %}
-        <tr class="hours-row">
-            <th class="info label">Keskiviikko</th>
-            <td class="info">Aukeaa: {{ restaurant.wednesday_open }} ja Sulkeutuu: {{ restaurant.wednesday_close }}</td>
-        </tr>
-        {% endif %}
-        
-        {% if restaurant.thursday_open and restaurant.thursday_close %}
-        <tr class="hours-row">
-            <th class="info label">Torstai</th>
-            <td class="info">Aukeaa: {{ restaurant.thursday_open }} ja Sulkeutuu: {{ restaurant.thursday_close }}</td>
-        </tr>
-        {% endif %}
-        
-        {% if restaurant.friday_open and restaurant.friday_close %}
-        <tr class="hours-row">
-            <th class="info label">Perjantai</th>
-            <td class="info">Aukeaa: {{ restaurant.friday_open }} ja Sulkeutuu: {{ restaurant.friday_close }}</td>
-        </tr>
-        {% endif %}
-        
-        {% if restaurant.saturday_open and restaurant.saturday_close %}
-        <tr class="hours-row">
-            <th class="info label">Lauantai</th>
-            <td class="info">Aukeaa: {{ restaurant.saturday_open }} ja Sulkeutuu: {{ restaurant.saturday_close }}</td>
-        </tr>
-        {% endif %}
-        
-        {% if restaurant.sunday_open and restaurant.sunday_close %}
-        <tr class="hours-row">
-            <th class="info label">Sunnuntai</th>
-            <td class="info">Aukeaa: {{ restaurant.sunday_open }} ja Sulkeutuu: {{ restaurant.sunday_close }}</td>
-        </tr>
-        {% endif %}
-        
-        </table> 
 
-      <h3>Genret: {{restaurant.genre}}</h3><br>
-        
-      <hr>
-      {% if not reviewed %}
-      <h3>Arvioi:</h3>
-      <form method="POST" >
-      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-
-        <div class="rating">
-        <input  type="radio" name="rating" title="star5" value="5" />
-        <input type="radio"  name="rating" title="star4" value="4" />
-        <input type="radio" name="rating" title="star3" value="3" checked />
-        <input type="radio" name="rating" title="star2" value="2" />
-        <input type="radio" checked="true" name="rating" title="star1" value="1" />
-        Arvosana:
-        </div>
-        <div class="textAreas"> 
-        <textarea class="textAreas" placeholder="Kirjoita arvostelu tänne!" type="text" name="comment"></textarea>
-        </div>
-        
-        <button class="sendReview" name="review" value="review" type="submit">Lähetä arvio!</button>
-      </form>
-
-      {% else %}
-
-      <h3>Päivitä arvostelu</h3>
-      <form method="POST" >
-        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-
-        <div class="rating">
-        <input type="radio" {% if reviewed.rating==5 %} checked {%endif%} name="rating" title="star5" value="5" />
-        <input type="radio"  {% if reviewed.rating==4 %} checked {%endif%} name="rating" title="star4" value="4" />
-        <input type="radio"  {% if reviewed.rating==3 %} checked {%endif%} name="rating" title="star3" value="3"  />
-        <input type="radio"  {% if reviewed.rating==2 %} checked {%endif%} name="rating" title="star2" value="2" />
-        <input type="radio"   {% if reviewed.rating==1 %} checked {%endif%} name="rating" title="star1" value="1" />
-        Arvosana:
-        </div>
-        <div class="textAreas"> 
-        <textarea class="textAreas" placeholder="Kirjoita arvostelu tänne!" type="text" name="comment">{{reviewed.comment}}</textarea>
-        </div>
-        
-        <button class="sendReview" name="review_update" value="review_update" type="submit">Lähetä arvio!</button>
-      </form>
-
-
-
-      {% endif %}
-      
-      <br>
-    
-    
-    {% for review in reviews %}
+  <div class="restaurant-details">
+    <p class="info"><b>{{restaurant.description}}</b></p>
+    <p class="info">Osoite: {{restaurant.address}}</p>
     <hr>
-    <h3>{{review.username}}</h3>
 
-      <h3> Arvio:
-        {% for i in range(review.rating) %}
-        &#9733;
+    <h2 class="default-title">Aukioloajat:</h2>
+    <table class="table table-bordered hours-open">
+      {% if restaurant.monday_open and restaurant.monday_close %}
+      <tr>
+        <th class="info">Maanantai</th>
+        <td class="info">Aukeaa: {{ restaurant.monday_open }} - Sulkeutuu: {{ restaurant.monday_close }}</td>
+      </tr>
+      {% endif %}
+      {% if restaurant.tuesday_open and restaurant.tuesday_close %}
+      <tr>
+        <th class="info">Tiistai</th>
+        <td class="info">Aukeaa: {{ restaurant.tuesday_open }} - Sulkeutuu: {{ restaurant.tuesday_close }}</td>
+      </tr>
+      {% endif %}
+      {% if restaurant.wednesday_open and restaurant.wednesday_close %}
+      <tr>
+        <th class="info">Keskiviikko</th>
+        <td class="info">Aukeaa: {{ restaurant.wednesday_open }} - Sulkeutuu: {{ restaurant.wednesday_close }}</td>
+      </tr>
+      {% endif %}
+      {% if restaurant.thursday_open and restaurant.thursday_close %}
+      <tr>
+        <th class="info">Torstai</th>
+        <td class="info">Aukeaa: {{ restaurant.thursday_open }} - Sulkeutuu: {{ restaurant.thursday_close }}</td>
+      </tr>
+      {% endif %}
+      {% if restaurant.friday_open and restaurant.friday_close %}
+      <tr>
+        <th class="info">Perjantai</th>
+        <td class="info">Aukeaa: {{ restaurant.friday_open }} - Sulkeutuu: {{ restaurant.friday_close }}</td>
+      </tr>
+      {% endif %}
+      {% if restaurant.saturday_open and restaurant.saturday_close %}
+      <tr>
+        <th class="info">Lauantai</th>
+        <td class="info">Aukeaa: {{ restaurant.saturday_open }} - Sulkeutuu: {{ restaurant.saturday_close }}</td>
+      </tr>
+      {% endif %}
+      {% if restaurant.sunday_open and restaurant.sunday_close %}
+      <tr>
+        <th class="info">Sunnuntai</th>
+        <td class="info">Aukeaa: {{ restaurant.sunday_open }} - Sulkeutuu: {{ restaurant.sunday_close }}</td>
+      </tr>
+      {% endif %}
+    </table>
+    <hr>
 
-        {% endfor %}
-        {% for i in range(5-review.rating) %}
-        &#9734;
+    {% if not reviewed %}
+    <h3 class="default-title">Arvioi:</h3>
+    <form method="POST" class="form-group">
 
-        {% endfor %}
-      </h3>
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      <div class="rating mb-2">
+        <input type="radio" name="rating" title="star5" value="5"> 
+        <input type="radio" name="rating" title="star4" value="4"> 
+        <input type="radio" name="rating" title="star3" value="3" checked> 
+        <input type="radio" name="rating" title="star2" value="2"> 
+        <input type="radio" name="rating" title="star1" value="1"> 
+
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-control" placeholder="Kirjoita arvostelu tänne!" name="comment"></textarea>
+      </div>
+      <button class="btn btn-primary" name="review" value="review" type="submit">Lähetä arvio!</button>
+    </form>
+    {% else %}
+    <h3 class="default-title">Päivitä arvostelu:</h3>
+    <form method="POST" class="form-group">
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+      <div class="rating mb-2">
+        <label>Arvosana:</label><br>
+        <input type="radio" name="rating" title="star5" value="5" {% if reviewed.rating == 5 %} checked {% endif %}> 5
+        <input type="radio" name="rating" title="star4" value="4" {% if reviewed.rating == 4 %} checked {% endif %}> 4
+        <input type="radio" name="rating" title="star3" value="3" {% if reviewed.rating == 3 %} checked {% endif %}> 3
+        <input type="radio" name="rating" title="star2" value="2" {% if reviewed.rating == 2 %} checked {% endif %}> 2
+        <input type="radio" name="rating" title="star1" value="1" {% if reviewed.rating == 1 %} checked {% endif %}> 1
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" placeholder="Kirjoita arvostelu tänne!" name="comment">{{reviewed.comment}}</textarea>
+      </div>
+      <button class="btn btn-primary" name="review_update" value="review_update" type="submit">Päivitä arvio!</button>
+    </form>
+    {% endif %}
+    <hr>
+
+    {% for review in reviews %}
+    <div class="review">
+      <h4>{{review.username}}</h4>
+      <p>Arvio:
+        {% for i in range(review.rating) %} &#9733; {% endfor %}
+        {% for i in range(5 - review.rating) %} &#9734; {% endfor %}
+      </p>
       <p>{{review.comment}}</p>
-     {%  if session.isAdmin or session.user_id==review.id %}  <form method="POST"><button name="review_delete" value="review_delete" type="submit">Poista</button> </form>{%endif%}
-    {%endfor%}
+      {% if session.isAdmin or session.user_id == review.id %}
+      <form method="POST" class="d-inline">
+        <button class="btn btn-danger btn-sm" name="review_delete" value="review_delete" type="submit">Poista</button>
+      </form>
+      {% endif %}
+    </div>
+    <hr>
+    {% endfor %}
   </div>
-
-  {% endblock %}
-  
-
-
+</div>
+{% endblock %}
 
 {% endif %}
+
+  

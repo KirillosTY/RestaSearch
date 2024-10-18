@@ -1,16 +1,26 @@
 /* Single restaurant site*/
 .rating {
   display: flex;
+  align-self: center;
   flex-direction: row-reverse;
   flex-wrap: nowrap;
-  width: 20%;
-  min-width: 20%;
   padding: 0.5rem;
   padding-bottom: 2rem;
- 
+  
 
 }
-
+.form-group-single-rest {
+  display: flex;
+  flex-direction: column;
+  /* width: 80%; */
+  padding: 40px;
+  text-align: center;
+}
+.restaurant-details {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
 .rating_form {
   align-items: left;
   background-color: #f5f5f5;
@@ -172,10 +182,33 @@ footer {
 
  /* Custom Colors */
  .btn-primary, .btn-warning {
-  background-color: #1F322B;
+  background-color: hsl(158, 23%, 16%);
   border-color: #426A5A;
   color: #ff7f00;
   font-size: 1.5rem;
+}
+
+
+.btn-edit {
+
+ 
+  background-color: #d75600;
+  border-color: #1F322B;
+  color: #1F322B;
+  font-size: 1.5rem;
+}
+.btn-delete {
+  
+  background-color: #A30000;
+  border-color: #1F322B;
+  color: #ff7f00;
+  font-size: 1.5rem;
+  padding-right: 20px;
+}
+.btn-warning:not(:disabled):not(.disabled):active, .show>.btn-s.dropdown-toggle {
+  color: #294239;
+  background-color: #294239;
+  border-color: #ff7f00;
 }
 
 .btn-primary:hover {
@@ -185,17 +218,25 @@ footer {
   font-size: 1.5rem;
 }
 
-.btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
-  color: #fff;
-  background-color: #294239;
-  border-color: #ff7f00;
+.btn-delete:hover {
+  
+  background-color: #d10505;
+  border-color: #1F322B;
+  color: #ff7f00;
+  font-size: 1.5rem;
+  padding-right: 20px;
 }
-.btn-success,
-.btn-warning {
-  background-color: #ffa500;
-  border-color: #ffa500;
-  color: white;
+
+.btn-edit:hover {
+
+  background-color: #cd6a29;
+  border-color: #1F322B;
+  color: #1F322B;
+  font-size: 1.5rem;
 }
+
+
+
 
 .btn-success:hover,
 .btn-warning:hover {
@@ -358,4 +399,8 @@ footer {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
 
     
+}
+
+.table .table-bordered .hours-open > thead > tr > th{
+  border:1px solid #1F322B !important;
 }
