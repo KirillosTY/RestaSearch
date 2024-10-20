@@ -10,12 +10,16 @@
       <div class="card h-100 list-group-item">
         <div class="card-body">
           <h5 class="card-title"> 
-            <a href='/restaurants/{{restaurant.id}}'>{{restaurant.name}}</a>
+           {% if session.is_admin %} 
+            <a href='/restaurants/{{restaurant.id}}/request'>{{restaurant.name}}</a>
+            {%else %}
+            <p class="info">{{restaurant.name}}</p>
+
+            {% endif %}
           </h5>
           {% if restaurant.average_rating %}
           <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
           {% endif %}
-          <p class="card-text text-truncate" id="{{restaurant.name+'_description'}}">{{restaurant.description}})</p>
           <p class="card-text text-truncate" id="{{restaurant.name+'_description'}}">{{restaurant.description}})</p>
 
         </div>

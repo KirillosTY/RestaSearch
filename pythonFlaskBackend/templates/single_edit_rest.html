@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="form-group-creation">
-    <h2 class="default-title">Muokkaa ravintolan tietoja!</h2>
+    <h2 class="info subtitle">Muokkaa ravintolan tietoja!</h2>
 
     <form action="/edit/restaurants/{{ restaurant.id }}" method="POST" class="form-group" onSubmit="return checkRestaurant(this)">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
         <div class="form-group creation">
             <label for="name">Nimi:</label>
@@ -31,62 +33,57 @@
                 <tr>
                     <th class="info">Maanantai</th>
                     <td class="info">
-                        Aukeaa: <input type="time" name="monday_open" class="form-control d-inline w-auto" value="{{ restaurant.monday_open }}">
-                        Sulkeutuu: <input type="time" name="monday_close" class="form-control d-inline w-auto" value="{{ restaurant.monday_close }}">
+                        Aukeaa: <input type="time" name="monday_open" class="form-control d-inline" value="{{ restaurant.monday_open }}">
+                        Sulkeutuu: <input type="time" name="monday_close" class="form-control d-inline" value="{{ restaurant.monday_close }}">
                     </td>
                 </tr>
                 <tr>
                     <th class="info">Tiistai</th>
                     <td class="info">
-                        Aukeaa: <input type="time" name="tuesday_open" class="form-control d-inline w-auto" value="{{ restaurant.tuesday_open }}">
-                        Sulkeutuu: <input type="time" name="tuesday_close" class="form-control d-inline w-auto" value="{{ restaurant.tuesday_close }}">
+                        Aukeaa: <input type="time" name="tuesday_open" class="form-control d-inline" value="{{ restaurant.tuesday_open }}">
+                        Sulkeutuu: <input type="time" name="tuesday_close" class="form-control d-inline" value="{{ restaurant.tuesday_close }}">
                     </td>
                 </tr>
                 <tr>
                     <th class="info">Keskiviikko</th>
                     <td class="info">
-                        Aukeaa: <input type="time" name="wednesday_open" class="form-control d-inline w-auto" value="{{ restaurant.wednesday_open }}">
-                        Sulkeutuu: <input type="time" name="wednesday_close" class="form-control d-inline w-auto" value="{{ restaurant.wednesday_close }}">
+                        Aukeaa: <input type="time" name="wednesday_open" class="form-control d-inline" value="{{ restaurant.wednesday_open }}">
+                        Sulkeutuu: <input type="time" name="wednesday_close" class="form-control d-inline" value="{{ restaurant.wednesday_close }}">
                     </td>
                 </tr>
                 <tr>
                     <th class="info">Torstai</th>
                     <td class="info">
-                        Aukeaa: <input type="time" name="thursday_open" class="form-control d-inline w-auto" value="{{ restaurant.thursday_open }}">
-                        Sulkeutuu: <input type="time" name="thursday_close" class="form-control d-inline w-auto" value="{{ restaurant.thursday_close }}">
+                        Aukeaa: <input type="time" name="thursday_open" class="form-control d-inline" value="{{ restaurant.thursday_open }}">
+                        Sulkeutuu: <input type="time" name="thursday_close" class="form-control d-inline" value="{{ restaurant.thursday_close }}">
                     </td>
                 </tr>
                 <tr>
                     <th class="info">Perjantai</th>
                     <td class="info">
-                        Aukeaa: <input type="time" name="friday_open" class="form-control d-inline w-auto" value="{{ restaurant.friday_open }}">
-                        Sulkeutuu: <input type="time" name="friday_close" class="form-control d-inline w-auto" value="{{ restaurant.friday_close }}">
+                        Aukeaa: <input type="time" name="friday_open" class="form-control d-inline" value="{{ restaurant.friday_open }}">
+                        Sulkeutuu: <input type="time" name="friday_close" class="form-control d-inline" value="{{ restaurant.friday_close }}">
                     </td>
                 </tr>
                 <tr>
                     <th class="info">Lauantai</th>
                     <td class="info">
-                        Aukeaa: <input type="time" name="saturday_open" class="form-control d-inline w-auto" value="{{ restaurant.saturday_open }}">
-                        Sulkeutuu: <input type="time" name="saturday_close" class="form-control d-inline w-auto" value="{{ restaurant.saturday_close }}">
+                        Aukeaa: <input type="time" name="saturday_open" class="form-control d-inline" value="{{ restaurant.saturday_open }}">
+                        Sulkeutuu: <input type="time" name="saturday_close" class="form-control d-inline" value="{{ restaurant.saturday_close }}">
                     </td>
                 </tr>
                 <tr>
                     <th class="info">Sunnuntai</th>
                     <td class="info">
-                        Aukeaa: <input type="time" name="sunday_open" class="form-control d-inline w-auto" value="{{ restaurant.sunday_open }}">
-                        Sulkeutuu: <input type="time" name="sunday_close" class="form-control d-inline w-auto" value="{{ restaurant.sunday_close }}">
+                        Aukeaa: <input type="time" name="sunday_open" class="form-control d-inline" value="{{ restaurant.sunday_open }}">
+                        Sulkeutuu: <input type="time" name="sunday_close" class="form-control d-inline" value="{{ restaurant.sunday_close }}">
                     </td>
                 </tr>
             </table>
         </div>
 
-        <div class="form-group">
-            <label for="genre">Genret (erotellaan pilkulla, korkeintaan 5):</label>
-            <input type="text" name="genre" class="form-control" value="{{ restaurant.genre }}">
-        </div>
-
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Tallenna">
+        <div class="form-group-buttons">
+            <button type="submit" class="btn btn-primary" value="Tallenna">
         </div>
     </form>
 </div>
@@ -104,4 +101,5 @@
         return true;
     }
 </script>
+
 {% endblock %}

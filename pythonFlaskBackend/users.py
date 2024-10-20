@@ -75,6 +75,6 @@ def delete_session():
 
 
 def check_csrf():
-
+    print(session["csrf_token"],  request.form["csrf_token"])
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)

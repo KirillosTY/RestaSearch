@@ -314,8 +314,7 @@ def edit_restaurant(restaurant_id):
         genre)
 
     return render_template('single_edit_rest.html', id=id,
-                           restaurant=restaurant_updated[0],
-                           success_message="Tiedot tallentuneet")
+                           restaurant=restaurant_updated[0])
 
 
 @app.route('/restaurants/<int:restaurant_id>/request', methods=['GET', 'POST'])

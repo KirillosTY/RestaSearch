@@ -5,87 +5,87 @@
 {% endblock %}
 
 {% block content %}
-<div class="form-group-creation ">
-    <h2 class="default-title">Luo uusi ravintola syöttämällä tiedot!</h2>
-    
-    <form action="/create/restaurant" method="POST" class="form-group" onSubmit="return checkRestaurant(this)">
-      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<div class="form-group-creation">
+  <h2 class="info subtitle">Luo uusi ravintola syöttämällä tiedot!</h2>
 
-      <div class="form-group creation ">
-        <label for="name">Nimi:</label>
-        <input type="text" name="name" class="form-control" id="name">
-      </div>
+  <form action="/create/restaurant" method="POST" class="form-group" onSubmit="return checkRestaurant(this)">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
-      <div class="form-group creation description">
-        <label for="description">Kuvaus:</label>
-        <textarea name="description" class="form-control  description" id="description"></textarea>
-      </div>
+    <div class="form-group creation ">
+      <label for="name">Nimi:</label>
+      <input type="text" name="name" class="form-control" id="name">
+    </div>
 
-      <div class="form-group creation">
-        <label for="address">Osoite:</label>
-        <input type="text" name="address" class="form-control" id="address">
-      </div>
+    <div class="form-group creation description">
+      <label for="description">Kuvaus:</label>
+      <textarea name="description" class="form-control  description" id="description"></textarea>
+    </div>
 
-      <label for="dates" >Aukioloajat:</label>
-      <div class="form-group" >
-        
-        <table id="dates" class="table table-bordered date">
-          <tr>
-            <th class="info">Maanantai</th>
-            <td class="info">
-              Aukeaa:<input type="time" name="monday_open" class="form-control d-inline w-auto">
-              Sulkeutuu:<input type="time" name="monday_close" class="form-control d-inline w-auto">
-            </td>
-          </tr>
-          <tr>
-            <th class="info">Tiistai</th>
-            <td class="info">
-              Aukeaa:<input type="time" name="tuesday_open" class="form-control d-inline w-auto">
-              Sulkeutuu:<input type="time" name="tuesday_close" class="form-control d-inline w-auto">
-            </td>
-          </tr>
-          <tr>
-            <th class="info">Keskiviikko</th>
-            <td class="info">
-              Aukeaa:<input type="time" name="wednesday_open" class="form-control d-inline w-auto">
-              Sulkeutuu:<input type="time" name="wednesday_close" class="form-control d-inline w-auto">
-            </td>
-          </tr>
-          <tr>
-            <th class="info">Torstai</th>
-            <td class="info">
-              Aukeaa:<input type="time" name="thursday_open" class="form-control d-inline w-auto">
-              Sulkeutuu:<input type="time" name="thursday_close" class="form-control d-inline w-auto">
-            </td>
-          </tr>
-          <tr>
-            <th class="info">Perjantai</th>
-            <td class="info">
-              Aukeaa:<input type="time" name="friday_open" class="form-control d-inline w-auto">
-              Sulkeutuu:<input type="time" name="friday_close" class="form-control d-inline w-auto">
-            </td>
-          </tr>
-          <tr>
-            <th class="info">Lauantai</th>
-            <td class="info">
-              Aukeaa:<input type="time" name="saturday_open" class="form-control d-inline w-auto">
-              Sulkeutuu:<input type="time" name="saturday_close" class="form-control d-inline w-auto">
-            </td>
-          </tr>
-          <tr>
-            <th class="info">Sunnuntai</th>
-            <td class="info">
-              Aukeaa:<input type="time" name="sunday_open" class="form-control d-inline w-auto">
-              Sulkeutuu:<input type="time" name="sunday_close" class="form-control d-inline w-auto">
-            </td>
-          </tr>
-        </table>
-      </div>
+    <div class="form-group creation">
+      <label for="address">Osoite:</label>
+      <input type="text" name="address" class="form-control" id="address">
+    </div>
 
-      <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Luo ravintola">
-      </div>
-    </form>
+    <label for="dates">Aukioloajat:</label>
+    <div class="form-group">
+
+      <table id="dates" class="table table-bordered date">
+        <tr>
+          <th class="info">Maanantai</th>
+          <td class="info">
+            Aukeaa:<input type="time" name="monday_open" class="form-control d-inline w-auto">
+            Sulkeutuu:<input type="time" name="monday_close" class="form-control d-inline w-auto">
+          </td>
+        </tr>
+        <tr>
+          <th class="info">Tiistai</th>
+          <td class="info">
+            Aukeaa:<input type="time" name="tuesday_open" class="form-control d-inline w-auto">
+            Sulkeutuu:<input type="time" name="tuesday_close" class="form-control d-inline w-auto">
+          </td>
+        </tr>
+        <tr>
+          <th class="info">Keskiviikko</th>
+          <td class="info">
+            Aukeaa:<input type="time" name="wednesday_open" class="form-control d-inline w-auto">
+            Sulkeutuu:<input type="time" name="wednesday_close" class="form-control d-inline w-auto">
+          </td>
+        </tr>
+        <tr>
+          <th class="info">Torstai</th>
+          <td class="info">
+            Aukeaa:<input type="time" name="thursday_open" class="form-control d-inline w-auto">
+            Sulkeutuu:<input type="time" name="thursday_close" class="form-control d-inline w-auto">
+          </td>
+        </tr>
+        <tr>
+          <th class="info">Perjantai</th>
+          <td class="info">
+            Aukeaa:<input type="time" name="friday_open" class="form-control d-inline w-auto">
+            Sulkeutuu:<input type="time" name="friday_close" class="form-control d-inline w-auto">
+          </td>
+        </tr>
+        <tr>
+          <th class="info">Lauantai</th>
+          <td class="info">
+            Aukeaa:<input type="time" name="saturday_open" class="form-control d-inline w-auto">
+            Sulkeutuu:<input type="time" name="saturday_close" class="form-control d-inline w-auto">
+          </td>
+        </tr>
+        <tr>
+          <th class="info">Sunnuntai</th>
+          <td class="info">
+            Aukeaa:<input type="time" name="sunday_open" class="form-control d-inline w-auto">
+            Sulkeutuu:<input type="time" name="sunday_close" class="form-control d-inline w-auto">
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="form-group">
+      <input type="submit" class="btn btn-primary" value="Luo ravintola">
+    </div>
+  </form>
 </div>
 
 <script>

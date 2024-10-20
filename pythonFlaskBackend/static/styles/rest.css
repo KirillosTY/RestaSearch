@@ -6,9 +6,10 @@
   flex-wrap: nowrap;
   padding: 0.5rem;
   padding-bottom: 2rem;
-  
+
 
 }
+
 .form-group-single-rest {
   display: flex;
   flex-direction: column;
@@ -16,19 +17,42 @@
   padding: 40px;
   text-align: center;
 }
+
 .restaurant-details {
   display: flex;
   flex-direction: column;
   align-self: center;
 }
+
 .rating_form {
   align-items: left;
   background-color: #f5f5f5;
   display: block;
   width: 300%;
   min-width: 150%;
-  
 
+
+}
+
+textarea.form-control {
+  min-height: 10rem;
+}
+
+.review-rating {
+  content: '⭐';
+  color: #F75C03;
+  font-size: 300%;
+  flex: 2 2 0%;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  display: flex;
+  align-self: center;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  padding: 0.5rem;
+  padding-bottom: 2rem;
+  
 }
 
 .sendReview {
@@ -48,11 +72,13 @@
   flex: 2 2 0%;
   display: grid;
   place-content: center;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-.rating > input::before {
+.rating>input::before {
   content: '⭐';
+  color: #F75C03;
+
   filter: grayscale(0%) contrast(0%);
   font-size: 300%;
 
@@ -67,51 +93,60 @@
 /*Navbar*/
 
 .container {
-  overflow: auto;
   display: flex;
   flex-direction: column;
+  min-height: 100%;
 }
 
 body {
   background-color: #3F6456;
-  
+
 }
 
- .navbar, .navbar-nav {
+.navbar,
+.navbar-nav {
   background-color: #1F322B !important;
   min-height: 10%;
   max-height: 15%;
-  display:flex;
+  display: flex;
   align-content: center;
   flex-direction: row;
-  justify-content:space-evenly;
-  font-family:'New Century Schoolbook, TeX Gyre Schola, serif';
+  justify-content: space-evenly;
+  font-family: 'New Century Schoolbook, TeX Gyre Schola, serif';
 
 }
+
 .navbar-brand {
-  align-self:center;
-  font-size: 2rem !important; 
+  align-self: center;
+  font-size: 2rem !important;
 
 }
 
 .nav-item {
-    padding: 5px 10px; /* Padding for better spacing */
+  padding: 5px 10px;
+  /* Padding for better spacing */
 
 }
+
 .nav-link,
 .navbar-brand {
-  font-family:'New Century Schoolbook, TeX Gyre Schola, serif';
+  font-family: 'New Century Schoolbook, TeX Gyre Schola, serif';
 
   color: #F75C03 !important;
-  text-align: center; 
-  align-self:unset;
-  min-width:fit-content;
-  text-shadow: 3px 3px 6px rgba(70, 48, 48, 0.4); /* Slightly stronger shadow on hover */
-  font-size: 1.2rem; /* Increase the text size */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow with slight blur */
-  color: #FFFFFF; /* Text color */
-  padding: 10px 10px; /* Padding for better spacing */
-  
+  text-align: center;
+  align-self: unset;
+  min-width: fit-content;
+  text-shadow: 3px 3px 6px rgba(70, 48, 48, 0.4);
+  /* Slightly stronger shadow on hover */
+  font-size: 1.2rem;
+  /* Increase the text size */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  /* Text shadow with slight blur */
+  color: #FFFFFF;
+  /* Text color */
+  padding: 10px 10px;
+  /* Padding for better spacing */
+
 
 }
 
@@ -148,25 +183,31 @@ hr {
 footer {
   color: #004d00;
 }
-  /* restaurant creation */
-  .form-group-creation {
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    justify-content: center;
-    color: #F75C03;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
-    font-size: 1.5rem;
-    max-height: fit-content;
+
+/* restaurant creation */
+.form-group-creation {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+  color: #F75C03;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow with slight blur */
+  font-size: 1.5rem;
+  max-height: fit-content;
   
-    
-  }
+
+
+}
+
 .creation {
   min-width: 100% !important
 }
-.description{
+
+.description {
   min-height: 200px;
 }
+
 .date {
   width: 200%;
   align-self: center;
@@ -176,12 +217,14 @@ footer {
 
   color: #F75C03 !important;
   font-size: 1.3rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow with slight blur */
 
 }
 
- /* Custom Colors */
- .btn-primary, .btn-warning {
+/* Custom Colors */
+.btn-primary,
+.btn-warning {
   background-color: hsl(158, 23%, 16%);
   border-color: #426A5A;
   color: #ff7f00;
@@ -191,21 +234,24 @@ footer {
 
 .btn-edit {
 
- 
+
   background-color: #d75600;
   border-color: #1F322B;
   color: #1F322B;
   font-size: 1.5rem;
 }
+
 .btn-delete {
-  
+
   background-color: #A30000;
   border-color: #1F322B;
   color: #ff7f00;
   font-size: 1.5rem;
   padding-right: 20px;
 }
-.btn-warning:not(:disabled):not(.disabled):active, .show>.btn-s.dropdown-toggle {
+
+.btn-warning:not(:disabled):not(.disabled):active,
+.show>.btn-s.dropdown-toggle {
   color: #294239;
   background-color: #294239;
   border-color: #ff7f00;
@@ -219,7 +265,7 @@ footer {
 }
 
 .btn-delete:hover {
-  
+
   background-color: #d10505;
   border-color: #1F322B;
   color: #ff7f00;
@@ -243,51 +289,61 @@ footer {
   background-color: #ff7f00;
   border-color: #ff7f00;
 }
+
 .btn-success {
-  background-color: #006400; 
+  background-color: #006400;
   border-color: #006400;
 }
+
 /* Padding for the whole page */
 .container {
   padding: 20px 40px;
 }
+
 .scrollable-column {
   border-radius: 25px;
 
   max-height: 30%;
   overflow-y: auto;
   padding-bottom: 10px;
+  min-height: 100%;
 
 }
+
 .scrollable-column::-webkit-scrollbar {
   height: 8px;
 }
+
 .scrollable-column::-webkit-scrollbar-thumb {
   background-color: #ccc;
   border-radius: 10px;
 }
+
 /* Card adjustments */
 .card {
-  
+
   border-radius: 25px;
-  margin-top: 20px;  
+  margin-top: 20px;
   height: 8px;
   min-width: 250px;
   min-height: 200px;
   max-height: 200px;
   margin-right: 15px;
-  overflow:hidden;
-  
+  overflow: hidden;
+
 
 }
-.card-body, .card-text {
-  text-overflow: ellipsis;
-  font-size: 1.2  rem;
-    color: #1F322B;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
 
-  
-  
+.card-body,
+.card-text {
+  text-overflow: ellipsis;
+  font-size: 1.2 rem;
+  color: #1F322B;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow with slight blur */
+
+
+
 }
 
 .card {
@@ -297,8 +353,9 @@ footer {
 
 .card-title a {
   font-size: 2rem;
-    color: #9e3b02;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+  color: #9e3b02;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow with slight blur */
 
 }
 
@@ -306,7 +363,9 @@ footer {
   color: #F75C03 !important;
   /* Dark orange on hover */
 }
-.hours-open, .th{
+
+.hours-open,
+.th {
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -314,9 +373,7 @@ footer {
   border: #1F322B 0px solid;
 }
 
-.hours-row {
-  
-}
+.hours-row {}
 
 
 
@@ -326,33 +383,39 @@ footer {
 }
 
 .default-title {
-  font-size: 3.5rem !important; 
+  font-size: 3.5rem !important;
   color: #F75C03 !important;
-  text-align: center; 
-  align-self:unset;
-  min-width:fit-content;
-  font-size: 1.2rem; /* Increase the text size */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
-  color: #FFFFFF; /* Text color */
-  padding: 10px 10px; /* Padding for better spacing */
-  font-family:'New Century Schoolbook, TeX Gyre Schola, serif';
+  text-align: center;
+  align-self: unset;
+  min-width: fit-content;
+  font-size: 1.2rem;
+  /* Increase the text size */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow with slight blur */
+  color: #FFFFFF;
+  /* Text color */
+  padding: 10px 10px;
+  /* Padding for better spacing */
+  font-family: 'New Century Schoolbook, TeX Gyre Schola, serif';
 
 }
-
+.subtitle {
+  text-align: center;
+}
 .checkbox-group {
   align-self: center;
   display: flex;
   flex-direction: row;
   margin: 5px 50px;
-  
- 
+
+
 }
 
 .checkbox {
-  width:30px;
-  height:30px;
-  background:white;
-  border:2px solid #555;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border: 2px solid #555;
 
   margin-left: 10px;
 
@@ -365,42 +428,94 @@ footer {
   align-self: center;
   justify-content: center;
   color: #F75C03;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow with slight blur */
   font-size: 1.5rem;
   max-height: fit-content;
 
-  
+
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
   align-self: center;
-  min-width: 50%;
+  min-width: 30rem;
   width: 30%;
-  max-width: 50%;
-  
+  min-height: 20%;
+  max-width: 30rem;
+
 }
 
-.form-text{
-    color: #F75C03;
+.form-group-buttons {
+  display: flex;
+  flex-direction: column-reverse;
+  align-self: center;
+  min-width: 30rem;
+  min-height: 20%;
+  max-width: 30rem;
+
+}
+
+.form-text {
+  color: #F75C03;
 }
 
 .info {
   color: #F75C03 !important;
   font-size: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow with slight blur */
 
 }
 
-.access_link, .access_link:hover {
-    font-size: 1.5rem;
-    color: #d95001;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow with slight blur */
+.access_link,
+.access_link:hover {
+  font-size: 1.5rem;
+  color: #d95001;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  /* Text shadow with slight blur */
 
-    
+
 }
 
-.table .table-bordered .hours-open > thead > tr > th{
-  border:1px solid #1F322B !important;
+
+
+.table-bordered td, .table-bordered th {
+  border: 2px solid #F75C03;
+  justify-content: flex-start;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+
+.table-bordered tbody  {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+}
+
+.table-bordered  {
+
+  border: none;
+}
+
+.btn:not(:disabled):not(.disabled) {
+
+  min-width: 10rem;
+}
+
+.review {
+  min-width:fit-content;
+  align-self: center;
+
+}
+
+.review-text {
+  overflow-y: scroll;
+  max-width: 20rem;
+  max-height: 20rem;
+  align-self: center;
 }

@@ -1,9 +1,9 @@
 {%extends "layout.html"%}
 
-{% block headline %}<h2>Tervetuloa</h2>{% endblock %}
+{% block headline %}<h2 class="default-title">Tervetuloa</h2>{% endblock %}
 
 {% block content %}
-<h4>Viimeisimmät arvostelut:</h4>
+<h4 class="info">Viimeisimmät arvostelut:</h4>
 <ul>
   {% for review in reviews %}
   <hr>
