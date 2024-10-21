@@ -1,35 +1,43 @@
-{%extends "layout.html"%}
+{% extends "layout.html" %}
 
 {% block headline %}<h2 class="default-title">Tervetuloa</h2>{% endblock %}
 
-{% block content %}
+{% block content %}z
+<div class="container">
 <h4 class="info">Viimeisimmät arvostelut:</h4>
-<ul>
   {% for review in reviews %}
-  <hr>
-  <h3>{{review.name}}</h3>
+    <div class="review start">
+      <h4 class="info">{{review.username}}</h4>
+      <div class="review-rating">
 
-    <h3> Arvio:
-      {% for i in range(review.rating) %}
-      &#9733;
+        {% for i in range(review.rating) %} &#9733; {% endfor %}
+        {% for i in range(5 - review.rating) %} &#9734; {% endfor %}
+      </div>
+      <p class="info text review-text start">{{review.comment}}</p>
+      {% if session.isAdmin or session.user_id == review.id %}
+      <form method="POST" class="d-inline">
+      </form>
+      {% endif %}
+    </div>
+    <hr>
+    {% endfor %}
 
-      {% endfor %}
-      {% for i in range(5-review.rating) %}
-      &#9734;
 
-      {% endfor %}
-    </h3>
-    <p>{{review.comment}}</p>
-  {%endfor%}
-</ul>
-
-<h4>Favourites:</h4>
-<ul>
-{% for restaurant in favourite_restaurants %}
-<li key="restaurantusername">
-  <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
-</li>
-{% endfor%}
-</ul>
-
+<h4 class="info">Suosikit:</h4>
+<div class="scrollable-column list-group">
+  {% for restaurant in favourite_restaurants %}
+  <div class="card h-100 list-group-item">
+    <div class="card-body">
+      <h5 class="card-title">
+        <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
+      </h5>
+      {% if restaurant.average_rating %}
+      <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
+      {% endif %}
+      <p class="card-text text-truncate text-nowrap">{{restaurant.description}}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
 {% endblock %}

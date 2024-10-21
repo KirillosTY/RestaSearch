@@ -1,8 +1,8 @@
 {% block message %}
     {% if message %}
-        <p>
+        <p class="error">
             <hr>
-            Virhe: {{ message }}
+            <p class="info error">Virhe: {{ message }}</p>
             <hr>
         </p>
     {% endif %}

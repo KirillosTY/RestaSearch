@@ -45,7 +45,7 @@ textarea.form-control {
   flex: 2 2 0%;
   display: grid;
   place-content: center;
-  cursor: pointer;
+  cursor:auto;
   display: flex;
   align-self: center;
   flex-direction: row-reverse;
@@ -95,9 +95,13 @@ textarea.form-control {
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  min-height: 80%;
+  height: 80%;
 }
-
+.container-request {
+  display: flex;
+  flex-direction: column;
+}
 body {
   background-color: #3F6456;
 
@@ -306,7 +310,11 @@ footer {
   max-height: 30%;
   overflow-y: auto;
   padding-bottom: 10px;
-  min-height: 100%;
+  min-height: 50em;
+
+}
+.row {
+  height: 30rem;
 
 }
 
@@ -513,9 +521,34 @@ footer {
 
 }
 
+.start  {
+  max-width: 70rem !important;
+}
+
 .review-text {
   overflow-y: scroll;
-  max-width: 20rem;
+  max-width: 30rem;
   max-height: 20rem;
   align-self: center;
+  word-break:break-all;
+  text-wrap: wrap !important;
+}
+
+.request-cards {
+  max-width: 50%;
+  align-self: center;
+  min-width: 50%
+}
+.footer {
+
+  position:fixed;
+  left:0px;
+  bottom:20px;
+  height:30px;
+  width:100%;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
 }

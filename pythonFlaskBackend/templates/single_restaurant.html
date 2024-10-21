@@ -122,7 +122,7 @@
         {% for i in range(review.rating) %} &#9733; {% endfor %}
         {% for i in range(5 - review.rating) %} &#9734; {% endfor %}
       </div>
-      <p class="info text review-text">{{review.comment}}</p>
+      <p class="info  review-text text-nowrap ">{{review.comment}}</p>
       {% if session.isAdmin or session.user_id == review.id %}
       <form method="POST" class="d-inline">
         <button class="btn btn-delete " name="review_delete" value="review_delete" type="submit">Poista</button>

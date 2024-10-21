@@ -6,7 +6,7 @@ CREATE TABLE users (
 );
 CREATE TABLE restaurant (
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
+    name TEXT NOT NULL UNIQUE,
     address TEXT,
     description TEXT NOT NULL,
     gps_location TEXT,

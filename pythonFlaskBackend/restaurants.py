@@ -1,5 +1,5 @@
 import restaurant_db
-
+import datetime
 
 def get_all():
     restaurants = restaurant_db.get_restaurants().fetchall()
@@ -16,6 +16,8 @@ def get_all_requests():
     if not restaurant_requests:
         print(restaurant_requests, "something went wrong")
         return False
+    date_format = '%Y-%m-%d %H:%M:%S'
+   
 
     return restaurant_requests
 

@@ -3,11 +3,11 @@
 
 {% block headline %}<h2 class="default-title">Toivotut ravintolat:</h2>{% endblock %}
 {% block content %}
-<div class="row">
+<div class="request-row">
   <div class="col-md-12">
     <div class="scrollable-column list-group " id="restaurant_descriptions">
       {% for restaurant in restaurants %}
-      <div class="card h-100 list-group-item">
+      <div class="card h-100 list-group-item request-cards">
         <div class="card-body">
           <h5 class="card-title"> 
            {% if session.is_admin %} 
@@ -17,9 +17,7 @@
 
             {% endif %}
           </h5>
-          {% if restaurant.average_rating %}
-          <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
-          {% endif %}
+          <h5 class="">{{restaurant.requested}} this</h5>
           <p class="card-text text-truncate" id="{{restaurant.name+'_description'}}">{{restaurant.description}})</p>
 
         </div>

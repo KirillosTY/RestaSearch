@@ -144,6 +144,7 @@ def restaurant_requests():
     if not restaurants_found:
         restaurants_found = []
 
+    
     if request.method == 'GET':
         return render_template('restaurant_requested.html',
                                restaurants=restaurants_found)
