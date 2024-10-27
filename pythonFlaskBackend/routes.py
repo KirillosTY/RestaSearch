@@ -44,10 +44,7 @@ def login():
     if not password_check(password):
         return render_template(
             "login.html",
-            message="""Salasanan pitää olla ainakin 8 merkkiä
-            sisältäen yhden pienen
-            ja ison kirjaimen sekä numeron.
-            Onnea elämään noilla salasanoilla <3.""")
+            message="""Salasana tai käyttäjätunnus on väärin...Tsemppiä <3.""")
 
     logging = users.login(username, password)
     if logging is None:
@@ -390,6 +387,10 @@ def create_restaurant():
 
     name = request.form["name"]
     description = request.form["description"]
+
+    if len(name) < 2 or len(name) > 16 or len(description) < 8:
+        return render_template('create_restaurant.html',
+                               message='Nimen pitää olla 2-16 merkkiä ja kuvauksen vähintään 8')
     address = request.form.get("address", None)
     monday_open = request.form.get("monday_open", None)
     tuesday_open = request.form.get("tuesday_open", None)

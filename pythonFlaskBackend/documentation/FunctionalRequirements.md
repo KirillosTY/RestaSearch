@@ -2,15 +2,11 @@
 
 ## Main use of purpose.
 
-This application is meant to allow users to review restauraunts and search for them. 
+This application is meant to allow users to create,review and search restauraunts with some minor additional features.
 
 ## Users
 
 Basic users and Admins.
-
-## UI
-
-
 
 ##  Basic functional operations under process
   - [x] User can login and logout
@@ -25,11 +21,12 @@ Basic users and Admins.
   - [x] Admin can edit restauraunts.
   - [x] Admin can add other admins and accounts
   - [x] user can view a single restaurants details
-
+  - [x] Users can request to add restauraunts
+  - [x] Admin can accept or decline restaurant requests
  
 
 ## Further development idea
  1. Restauraunts can be found in a map with additional details
- 2. Users can request to add restauraunts
- 3. Admin can create group restaurants by tags
- 4. Users can add each other as friends
+ 2. Admin can create group restaurants by tags
+ 3. Users can add each other as friends
+ 4. Users can search other users.
