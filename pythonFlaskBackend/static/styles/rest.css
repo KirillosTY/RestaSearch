@@ -97,6 +97,9 @@ textarea.form-control {
   flex-direction: column;
   min-height: 80%;
   height: 80%;
+  max-width: 80%;
+  max-height: 80% 
+  
 }
 .container-request {
   display: flex;
@@ -397,13 +400,9 @@ footer {
   align-self: unset;
   min-width: fit-content;
   font-size: 1.2rem;
-  /* Increase the text size */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  /* Text shadow with slight blur */
   color: #FFFFFF;
-  /* Text color */
   padding: 10px 10px;
-  /* Padding for better spacing */
   font-family: 'New Century Schoolbook, TeX Gyre Schola, serif';
 
 }
@@ -429,7 +428,6 @@ footer {
 
 }
 
-/* Login */
 .form-group-login {
   display: flex;
   flex-direction: column;
@@ -437,7 +435,6 @@ footer {
   justify-content: center;
   color: #F75C03;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  /* Text shadow with slight blur */
   font-size: 1.5rem;
   max-height: fit-content;
 
@@ -473,7 +470,6 @@ footer {
   color: #F75C03 !important;
   font-size: 1.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  /* Text shadow with slight blur */
 
 }
 
@@ -482,7 +478,6 @@ footer {
   font-size: 1.5rem;
   color: #d95001;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  /* Text shadow with slight blur */
 
 
 }
@@ -523,6 +518,7 @@ footer {
 
 .start  {
   max-width: 70rem !important;
+  max-height: 50%;
 }
 
 .review-text {
@@ -532,6 +528,26 @@ footer {
   align-self: center;
   word-break:break-all;
   text-wrap: wrap !important;
+}
+
+.review-text-start {
+  overflow-y: auto;
+  max-height: 20rem;
+  align-self: center;
+  word-break:break-all;
+  text-wrap: wrap !important;
+}
+.review-title-start {
+  font-size: 2rem !important;
+  color: #F75C03 !important;
+  text-align: center;
+  align-self: unset;
+  min-width: fit-content;
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+  padding: 10px 10px;
+  font-family: 'New Century Schoolbook, TeX Gyre Schola, serif';
 }
 
 .request-cards {
@@ -552,3 +568,4 @@ footer {
   display: flex;
   justify-content: center;
 }
+

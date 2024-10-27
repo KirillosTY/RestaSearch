@@ -215,7 +215,8 @@ def get_user_reviews(user_id):
       re.name,
       r.rating,
       r.comment,
-      r.added
+      r.added,
+      r.restaurant_id
     FROM
       reviews r
       left JOIN

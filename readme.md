@@ -21,23 +21,57 @@ Admin created restaurants are automatically added to the official list and they 
 Admins can create other admin accounts.
 Admins can remove restaurants or reviews from any user account.
 
-## Getting started
-    1. Make sure you have Python3 installed.
-    2. Make sure you have PostreSQL installed and access to it.
-    3. Download this repository to your computer.
-    4. Create a file named .env into the pythonFlaskBackend folder and insert the following:
-       ``` SQL_AlCHEMY_DBURL = "Insert here your local PSQL address"
-            SECRET = "Insert here a proper hex_token "
-    ```
-    
-    5. Open a cli in the python pythonFlaskBackend folder an run:
-        1. ```python3 -m venv venv```
-        2.  ```source venv/bin/activate```
-        3. ```pip install -r ./requirements.txt```
-        4. ```psql < schemas/Start.sql```
-        5. ```psql``` and run the following line:
-            ```INSERT INTO users (username,password,is_admin) VALUES ('admin','admin1K',true);```
-        6.```flask run```
-        7. You can login with the admin account with: admin as username and admin1K as password or create a default user account
+## Getting Started
 
-   
+### Prerequisites
+1. **Python 3** - Make sure Python 3 is installed on your system.
+2. **PostgreSQL** - Install PostgreSQL and ensure you have access to it.
+
+### Steps
+
+1. **Clone this repository**  
+   Download or clone this repository to your computer.
+
+2. **Create an `.env` file**  
+   Inside the `pythonFlaskBackend` folder, create a file named `.env` and add the following:
+   ```env
+   SQL_ALCHEMY_DBURL="Insert your local PostgreSQL address here"
+   SECRET="Insert a proper hex token here"
+   ```
+
+3. **Set up the Python environment**
+   - Open a command-line interface in the `pythonFlaskBackend` folder and run:
+     ```bash
+     python3 -m venv venv
+     source venv/bin/activate
+     pip install -r requirements.txt
+     ```
+
+4. **Initialize the Database**
+   - Run the following command to create the necessary tables and initial schema:
+     ```bash
+     psql < schemas/Start.sql
+     ```
+   - Then, access PostgreSQL:
+     ```bash
+     psql
+     ```
+   - Once inside PostgreSQL, run the following command to insert an admin user:
+     ```sql
+     INSERT INTO users (username, password, is_admin) VALUES ('admin', 'admin1K', true);
+     ```
+
+5. **Start the Application**
+   - Start the Flask server with:
+     ```bash
+     flask run
+     ```
+
+### Login Information
+- **Admin Account**  
+  You can log in using:
+  - **Username**: `admin`
+  - **Password**: `admin1K`
+
+- **Create a User Account**  
+  Alternatively, you can create a new user account with default privileges.

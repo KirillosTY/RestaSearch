@@ -2,42 +2,51 @@
 
 {% block headline %}<h2 class="default-title">Tervetuloa</h2>{% endblock %}
 
-{% block content %}z
+{% block content %}
+
 <div class="container">
-<h4 class="info">Viimeisimmät arvostelut:</h4>
-  {% for review in reviews %}
-    <div class="review start">
-      <h4 class="info">{{review.username}}</h4>
-      <div class="review-rating">
-
-        {% for i in range(review.rating) %} &#9733; {% endfor %}
-        {% for i in range(5 - review.rating) %} &#9734; {% endfor %}
+  <div class="row ">
+    <div class="col-md-6 ">
+      
+      <h3 class="info">Viimeisimmät arvostelut:</h3>
+      <div class="scrollable-column list-group" >
+     
+      {% for review in reviews %}
+      <div class="review">
+        <a class="info review-title-start" href="/restaurants/{{ review.restaurant_id }}">{{ review.name }}</a>
+        <div class="review-rating">
+          {% for i in range(review.rating) %} &#9733; {% endfor %}
+          {% for i in range(5 - review.rating) %} &#9734; {% endfor %}
+        </div>
+        <p class="info text review-text-start">{{ review.comment }}</p>
+        {% if session.isAdmin or session.user_id == review.id %}
+        <form method="POST" class="d-inline"></form>
+        {% endif %}
       </div>
-      <p class="info text review-text start">{{review.comment}}</p>
-      {% if session.isAdmin or session.user_id == review.id %}
-      <form method="POST" class="d-inline">
-      </form>
-      {% endif %}
+      <hr>
+      {% endfor %}
     </div>
-    <hr>
-    {% endfor %}
+    </div>
 
-
-<h4 class="info">Suosikit:</h4>
-<div class="scrollable-column list-group">
-  {% for restaurant in favourite_restaurants %}
-  <div class="card h-100 list-group-item">
-    <div class="card-body">
-      <h5 class="card-title">
-        <a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a>
-      </h5>
-      {% if restaurant.average_rating %}
-      <h6 class="card-text">Arvosana: {{restaurant.average_rating}}</h6>
-      {% endif %}
-      <p class="card-text text-truncate text-nowrap">{{restaurant.description}}</p>
+    <div class="col-md-6">
+      <h3 class="info">Suosikit:</h3>
+      <div class="scrollable-column list-group">
+        {% for restaurant in favourite_restaurants %}
+        <div class="card h-100 list-group-item">
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="/restaurants/{{ restaurant.id }}">{{ restaurant.name }}</a>
+            </h5>
+            {% if restaurant.average_rating %}
+            <h6 class="card-text">Arvosana: {{ restaurant.average_rating }}</h6>
+            {% endif %}
+            <p class="card-text text-truncate text-nowrap">{{ restaurant.description }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
-  {% endfor %}
 </div>
-</div>
+
 {% endblock %}
