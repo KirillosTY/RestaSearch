@@ -512,8 +512,8 @@ footer {
 
 .review {
   min-width:fit-content;
-  align-self: center;
-
+  display: flex;
+  flex-direction: column;
 }
 
 .start  {
@@ -522,7 +522,7 @@ footer {
 }
 
 .review-text {
-  overflow-y: scroll;
+  overflow-y: auto;
   max-width: 30rem;
   max-height: 20rem;
   align-self: center;

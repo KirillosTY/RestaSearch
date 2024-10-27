@@ -229,8 +229,9 @@ def get_user_reviews(user_id):
       r.restaurant_id = re.id
 
     WHERE us.id=:user_id
-    ORDER BY
+    ORDER BY 
       added
+    DESC
 
     LIMIT 5
     """)
