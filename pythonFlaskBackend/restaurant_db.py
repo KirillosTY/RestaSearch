@@ -230,7 +230,7 @@ def get_user_reviews(user_id):
 
     WHERE us.id=:user_id
     ORDER BY 
-      added
+      r.added
     DESC
 
     LIMIT 5
@@ -290,9 +290,9 @@ def find_restaurant(search_text):
     FROM
       restaurant
     WHERE
-      name ILIKE '%' || :search_text || '%'
+      name LIKE '%' || :search_text || '%'
     OR
-      description ILIKE '%' || :search_text || '%'
+      description LIKE '%' || :search_text || '%'
     ORDER BY
       added
     """)
@@ -306,14 +306,16 @@ def create_restaurant(name, description, address):
   INSERT INTO RESTAURANT
   (name, description, address, added)
   VALUES
-  (:name, :description, :address, NOW())
+  (:name, :description, :address, CURRENT_TIMESTAMP)
   RETURNING id;
   """)
     result = db.session.execute(
         sql, {"name": name, "address": address, "description": description})
+    finished_res =  result.freeze() 
+   
     db.session.commit()
 
-    return result
+    return finished_res()
 
 
 def create_restaurant_request(name, description, address):
@@ -321,14 +323,15 @@ def create_restaurant_request(name, description, address):
   INSERT INTO restaurant_tobe_accepted
   (name, description, address, requested)
   VALUES
-  (:name, :description, :address, NOW())
+  (:name, :description, :address, CURRENT_TIMESTAMP)
   RETURNING id;
   """)
     result = db.session.execute(
         sql, {"name": name, "address": address, "description": description})
+    finished_res =  result.freeze() 
     db.session.commit()
 
-    return result
+    return finished_res()
 
 
 def create_review(user_id, restaurant_id, rating, comment):
@@ -336,7 +339,7 @@ def create_review(user_id, restaurant_id, rating, comment):
     INSERT INTO reviews
     (user_id, restaurant_id, rating, comment, added)
     VALUES
-    (:user_id, :restaurant_id,:rating,:comment, NOW())
+    (:user_id, :restaurant_id,:rating,:comment, CURRENT_TIMESTAMP)
     RETURNING *;
     """)
     result = db.session.execute(sql,
@@ -344,8 +347,9 @@ def create_review(user_id, restaurant_id, rating, comment):
                                  "restaurant_id": restaurant_id,
                                  "rating": rating,
                                  "comment": comment})
+    finished_res =  result.freeze() 
     db.session.commit()
-    return result
+    return finished_res()
 
 
 def create_favourite(user_id, restaurant_id):
@@ -353,13 +357,14 @@ def create_favourite(user_id, restaurant_id):
     INSERT INTO favourite_restaurants
     (user_id, restaurant_id, added)
     VALUES
-    (:user_id, :restaurant_id, NOW())
+    (:user_id, :restaurant_id, CURRENT_TIMESTAMP)
     RETURNING True;
     """)
     result = db.session.execute(
         sql, {"user_id": user_id, "restaurant_id": restaurant_id, })
+    finished_res =  result.freeze() 
     db.session.commit()
-    return result
+    return finished_res()
 
 
 def update_restaurant(restaurant_id, name, description, address):
@@ -372,14 +377,15 @@ def update_restaurant(restaurant_id, name, description, address):
 
     result = db.session.execute(
         sql, {"id": restaurant_id, "name": name, "description": description, "address": address})
+    finished_res =  result.freeze() 
     db.session.commit()
-    return result
+    return finished_res()
 
 
 def update_review(user_id, restaurant_id, rating, comment):
     sql = text("""
         UPDATE reviews
-        SET user_id=:user_id, restaurant_id=:restaurant_id, rating=:rating, comment=:comment, added=NOW()
+        SET user_id=:user_id, restaurant_id=:restaurant_id, rating=:rating, comment=:comment, added=CURRENT_TIMESTAMP
         WHERE user_id=:user_id AND restaurant_id=:restaurant_id
         RETURNING *;
     """)
@@ -389,8 +395,9 @@ def update_review(user_id, restaurant_id, rating, comment):
                                  "restaurant_id": restaurant_id,
                                  "rating": rating,
                                  "comment": comment})
+    finished_res =  result.freeze() 
     db.session.commit()
-    return result
+    return finished_res()
 
 
 def create_hours(restaurant_id
@@ -441,8 +448,9 @@ def create_hours(restaurant_id
         "sunday_close": sunday_close
       }
     )
+    finished_res =  result.freeze() 
     db.session.commit()
-    return result.fetchone()
+    return finished_res().fetchone()
 
 
 def create_request_hours(restaurant_id
@@ -494,8 +502,9 @@ def create_request_hours(restaurant_id
         "sunday_close": sunday_close
       }
     )
+    finished_res =  result.freeze() 
     db.session.commit()
-    return result.fetchone()
+    return finished_res().fetchone()
 
 
 def update_hours(restaurant_id, monday_open, monday_close,
@@ -546,8 +555,9 @@ def update_hours(restaurant_id, monday_open, monday_close,
                                     "sunday_close": sunday_close
                                 }
                                 )
+    finished_res =  result.freeze() 
     db.session.commit()
-    return result.fetchone()
+    return finished_res().fetchone()
 
 
 def delete_restaurant(restaurant_id):
@@ -557,9 +567,10 @@ def delete_restaurant(restaurant_id):
               """)
 
     result = db.session.execute(sql, {"id": restaurant_id})
+    finished_res =  result.freeze() 
     db.session.commit()
 
-    return result
+    return finished_res()
 
 
 def delete_restaurant_request(restaurant_id):
@@ -569,8 +580,9 @@ def delete_restaurant_request(restaurant_id):
               """)
 
     result = db.session.execute(sql, {"id": restaurant_id})
+    finished_res =  result.freeze() 
     db.session.commit()
-    return result
+    return finished_res()
 
 
 def delete_review(user_id, restaurant_id):
@@ -581,9 +593,10 @@ def delete_review(user_id, restaurant_id):
 
     result = db.session.execute(
         sql, {"user_id": user_id, "restaurant_id": restaurant_id})
+    finished_res =  result.freeze() 
     db.session.commit()
 
-    return result
+    return finished_res()
 
 
 def delete_favourited(user_id, restaurant_id):
@@ -594,6 +607,7 @@ def delete_favourited(user_id, restaurant_id):
 
     result = db.session.execute(
         sql, {"user_id": user_id, "restaurant_id": restaurant_id})
+    finished_res =  result.freeze() 
     db.session.commit()
 
-    return result
+    return finished_res()

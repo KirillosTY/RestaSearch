@@ -35,7 +35,7 @@ Admins can remove restaurants or reviews from any user account.
 2. **Create an `.env` file**  
    Inside the `pythonFlaskBackend` folder, create a file named `.env` and add the following:
    ```env
-   SQL_ALCHEMY_DBURL="Insert your local PostgreSQL address here"
+   dburl="Insert your local PostgreSQL address here"
    SECRET="Insert a proper hex token here"
    ```
 

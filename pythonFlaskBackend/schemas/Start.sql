@@ -1,11 +1,11 @@
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id  INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE,
     password TEXT,
     is_admin BOOLEAN
 );
 CREATE TABLE restaurant (
-    id SERIAL PRIMARY KEY,
+    id  INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE,
     address TEXT,
     description TEXT NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE restaurant_request_hours (
 );
 
 CREATE TABLE restaurant_tobe_accepted (
-    id SERIAL PRIMARY KEY,
+    id  INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     address TEXT,
     description TEXT NOT NULL,

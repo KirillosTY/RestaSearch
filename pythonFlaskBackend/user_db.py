@@ -15,7 +15,6 @@ def create(username, password, is_admin):
     sql = text("""
         INSERT INTO USERS (username, password, is_admin)
         VALUES (:username, :password, :is_admin)
-        RETURNING username
     """)
     db.session.execute(sql,
                        {"username": username,
