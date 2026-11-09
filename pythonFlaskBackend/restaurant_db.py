@@ -279,23 +279,46 @@ def check_hours_exist(restaurant_id):
 
 
 def find_restaurant(search_text):
-    sql = text("""
-    SELECT DISTINCT
-      id,
-      name,
-      address,
-      description,
-      gps_location,
-      added
-    FROM
-      restaurant
-    WHERE
-      name LIKE '%' || :search_text || '%'
-    OR
-      description LIKE '%' || :search_text || '%'
-    ORDER BY
-      added
-    """)
+
+    #Flaw 3: SQL injection without the ":"-prefix it would just implement a raw search text given from the front, this would allow SQL injection. 
+    # sql = text("""
+    # SELECT DISTINCT
+    #   id,
+    #   name,
+    #   address,
+    #   description,
+    #   gps_location,
+    #   added
+    # FROM
+    #   restaurant
+    # WHERE
+    #   name LIKE '%' || :search_text || '%'
+    # OR
+    #   description LIKE '%' || :search_text || '%'
+    # ORDER BY
+    #   added
+
+    # """)
+
+    sql =text("""
+        SELECT DISTINCT
+          id,
+          name,
+          address,
+          description,
+          gps_location,
+          added
+        FROM
+          restaurant
+        WHERE
+          name LIKE '%' || '"""+ search_text+ """' || '%'
+        OR
+          description LIKE '%' || '"""+ search_text+ """'|| '%'
+        ORDER BY
+          added
+    
+        """)
+        
 
     result = db.session.execute(sql, {"search_text": search_text})
     return result
