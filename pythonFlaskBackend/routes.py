@@ -1,3 +1,5 @@
+from numbers import Number
+
 from app import app
 from flask import render_template, request, redirect, session, abort
 import users
@@ -121,7 +123,6 @@ def restaurant_lists():
     search_text = request.form.get('restaurant_query', False)
     if request.method == 'POST' and search_text:
         rest_found = restaurants.find_restaurant(search_text)
-        print(rest_found, "käydääää")
         return render_template('restaurants.html',
                                restaurants=rest_found,
                                favourited_restaurants=favourites_found,
@@ -195,17 +196,30 @@ def handle_admin_buttons(admin_buttons, restaurant_id):
     if admin_buttons.get('edit', False) == 'edit':
         return redirect("/edit/restaurants/" + str(restaurant_id))
 
-    if admin_buttons.get('remove', False) == 'remove':
-        result = restaurants.delete_restaurant(restaurant_id)
 
-        if result:
+    if admin_buttons.get('remove', False) == 'remove':
+        
+        reviews = restaurants.get_user_reviews(session.get("user_id"))
+        favourites_found = restaurants.get_favourites(session.get("user_id"))
+        result = restaurants.delete_restaurant(restaurant_id)
+        print(result,"this here")
+        if result[0] == restaurant_id:
             return render_template(
-                'single_restaurant.html',
-                restaurant=[],
-                reviews=[],
+                "start.html",
+                favourite_restaurants=favourites_found,
+                reviews=reviews,
                 success_message="Ravintola " +
                 result[1] +
                 " on nyt poistettu")
+            
+        else:
+            return render_template(
+                "start.html",
+                favourite_restaurants=favourites_found,
+                reviews=reviews,
+                success_message="Ravintolan " +
+                result[1] +
+                " poistossa tapahtui virhe")
 
     if admin_buttons.get('favourite', False) == 'favourite':
         user_id = session.get('user_id')

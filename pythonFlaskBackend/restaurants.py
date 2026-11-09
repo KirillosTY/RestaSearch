@@ -5,8 +5,7 @@ def get_all():
     restaurants = restaurant_db.get_restaurants().fetchall()
 
     if not restaurants:
-        print(restaurants, "something went wrong")
-        return False
+        return []
 
     return restaurants
 
@@ -15,7 +14,7 @@ def get_all_requests():
     restaurant_requests = restaurant_db.get_all_requests().fetchall()
     if not restaurant_requests:
         print(restaurant_requests, "something went wrong")
-        return False
+        return []
     date_format = '%Y-%m-%d %H:%M:%S'
    
 
@@ -26,7 +25,7 @@ def get_favourites(restaurant_id):
     restaurants = restaurant_db.get_favourite_restaurants(restaurant_id).fetchall()
     if not restaurants:
         print(restaurants, "something went wrong")
-        return False
+        return []
 
     return restaurants
 
@@ -217,7 +216,6 @@ def delete_restaurant(restaurant_id):
 
 def delete_request(restaurant_id):
     result = restaurant_db.delete_restaurant_request(restaurant_id).fetchone()
-    print('deleting went to shit', result)
     return result
 
 
@@ -229,7 +227,6 @@ def delete_review(user_id, restaurant_id):
 def remove_favourite(user_id, restaurant_id):
     removed = restaurant_db.delete_favourited(
         user_id, restaurant_id).fetchone()
-
     return removed
 
 
