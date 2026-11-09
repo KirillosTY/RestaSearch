@@ -16,7 +16,6 @@ def default():
     if csrf is None:
         return redirect('/login')  
     user = session.get("user") 
-    print(user)
     favourite_rest_list = restaurants.get_favourites(session.get("user_id"))
     reviews = restaurants.get_user_reviews(session.get("user_id"))
     if not favourite_rest_list:
@@ -72,18 +71,26 @@ def create():
 
     csrf = session.get("csrf_token")
 
+    admin = True
+    # admin = False
+    #Flaw 01, unedit top to block unwanted admin creation...
     if csrf is not None:
         if not session.get("is_admin"):
             abort(403)
+        else: 
+            admin = True
 
     print(request.method)
     if request.method == 'GET':
         return render_template('create_user.html')
 
+    if csrf is not None:
+        users.check_csrf()
+
     username = request.form["username"]
     password = request.form["password"]
     password_repeat = request.form["password_repeat"]
-    is_admin = request.form.get("admin", False)
+    is_admin = admin and request.form.get("admin", False)
 
     if not password_repeat == password:
         return render_template(
@@ -180,7 +187,6 @@ def single_restaurant(restaurant_id):
             return handle_admin_buttons(form_buttons, restaurant_id)
 
         if key in ['review', 'review_update', 'review_delete']:
-            print("ei silti käydä?!")
             return handle_review_buttons(
                 form_buttons, restaurant_id, single_rest)
 
@@ -194,11 +200,14 @@ def single_restaurant(restaurant_id):
 def handle_admin_buttons(admin_buttons, restaurant_id):
 
     if admin_buttons.get('edit', False) == 'edit':
+        
         return redirect("/edit/restaurants/" + str(restaurant_id))
 
 
     if admin_buttons.get('remove', False) == 'remove':
-        
+        # check_access_before(True)
+        #Flaw 01, unedit top to block unwanted admin restaurant deletion...
+
         reviews = restaurants.get_user_reviews(session.get("user_id"))
         favourites_found = restaurants.get_favourites(session.get("user_id"))
         result = restaurants.delete_restaurant(restaurant_id)

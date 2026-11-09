@@ -24,7 +24,6 @@ def login(username, password):
     user = jsonifyUser(username, result)
 
     if check_password_hash(user.get("password"), password):
-        print(user.get('is_admin'), 'here')
         userSessionSetup(user)
 
         return True
@@ -38,8 +37,11 @@ def getFavouriteFriends(id):
 
 
 def create(username, password, is_admin):
+    hash_password = generate_password_hash(password,  method="pbkdf2:sha1:1")
 
-    hash_password = generate_password_hash(password)
+    #flaw 02: unsafe hash functions, unedit line to use modern day scrypt instead of sha-1...
+    #hash_password = generate_password_hash(password)
+
     try:
         user_db.create(username, hash_password, is_admin)
 
