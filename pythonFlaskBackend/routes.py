@@ -42,10 +42,11 @@ def login():
         return render_template(
             "login.html",
             message="Käyttäjätunnuksen pitää olla 8-16 merkkiä")
-    if not password_check(password):
-        return render_template(
-            "login.html",
-            message="""Salasana tai käyttäjätunnus on väärin...Tsemppiä <3.""")
+    #Flaw 4: turn on to block weak-password login
+    # if not password_check(password):
+    #     return render_template(
+    #         "login.html",
+    #         message="""Salasana tai käyttäjätunnus on väärin...Tsemppiä <3.""")
 
     logging = users.login(username, password)
     if logging is None:
@@ -53,6 +54,8 @@ def login():
             "login.html",
             message="Käyttäjätunnusta ei löydy")
     if not logging:
+        #Flaw 5: logging unwanted behaviour.
+        # app.logger.warning("user %s trying to login with wrong password, IP:%s", username,request.remote_addr )
         return render_template(
             "login.html",
             message="Salasana on väärin")
@@ -76,6 +79,8 @@ def create():
     #Flaw 01, unedit top to block unwanted admin creation...
     if csrf is not None:
         if not session.get("is_admin"):
+            #Flaw 5: logging unwanted behaviour.
+            # app.logger.critical("Logged in user %s trying to an admin action while not admin",  session.get("user") )
             abort(403)
         else: 
             admin = True
@@ -100,15 +105,15 @@ def create():
         return render_template(
             "create_user.html",
             message="Käyttäjätunnuksen pitää olla 8-16 merkkiä")
-    if not (password_check(password) and password_check(password_repeat)):
-        print("käydään mitä vittua tapahttuu")
-        return render_template(
-            "create_user.html",
-            message="""Salasanan pitää olla ainakin 8 merkkiä
-            sisältäen yhden pienen
-            ja ison kirjaimen sekä numeron.
-            Onnea elämään noilla salasanoilla <3."""
-        )
+    #Flaw 4: allow passwords of any length for those who do not value their privacy.
+    # if not (password_check(password) and password_check(password_repeat)):
+    #     return render_template(
+    #         "create_user.html",
+    #         message="""Salasanan pitää olla ainakin 8 merkkiä
+    #         sisältäen yhden pienen
+    #         ja ison kirjaimen sekä numeron.
+    #         Onnea elämään noilla salasanoilla <3."""
+    #     )
     created_user = users.create(username, password, is_admin)
     if not created_user:
         return render_template(
@@ -205,13 +210,20 @@ def handle_admin_buttons(admin_buttons, restaurant_id):
 
 
     if admin_buttons.get('remove', False) == 'remove':
-        # check_access_before(True)
-        #Flaw 01, unedit top to block unwanted admin restaurant deletion...
 
+        # Flaw 5: logging unwanted behaviour.
+        #if not session.get("is_admin"):
+        #   app.logger.warning("Logged in user %s trying to an admin action while not admin. IP:%s",  session.get("user"),request.remote_addr )
+
+        
+        #Flaw 01, unedit top to block unwanted admin restaurant deletion...
+        #gigcheck_access_before(True)
+        
         reviews = restaurants.get_user_reviews(session.get("user_id"))
         favourites_found = restaurants.get_favourites(session.get("user_id"))
         result = restaurants.delete_restaurant(restaurant_id)
-        print(result,"this here")
+
+       
         if result[0] == restaurant_id:
             return render_template(
                 "start.html",

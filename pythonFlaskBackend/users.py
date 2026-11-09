@@ -26,7 +26,7 @@ def login(username, password):
     if check_password_hash(user.get("password"), password):
         userSessionSetup(user)
 
-        return Truegi
+        return True
     else:
         return False
 

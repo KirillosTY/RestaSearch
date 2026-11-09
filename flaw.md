@@ -21,3 +21,13 @@ Fix: pass the frontend search_text with the ":"-prefix e.g. ":search_text". This
 
         
     
+Flaw 4 [Identification and Authentication Failures](https://top10.owasp.org/2021/A07_2021-Identification_and_Authentication_Failures/): Allow users to create any type of password of any length, making the basically useless. 
+
+Fix: def password_check(password) <-- just add requirement and password checking e.g length at least 8, and require some special characters or capital letters at least with numbers.   
+    return len(password) >= 8 and re.match(
+        r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$", password)
+
+
+FLaw 5 [Security Logging and Monitoring Failures ](https://top10.owasp.org/2021/A09_2021-Security_Logging_and_Monitoring_Failures/): No logging of any kind kind makes it harder to track where an attack is coming from, how it might be implemented or even protected against. In modern times, depending also on the product itself, there are legal requirements that demand it.
+
+Fix: Flask has a logger with built in functionalities. Monitoring should be done critical sections; users without admin access trying to admin actions. CSRF failures, or other type of login/credential failures. 
