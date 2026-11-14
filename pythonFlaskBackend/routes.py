@@ -42,11 +42,12 @@ def login():
         return render_template(
             "login.html",
             message="Käyttäjätunnuksen pitää olla 8-16 merkkiä")
-    #Flaw 4: turn on to block weak-password login
-    # if not password_check(password):
-    #     return render_template(
-    #         "login.html",
-    #         message="""Salasana tai käyttäjätunnus on väärin...Tsemppiä <3.""")
+    #
+    #
+    #    
+    #      
+    #
+    #
 
     logging = users.login(username, password)
     if logging is None:
@@ -84,7 +85,7 @@ def create():
 
             if request.form.get("admin", False):
                 #Flaw 5: logging unwanted behaviour.
-                # app.logger.critical("Logged in user %s trying to an admin action while not admin",  session.get("user") )
+                # app.logger.critical("Logged in user %s trying to an admin action while not admin, IP: IP:%s",  session.get("user"), request.remote_addr )
                 abort(403)
                 
         else: 
