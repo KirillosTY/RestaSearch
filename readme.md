@@ -20,7 +20,7 @@ Admins can remove restaurants or reviews from any user account.
 ### Prerequisites
 1. **Python 3** - Make sure Python 3 is installed on your system.
 2. **Sqlite3** - also install sqlite3
-3. **Postman** or other method of bypassing frontend. 
+3. **Postman/devtools** or other method of bypassing frontend. 
 
 ### Steps
 
