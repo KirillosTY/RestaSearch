@@ -217,7 +217,7 @@ def handle_admin_buttons(admin_buttons, restaurant_id):
 
         
         #Flaw 01, unedit top to block unwanted admin restaurant deletion...
-        #gigcheck_access_before(True)
+        #check_access_before(True)
         
         reviews = restaurants.get_user_reviews(session.get("user_id"))
         favourites_found = restaurants.get_favourites(session.get("user_id"))
