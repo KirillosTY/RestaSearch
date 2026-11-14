@@ -74,14 +74,19 @@ def create():
 
     csrf = session.get("csrf_token")
 
-    admin = True
+    admin = None
     #admin = False
     #Flaw 01, unedit top to block unwanted admin creation...
+
     if csrf is not None:
         if not session.get("is_admin"):
-            #Flaw 5: logging unwanted behaviour.
-            # app.logger.critical("Logged in user %s trying to an admin action while not admin",  session.get("user") )
-            abort(403)
+            admin = False
+
+            if request.form.get("admin", False):
+                #Flaw 5: logging unwanted behaviour.
+                # app.logger.critical("Logged in user %s trying to an admin action while not admin",  session.get("user") )
+                abort(403)
+                
         else: 
             admin = True
 

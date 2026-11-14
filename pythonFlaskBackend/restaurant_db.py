@@ -293,8 +293,8 @@ def find_restaurant(search_text):
     #   restaurant
     # WHERE
     #   name LIKE '%' || :search_text || '%'
-    # OR
-    #   description LIKE '%' || :search_text || '%'
+    #
+    #  
     # ORDER BY
     #   added
 
@@ -312,8 +312,6 @@ def find_restaurant(search_text):
           restaurant
         WHERE
           name LIKE '%' || '"""+ search_text+ """' || '%'
-        OR
-          description LIKE '%' || '"""+ search_text+ """'|| '%'
         ORDER BY
           added
     
