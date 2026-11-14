@@ -1,6 +1,6 @@
 ### This is a practice project for a course.
 
-# RestaSearch
+# RestaSearch (UPDATED FOR CSB)
 This application is meant to allow users to create,review and search restauraunts with some minor additional features.
 
 
