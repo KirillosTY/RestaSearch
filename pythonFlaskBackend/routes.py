@@ -75,7 +75,7 @@ def create():
     csrf = session.get("csrf_token")
 
     admin = True
-    # admin = False
+    admin = False
     #Flaw 01, unedit top to block unwanted admin creation...
     if csrf is not None:
         if not session.get("is_admin"):
