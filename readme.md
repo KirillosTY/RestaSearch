@@ -79,7 +79,7 @@ Flaw: [Broken access control](https://top10.owasp.org/2021/A01_2021-Broken_Acces
 Fix: Implement server side check if someone is admin or not to block frontend bypass.
 
 ### First try to show account does not exist:
-![Trying with an account that does not exist](<Screenshot From 2026-11-13 11-46-42.png>)
+![Trying with an account that does not exist](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/Screenshot%20From%202026-11-13%2011-46-42.png)
 
 ### use browser dev the following way:
 
@@ -91,12 +91,12 @@ Fix: Implement server side check if someone is admin or not to block frontend by
 5. Close DevTools, click the button. 
 
 ### Or send a postman request to backend directly. ps. you may need to login once to get the CSRF token...
-### ![postman](image.png)
+### ![postman](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/image.png)
 ### After sending you can log into the account and it has admin privileges.
-![alt text](<Screenshot From 2026-11-13 11-53-50.png>)
+![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/Screenshot%20From%202026-11-13%2011-53-50.png)
 
 ### after fix you are blocked. 
-![alt text](image-1.png)
+![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/image-1.png)
 ### Same basic principle for restaurant deletion.
 
 
@@ -152,11 +152,11 @@ Fix: pass the frontend search_text with the ":"-prefix e.g. ":search_text". This
   SQLAlchemy builds the query without the user input, locks it and then treats the input data as just values to match against. 
 
 ### normal query
-![alt text](image-2.png)
+![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/image-2.png)
 
 
 ### injected returns the users...
-![alt text](image-3.png)
+![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/image-3.png)
 
 
     
@@ -175,11 +175,11 @@ if not password_check(password):
         message="""Salasana tai käyttäjätunnus on väärin...Tsemppiä <3.""")
 ```
 ### Allows users to have password 123 and will pass
-![alt text](<Screenshot From 2026-11-14 14-59-39-1.png>)
+![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/Screenshot%20From%202026-11-14%2014-59-39-1.png)
 
 
 ### with fix:
-![alt text](image-5.png)
+![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/image-5.png)
 
 ## Flaw 5:
 
@@ -203,7 +203,7 @@ Flask has a logger with built in functionalities. Monitoring should be done crit
 5. click anywhere outside the box, fill the rest correctly and submit.
 
 ### Postman: login first and get CSRF. Then trying to create an admin user as a normal user will result in the following logs
-![alt text](image-6.png)
+![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/image-6.png)
 ```
 2026-11-14 15:23:40,282 WARNING user testadmin trying to login with wrong password, IP:127.0.0.1 login
 2026-11-14 15:35:17,354 CRITICAL Logged in user testuser trying to an admin action while not admin create
