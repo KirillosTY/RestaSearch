@@ -78,33 +78,34 @@ Admins can remove restaurants or reviews from any user account.
 
 
 ----
-# Cybersecurity testing section
+# Cybersecurity testing section (Chosen OWASP list of year 2021)
 
 ## Flaw 1:
 Exact link to flaws: [delete restaurant](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L225-L230) and [creating admin account](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L78-L80)
 
-Flaw: [Broken access control](https://top10.owasp.org/2021/A01_2021-Broken_Access_Control/): Deleting restaurants is currently only blocked from the frontend side by hiding the delete button, but nothing on the server side checks it. Thus a sending a simple post requests to server side still deletes the restaurant. Creating an admin account is also only blocked from the front, so posting with right info allows to bypass this through backend.
+Flaw: [Broken access control](https://top10.owasp.org/2021/A01_2021-Broken_Access_Control/): creating an admin account while not being an admin is currently only blocked from the frontend side by hiding the admin button, but nothing on the server side checks it. Thus, _while being logged out or non-admin_,  sending a simple post requests to server side still creates the admin account. Same basic principle works for deleting restaurants except you need to be logged in, then sending a post request will delete it.
 
 Fix: Implement server side check if someone is admin or not to block frontend bypass.
 
-### First try to show account does not exist:
+### First try to show account does not exist (in e.g http://127.0.0.1:5000/create ):
 ![Trying with an account that does not exist](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/screenshots/flaw-1-before-1.png)
 
 ### use browser dev the following way:
 
 
-1. Log in as a normal user, open any single restaurant page.
-2.  Open dev tools (f12) and the Elements tab.
-3. Find favourite button, which is <button ... name="favourite" value...>.
-4.  name and value to be "remove".
-5. Close DevTools, click the button. 
+1. Do this logged out: got localhost + /create  e.g: http://127.0.0.1:5000/create
+2. F12, go to Elements tab.
+3. find the input <form ... action="/create">, right click to edit.
+4. add this line.
+`<input name="admin" value="true">` 
+5. click anywhere outside the box, fill the rest correctly and submit.
 
-### Or send a postman request to backend directly. ps. you may need to login once to get the CSRF token...
+### Or send a postman request to backend directly.
 ### ![postman](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/screenshots/flaw-1-before-2.png)
 ### After sending you can log into the account and it has admin privileges.
 ![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/screenshots/flaw-1-before-3.png)
 
-### after fix you are blocked. 
+### after fix you are blocked from creating admin accounts. 
 ![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/screenshots/flaw-1-after-1.png)
 ### Same basic principle for restaurant deletion.
 
@@ -115,7 +116,7 @@ Fix: Implement server side check if someone is admin or not to block frontend by
 
 Exact link to flaw and fix: [Sha-1 password crypting](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/users.py#L40-L43)
  
-[Cryptographic Failures](https://top10.owasp.org/2021/A02_2021-Cryptographic_Failures/): using [outdated sha-1](https://www.boot.dev/blog/news/sha-1-was-shattered) for hashing with one iteration round, the output is a 40 char hashed password. Sha-1 has been proven to be unsafe due to the fact that that the algorithm is designed to be fast. This would allow someone who has stolen database credentials to brute force the right passwords out
+[Cryptographic Failures](https://top10.owasp.org/2021/A02_2021-Cryptographic_Failures/): using outdated sha-1 and hashing with one iteration round, the output is a 40 char hashed password. Sha-1 has been proven to be unsafe due to the fact that that the algorithm is designed to be fast. This would allow someone who has stolen database credentials to brute force the right passwords out.
 
 Fix: use modern day hashing algorithms like scrypt that implement slow hash algorithms designed to slow down brute force guessing.
 

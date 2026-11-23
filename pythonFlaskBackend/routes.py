@@ -72,26 +72,21 @@ def logout():
 
 @app.route('/create', methods=['GET', 'POST'])
 def create():
-
+    
     csrf = session.get("csrf_token")
-
     admin = True
-    #admin = False
+    #admin = session.get("is_admin", False)
     #Flaw 01, unedit top to block unwanted admin creation...
 
-    if csrf is not None:
-        if not session.get("is_admin"):
-            admin = False
 
-            if request.form.get("admin", False):
-                #Flaw 5: logging unwanted behaviour.
+    #Flaw 5: logging unwanted behaviour. Remember to unedit lower too!
+    #admin = True
+    if request.form.get("admin", False) and not admin:
+                #Flaw 5: Remember to unedit upper too! logging unwanted behaviour.
                 # app.logger.critical("Logged in user %s trying to an admin action while not admin, IP: IP:%s",  session.get("user"), request.remote_addr )
                 abort(403)
                 
-        else: 
-            admin = True
 
-    print(request.method)
     if request.method == 'GET':
         return render_template('create_user.html')
 
