@@ -81,7 +81,7 @@ Admins can remove restaurants or reviews from any user account.
 # Cybersecurity testing section (Chosen OWASP list of year 2021)
 
 ## Flaw 1:
-Exact link to flaws: [delete restaurant](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L225-L230) and [creating admin account](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L78-L80)
+Exact link to flaws: [delete restaurant](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L225-L230) and [creating admin account](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L77-L79)
 
 Flaw: [Broken access control](https://top10.owasp.org/2021/A01_2021-Broken_Access_Control/): creating an admin account while not being an admin is currently only blocked from the frontend side by hiding the admin button, but nothing on the server side checks it. Thus, _while being logged out or non-admin_,  sending a simple post requests to server side still creates the admin account. Same basic principle works for deleting restaurants except you need to be logged in, then sending a post request will delete it.
 
@@ -172,7 +172,7 @@ Fix: pass the frontend search_text with the ":"-prefix e.g. ":search_text". This
     
     
 # Flaw 4:
-Exact link to flaw: [password requirements](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L114-L122). 
+Exact link to flaw: [password requirements](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L109-L117). 
 
 [Identification and Authentication Failures](https://top10.owasp.org/2021/A07_2021-Identification_and_Authentication_Failures/): Allow users to create any type of password of any length, making some basically useless. 
 
@@ -193,7 +193,7 @@ if not password_check(password):
 
 ## Flaw 5:
 
-Exact link to flaw (need to uncomment all): [Enabling logging](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/app.py#L8-L13)and [User trying to enter with wrong password](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L58-L59) and [normal user trying to create admin account](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L87-L88) or [trying to delete restaurant](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L220-L222)
+Exact links to flaw (! You need to uncomment all of them!): [Enabling logging](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/app.py#L8-L13)and [User trying to enter with wrong password](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L58-L59) and [normal user trying to create admin account](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L82-L87) or [trying to delete restaurant](https://github.com/KirillosTY/RestaSearch/blob/main/pythonFlaskBackend/routes.py#L215-L217)
 
 
 [Security Logging and Monitoring Failures ](https://top10.owasp.org/2021/A09_2021-Security_Logging_and_Monitoring_Failures/): No logging of any kind kind makes it harder to track where an attack is coming from, how it might be implemented or even protected against. In modern times, depending also on the product itself, there are legal requirements that demand it.
