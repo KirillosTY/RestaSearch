@@ -30,7 +30,7 @@ Admins can remove restaurants or reviews from any user account.
 2. **Create an `.env` file**  
    Inside the `pythonFlaskBackend` folder, create a file named `.env` and add the following:
    ```env
-   dburl="Insert your sqlite address here, e.g. dburl="sqlite:///restasearch.db""
+   dburl=Insert your sqlite address here, e.g "sqlite:///restasearch.db"
    SECRET="Insert a proper hex token here"
    ```
 
@@ -214,6 +214,8 @@ Flask has a logger with built in functionalities. Monitoring should be done crit
 
 ### Postman: login first and get CSRF. Then trying to create an admin user as a normal user will result in the following logs
 ![alt text](https://raw.githubusercontent.com/KirillosTY/RestaSearch/main/screenshots/flaw-5-after-1.png)
+
+### The logs will reside in "security.log" file and look something like this:
 ```
 2026-11-14 15:23:40,282 WARNING user testadmin trying to login with wrong password, IP:127.0.0.1 login
 2026-11-14 15:35:17,354 CRITICAL Logged in user testuser trying to an admin action while not admin create
